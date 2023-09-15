@@ -47,8 +47,8 @@ Constituent tree:
 
 ## Entending Spacys
 
-- [Entending Spacy through Custom Factories and Components](ExtendingSpacy.md)
-- [Training Spacy 3.0 for Entity Recognition](ner_model_training.md)
+- [Entending Spacy through Custom Factories and Components](./NER/custom_factory_example/ExtendingSpacy.md)
+- [Training Spacy 3.0 for Entity Recognition](./NER/ner_model_training.md)
 
 ## References
 

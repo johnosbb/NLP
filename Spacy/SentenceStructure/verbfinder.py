@@ -32,6 +32,8 @@ def get_verb_matches(span):
 
 # for each sentence in the document, get the verb forms
 
+# this returns a list of tuples, the first item being the sentence, the second a series of spans containing the verbs associated with that sentence
+
 
 def extract_verbs(doc):
     verbs = []

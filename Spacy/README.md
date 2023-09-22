@@ -25,6 +25,15 @@ Key characteristics of spans in spaCy include:
 - Index-Based: Spans can be indexed to access individual tokens within the span.
 - Text and Context: A span retains information about the text it represents and its position within the document.
 
+### Example of a Span
+
+In the sentence: "It was really raining heavily when I left home so I took a cab."
+
+"It" is token 0 and "cab" is token 13.
+
+So, when you refer to the span [3:4], we are specifying a span that includes only one token, which is "raining" (token 3). The notation [3:4] represents a span that starts at token 3 (inclusive) and ends just before token 4 (exclusive). In this case, the span [3:4] represents the single token "raining" in the sentence.
+
+
 
 ## Sentences
 
@@ -84,119 +93,105 @@ Constituent tree:
 
 Due to the richness and variety of the English language extracting clauses from a sentence can be a complex process. The process can be accomplished in a number of discrete steps.
 
-We first find the Verbs (including any auxiliary verbs) in the sentence. Some sample code is provided for that.
-### Find the Verbs and Auxilary Verbs in a Sentence
+In this exercise we will use the following target sentence:
 
-```python
-import spacy
-from spacy.matcher import Matcher
-
-
-text = (
-    "The author was staring pensively as she wrote. "
-    "She is playing the piano."
-    "They have been working on this project for months."
-    "I will meet you at the coffee shop."
-    "He can swim faster than anyone I know."
-    "The cat chased the mouse across the room."
-    "We should go for a walk in the park."
-    "The students are anxious because they are studying for their final exams."
-    "The sun sets in the west."
-    "The company announced a new product."
-    "It was raining heavily when I left home so I took an umbrella."
-    "Breaking the window, he climbed inside the office where the safe was located."
-)
-
-# for the given span, get matches for the verb templates.
+```txt
+After I finished my homework, I went to the park.
+```
 
 
-def get_verb_matches(span):
-    # 1. Find verb phrases in the span
-    # (see mdmjsh answer here: https://stackoverflow.com/questions/47856247/extract-verb-phrases-using-spacy)
-    verb_matcher = Matcher(span.vocab)
-    verb_matcher.add("Auxiliary verb phrase aux-verb", [
-        [{"POS": "AUX"}, {"POS": "VERB"}]])
-    verb_matcher.add("Auxiliary verb phrase", [[{"POS": "AUX"}]])
-    verb_matcher.add("Verb phrase", [[{"POS": "VERB"}]],)
-    return verb_matcher(span)
+In this sentence, there are two clauses:
 
-# for each sentence in the document, get the verb forms
+"After I finished my homework" is a dependent (subordinate) clause because it cannot stand alone as a complete sentence. It provides additional information about the timing or condition for the action in the independent clause.
+
+"I went to the park" is an independent clause because it can stand alone as a complete sentence and expresses a complete thought.
 
 
-def extract_verbs(doc):
-    verbs = []
-    for sent in doc.sents:
-        verb_phrase = get_verb_matches(sent)
-        verbs.append((sent, verb_phrase))
-    return verbs
-
-# Extract a text representation of the spans from matches
-
-
-def extract_spans_from_match(sent, match):
-    verb_spans = []
-    for match_id, start, end in match:
-        # Create a span from the match indices
-        verb_span = sent[start:end]
-        verb_spans.append(verb_span)
-    return verb_spans
-
-
-if __name__ == "__main__":
-    import spacy
-    nlp = spacy.load("en_core_web_sm")
-    doc = nlp(text)
-    verb_matches = extract_verbs(doc)
-    for sentence, match in verb_matches:
-        verb_spans = extract_spans_from_match(sentence, match)
-        for verb_span in verb_spans:
-            print(f"{sentence} : {verb_span.text}")
+Text         | Index  | POS      | Dep      | Dep Detail               | Ancestors            | Children   
+----------------------------------------------------------------------------------------------------------------------
+After        | 0      | SCONJ    | mark     | marker                   | finished went        |            
+----------------------------------------------------------------------------------------------------------------------
+I            | 1      | PRON     | nsubj    | nominal subject          | finished went        |            
+----------------------------------------------------------------------------------------------------------------------
+finished     | 2      | VERB     | advcl    | adverbial clause modifier | went                 | After I homework 
+----------------------------------------------------------------------------------------------------------------------
+my           | 3      | PRON     | poss     | possession modifier      | homework finished went |            
+----------------------------------------------------------------------------------------------------------------------
+homework     | 4      | NOUN     | dobj     | direct object            | finished went        | my         
+----------------------------------------------------------------------------------------------------------------------
+,            | 5      | PUNCT    | punct    | punctuation              | went                 |            
+----------------------------------------------------------------------------------------------------------------------
+I            | 6      | PRON     | nsubj    | nominal subject          | went                 |            
+----------------------------------------------------------------------------------------------------------------------
+went         | 7      | VERB     | ROOT     | root                     |                      | finished , I to . 
+----------------------------------------------------------------------------------------------------------------------
+to           | 8      | ADP      | prep     | prepositional modifier   | went                 | park       
+----------------------------------------------------------------------------------------------------------------------
+the          | 9      | DET      | det      | determiner               | park to went         |            
+----------------------------------------------------------------------------------------------------------------------
+park         | 10     | NOUN     | pobj     | object of preposition    | to went              | the        
+----------------------------------------------------------------------------------------------------------------------
+.            | 11     | PUNCT    | punct    | punctuation              | went                 |            
+----------------------------------------------------------------------------------------------------------------------
 
 
-``````
+## Finding the Verbs in the  Sentence
+
+We first find the Verbs (including any auxiliary verbs) in the sentence. Some sample code is provided for tfinding the verbs and auxilary verbs for this sentence. 
 
 This produces the result
 
 | Sentence                                           | Verb Parts           |
 | -------------------------------------------------- | -------------------- |
-| The author was staring pensively as she wrote.     | was                  |
-| The author was staring pensively as she wrote.     | was staring          |
-| The author was staring pensively as she wrote.     | staring              |
-| The author was staring pensively as she wrote.     | wrote                |
-| She is playing the piano.                          | is                   |
-| She is playing the piano.                          | is playing           |
-| She is playing the piano.                          | playing              |
-| They have been working on this project for months. | have                 |
-| They have been working on this project for months. | been                 |
-| They have been working on this project for months. | been working         |
-| They have been working on this project for months. | working              |
-| I will meet you at the coffee shop.                | will                 |
-| I will meet you at the coffee shop.                | will meet            |
-| I will meet you at the coffee shop.                | meet                 |
-| He can swim faster than anyone I know.             | can                  |
-| He can swim faster than anyone I know.             | can swim             |
-| He can swim faster than anyone I know.             | swim                 |
-| He can swim faster than anyone I know.             | know                 |
-| The cat chased the mouse across the room.          | chased               |
-| We should go for a walk in the park.               | should               |
-| We should go for a walk in the park.               | should go            |
-| We should go for a walk in the park.               | go                   |
-| The students are anxious because they are studying for their final exams. | are  |
-| The students are anxious because they are studying for their final exams. | are  |
-| The students are anxious because they are studying for their final exams. | are studying |
-| The students are anxious because they are studying for their final exams. | studying     |
-| The sun sets in the west.                          | sets                 |
-| The company announced a new product.               | announced            |
-| It was raining heavily when I left home so I took an umbrella. | was         |
-| It was raining heavily when I left home so I took an umbrella. | was raining |
-| It was raining heavily when I left home so I took an umbrella. | raining     |
-| It was raining heavily when I left home so I took an umbrella. | left        |
-| It was raining heavily when I left home so I took an umbrella. | took        |
-| Breaking the window, he climbed inside the office where the safe was located. | Breaking |
-| Breaking the window, he climbed inside the office where the safe was located. | climbed  |
-| Breaking the window, he climbed inside the office where the safe was located. | was      |
-| Breaking the window, he climbed inside the office where the safe was located. | was located |
-| Breaking the window, he climbed inside the office where the safe was located. | located   |
+| After I finished my homework, I went to the park. | finished |
+| After I finished my homework, I went to the park. | went |
+
+
+
+### Find the Subject of a Verb
+
+The second stage in finding the clauses in a sentence is to find the subjects of the verbs we found in the previous step.
+
+
+
+To find the subjects of a verb we must first find it children. We can initially search for nominal subjects (nsubj) and passive nominal subjects (nsubjpass). 
+
+The code for a general approach to finding verbs using Python and Spacy is provided [here](./finding_verbs.py)
+
+
+
+#### Nominal Subjects
+
+A nominal subject, in the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. The nominal subject typically performs the action described by the verb or is the entity about which something is stated. It answers the question "Who or what is performing the action? In English, it usually appears before the verb in a declarative sentence; however, is the passive voice it may not appear before the verb.
+
+__Examples__:
+
+- __John__ Sings.
+- __He__ likes apples.
+- __The chef__ cooks the meal. (active voice)
+
+
+### Passive Nominal Subject (Passive Voice):
+
+In a passive voice sentence, the passive nominal subject is the entity that undergoes the action described by the passive verb. It represents the entity upon which the action is performed and is often located at the beginning of the sentence. The passive voice emphasizes the action or the result of the action, rather than the doer of the action.
+
+__Examples__:
+
+- __The cake__ (passive nominal subject) was eaten (passive verb) by the children.
+- __The car__ (passive nominal subject) was damaged (passive verb) in the accident.
+- __The meal__ (passive nominal subject) is cooked (passive verb) by the chef (agent).
+
+
+## Identifying Clauses
+
+| Dependency  | Description                                              |
+|-------------|----------------------------------------------------------|
+| "conj"      | Indicates coordination, connecting words, phrases, or clauses of the same grammatical type. |
+| "cc"        | Identifies coordinating conjunctions connecting elements of equal grammatical importance. |
+| "advcl"     | Represents adverbial clauses that modify verbs, providing additional information about the action's circumstances. |
+| "acl"       | Denotes adjectival clauses that modify nouns, describing the qualities or characteristics of the nouns. |
+| "ccomp"     | Identifies clauses serving as complements of verbs, functioning as direct objects of verbs when clauses. |
+
 
 
 ## Entending Spacys
@@ -207,7 +202,7 @@ This produces the result
 ## References
 
 - [Extracting verbs using Spacy](https://stackoverflow.com/questions/47856247/extract-verb-phrases-using-spacy)
-https://spacy.pythonhumanities.com
-https://spacy.pythonhumanities.com/01_04_pipelines.html
-
-https://www.youtube.com/watch?v=dIUTsFT2MeQ&t=3382s
+- [Stanford typed dependencies manual](https://downloads.cs.stanford.edu/nlp/software/dependencies_manual.pdf)
+- [Python For Humanities](https://spacy.pythonhumanities.com)
+- https://spacy.pythonhumanities.com/01_04_pipelines.html
+- https://www.youtube.com/watch?v=dIUTsFT2MeQ&t=3382s

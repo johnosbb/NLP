@@ -134,6 +134,20 @@ def show_sentence_parts(doc):
         print("----------------------------------------------------------------------------------------------------------------------")
 
 
+def show_sentence_parts_as_md(doc):
+    print(doc)
+    print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |".format(
+        'Text', 'Index', 'POS', 'Dep', 'Dep Detail', 'Ancestors', 'Children'))
+    print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- |")
+    for token in doc:
+        # the term "ancestors" refers to the set of nodes that are higher in the parse tree hierarchy and lead to the current token or span of tokens.
+        ancestors = ' '.join([t.text for t in token.ancestors])
+        # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
+        children = ' '.join([t.text for t in token.children])
+        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |".format(
+            token.text, token.i, token.pos_, token.dep_, spacy.explain(token.dep_), ancestors, children))
+
+
 def show_noun_chunks(doc):
     print("Noun Chunks\n")
     for noun_chunk in doc.noun_chunks:

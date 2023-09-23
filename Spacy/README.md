@@ -126,7 +126,7 @@ In this sentence, there are two clauses:
 
 We can look at the dependency chart for the example sentence.
 
-![image](../NLP/tree/main/Resources/../../../../Resources/After-I-finished-my-homework-I-went-to-the-park.svg)
+![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence.png)
 
 ## Finding the Verbs in the  Sentence
 

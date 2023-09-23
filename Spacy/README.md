@@ -1,5 +1,20 @@
-# Spacy
+# SpaCy
 
+SpaCy is an open-source natural language processing (NLP) library released under the MIT license. It was created by Explosion AI, a software company founded by Ines Montani and Matthew Honnibal. Ines Montani and Matthew Honnibal are well-known figures in the NLP community. Their goal was to create a fast and efficient NLP library that could be used for various NLP tasks. 
+
+The SpaCy framework is widely used for various text processing and language understanding tasks. In a world where vast amounts of textual information are generated every day, understanding and extracting insights from text has become a critical skill.  SpaCy seeks to simplify the complex task of processing and analyzing text data, enabling developers, data scientists, and researchers to harness the power of language in their applications and projects.
+
+The framework excels at breaking down text into individual words or tokens. Its tokenization process is efficient and language-aware, making it suitable for multiple languages. It also provides part-of-speech tagging capabilities that allow it identify the grammatical parts of speech (e.g., nouns, verbs, adjectives) for each token in a sentence. 
+
+Its ability to recongise named entities (NER) allows a user to classify named entities such as names of people, places, organizations; this is essential for analysis and research in areas like digital humanities, but this feature is also utilized in industries such as healthcare, finance, e-commerce, and social media for tasks like entity recognition in medical records, sentiment analysis of customer reviews, and topic modeling in social media conversations.
+
+A powerful feature of SpaCy is its ability to build dependency trees to represent the grammatical structure of sentences, helping to understand how words relate to each other. This capability allows a user to analyse the grammatical structure of a sentence and use this information to build responsive chat-bots and other automated entities that can communicate using natural language.
+
+Lemmatization is a process that reduces words to their base or dictionary form. This is used in text normalization and preparation for other classification tasks.
+
+SpaCy also seamlessly integrates with machine learning algorithms and models providing a powerful solution for text classification tasks. This type of capability has been very successful in reducing spam on the internet in recent years.
+
+Finally SpaCy provides pre-trained word vectors (word embeddings) that capture semantic information about words, making it easier to work with semantics in text by understanding the relationships between words.
 
 ## Glossary
 
@@ -7,7 +22,7 @@
 | ---- | ---- |
 | Lemma | In linguistics and natural language processing (NLP), a "lemma" refers to the base or dictionary form of a word. It is the canonical or citation form of a word, from which all its inflected forms (such as different verb conjugations or noun declensions) are derived. |
 | Nominal subject | In the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. |
-| Dependency labels |  Dependency labels in Spacy represent different types of grammatical relationships and structures within sentences. They are all related to how words and phrases are connected and function in the syntax of a sentence.
+| Dependency labels |  Dependency labels in SpaCy represent different types of grammatical relationships and structures within sentences. They are all related to how words and phrases are connected and function in the syntax of a sentence.
 ## Tokens
 
 A "token" is the smallest unit of text that can be processed and analyzed. Tokens are individual words or characters, or sometimes even subword units, into which a text is divided for various NLP tasks. Tokenization is the process of breaking down a text into these individual tokens.
@@ -78,23 +93,85 @@ This has the following structure.
 
 
 
-```
 
-Constituent tree:
-
-(S (NP The cat)
-   (VP sat
-       (PP on
-           (NP a mat)))
-   .)
-
-```
 
 - 'The' has ancestors 'cat' and 'sat', but it has no children as seen on the graph, there is no arrow starting from 'The and travelling to another token.
 - 'cat' has an ancestor 'sat' as seen in the arrow that starts from sat and points back to 'sat'. 'cat' also has a 'The' with the arrow originating at 'sat and pointing back to 'cat'.
 - 'sat' the ROOT has no ancestors, but it does have two children, one on each side.
 - Similarly 'sat' is an ancestor of 'on'
 - 'mat' has ancestors 'on' through a direct dependency and sat indirectly via 'on's relationship with 'sat'. 'mat' also has a child 'a'.
+
+## Syntax Tree
+
+Syntax trees, also known as parse trees or syntactic trees, are used in linguistics and natural language processing (NLP) for several important purposes:
+
+- Structural Representation: Syntax trees provide a structured representation of the grammatical structure of a sentence. They break down a sentence into its constituent parts (phrases and words) and illustrate how these parts are hierarchically organized. This structural representation is crucial for understanding the syntax of a language.
+- Grammatical Analysis: Syntax trees help linguists and NLP practitioners analyze the grammatical relationships between words and phrases in a sentence. They reveal the roles of different words (e.g., subjects, objects, modifiers) and how these roles interact to form grammatical and meaningful sentences.
+- Ambiguity Resolution: Natural language often contains ambiguities, where a sentence can have multiple valid interpretations. Syntax trees can help disambiguate sentences by showing different possible parse trees for the same sentence. NLP algorithms can then choose the most contextually appropriate interpretation.
+- Language Understanding: Syntax trees play a fundamental role in language understanding tasks. They provide a basis for semantic analysis, which involves extracting meaning from sentences. For example, semantic roles (e.g., agent, patient) can be associated with syntactic constituents in a syntax tree to understand who is doing what to whom in a sentence.
+- Dependency Parsing: In dependency parsing, a type of syntactic analysis, syntax trees are used to represent grammatical dependencies between words. This is crucial for understanding how words in a sentence relate to each other and for tasks like information extraction and machine translation.
+- Machine Learning and NLP: In natural language processing, syntax trees are often used as input features for machine learning models. Machine learning algorithms can learn patterns and relationships from syntax trees to perform various NLP tasks, such as part-of-speech tagging, named entity recognition, and sentiment analysis.
+
+### Representing a sentence as a Syntax Tree
+
+
+| POS Tag | Description                    |
+|---------|--------------------------------|
+| S       | Main Sentence                  |
+| PP      | Prepositional Phrase            |
+| IN      | Preposition                    |
+| NP      | Noun Phrase                    |
+| PRP     | Personal Pronoun               |
+| PRP$    | Possessive Pronoun (e.g., "my") |
+| NN      | Singular Noun                  |
+| NNS     | Plural Noun                    |
+| NNP     | Proper Noun (Singular)         |
+| NNPS    | Proper Noun (Plural)           |
+| DT      | Determiner                     |
+| VB      | Verb (Base Form)               |
+| VBD     | Verb (Past Tense)              |
+| VBG     | Verb (Gerund/Participle)       |
+| VBN     | Verb (Past Participle)         |
+| VBP     | Verb (Non-3rd Person Singular Present) |
+| VBZ     | Verb (3rd Person Singular Present)     |
+| RB      | Adverb                         |
+| RBR     | Adverb (Comparative)           |
+| RBS     | Adverb (Superlative)           |
+| JJ      | Adjective                      |
+| JJR     | Adjective (Comparative)        |
+| JJS     | Adjective (Superlative)        |
+| CC      | Coordinating Conjunction       |
+| CD      | Cardinal Number                |
+| UH      | Interjection                   |
+| EX      | Existential There              |
+| FW      | Foreign Word                   |
+| LS      | List Item Marker               |
+| MD      | Modal                          |
+| PDT     | Predeterminer                  |
+| POS     | Possessive Ending              |
+| RP      | Particle                       |
+| SYM     | Symbol                         |
+| TO      | to (Infinitive Marker)         |
+| WDT     | Wh-Determiner                  |
+| WP      | Wh-Pronoun                     |
+| WP$     | Possessive Wh-Pronoun (e.g., "whose") |
+| WRB     | Wh-Adverb                      |
+
+
+These abbreviations and their explanations are commonly used in syntactic analysis and tree representations to describe the structure of sentences and phrases in natural language. For example:
+
+
+```
+[S  [NP [DT The] [NN cat]]
+  [VP    [VBD sat]
+    [PP      [IN on]
+      [NP [DT the] [NN mat]]
+    ]
+  ]
+]
+```
+
+![image](../NLP/tree/main/Resources/../../../../Resources/the-cat-sat-on-the-mat-syntax-tree.png)
 
 
 ## Extracting Clauses from a Sentence
@@ -142,9 +219,30 @@ We can look at the dependency chart for the example sentence.
 - The third line shows the part of speech.
 - The fourth line shows the dependency identifier associated with that word.
 
+
+We can also view this sentence as a Syntax Tree
+
+```txt
+[S  [PP    [IN After]
+    [S      [NP [PRP I]]
+      [VP        [VBD finished]
+        [NP [PRP$ my] [NN homework]]
+      ]
+    ]
+  ]
+  [VP    [VBD went]
+    [PP [TO to] [NP [DT the] [NN park]]]
+  ]
+]
+```
+
+
+![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence_syntax_tree.png)
+
+
 ## Finding the Verbs in the  Sentence
 
-We first find the Verbs (including any auxiliary verbs) in the sentence. Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used specifiec version of the more generalised code [here](./finding_verbs.md)
+We first find the Verbs (including any auxiliary verbs) in the sentence. Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used specific version of the more generalised code [here](./finding_verbs.md)
 
 This produces the result
 
@@ -163,7 +261,7 @@ The second stage in finding the clauses in a sentence is to find the subjects of
 
 To find the subjects of a verb we must first find it children. We can initially search for nominal subjects (nsubj) and passive nominal subjects (nsubjpass). 
 
-The code for a general approach to finding verbs using Python and Spacy is provided [here](./finding_verbs.py)
+The code for a general approach to finding verbs using Python and SpaCy is provided [here](./finding_verbs.py)
 
 
 
@@ -178,7 +276,7 @@ __Examples__:
 - __The chef__ cooks the meal. (active voice)
 
 
-### Passive Nominal Subject (Passive Voice):
+#### Passive Nominal Subject (Passive Voice):
 
 In a passive voice sentence, the passive nominal subject is the entity that undergoes the action described by the passive verb. It represents the entity upon which the action is performed and is often located at the beginning of the sentence. The passive voice emphasizes the action or the result of the action, rather than the doer of the action.
 
@@ -201,14 +299,14 @@ __Examples__:
 
 
 
-## Entending Spacys
+## Entending SpaCys
 
-- [Entending Spacy through Custom Factories and Components](./NER/custom_factory_example/ExtendingSpacy.md)
-- [Training Spacy 3.0 for Entity Recognition](./NER/ner_model_training.md)
+- [Entending SpaCy through Custom Factories and Components](./NER/custom_factory_example/ExtendingSpaCy.md)
+- [Training SpaCy 3.0 for Entity Recognition](./NER/ner_model_training.md)
 
 ## References
 
-- [Extracting verbs using Spacy](https://stackoverflow.com/questions/47856247/extract-verb-phrases-using-spacy)
+- [Extracting verbs using SpaCy](https://stackoverflow.com/questions/47856247/extract-verb-phrases-using-spacy)
 - [Stanford typed dependencies manual](https://downloads.cs.stanford.edu/nlp/software/dependencies_manual.pdf)
 - [Python For Humanities](https://spacy.pythonhumanities.com)
 - https://spacy.pythonhumanities.com/01_04_pipelines.html

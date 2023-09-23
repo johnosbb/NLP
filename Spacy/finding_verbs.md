@@ -21,12 +21,12 @@ text = (
 )
 
 # for the given span, get matches for the verb templates.
-
-
 def get_verb_matches(span):
     # 1. Find verb phrases in the span
     # (see mdmjsh answer here: https://stackoverflow.com/questions/47856247/extract-verb-phrases-using-spacy)
     verb_matcher = Matcher(span.vocab)
+    verb_matcher.add("Auxiliary verb phrase aux-adv-verb", [
+        [{"POS": "AUX"}, {"POS": "ADV", "OP": "+"}, {"POS": "VERB"}]])
     verb_matcher.add("Auxiliary verb phrase aux-verb", [
         [{"POS": "AUX"}, {"POS": "VERB"}]])
     verb_matcher.add("Auxiliary verb phrase", [[{"POS": "AUX"}]])

@@ -3,7 +3,7 @@ from spacy.matcher import Matcher
 
 
 text_complex = (
-    "The author was staring pensively as she wrote. "
+    "The author was staring pensively as she wrote."
     "She is playing the piano."
     "They have been working on this project for months."
     "I will meet you at the coffee shop."
@@ -18,12 +18,13 @@ text_complex = (
     "I haven't finished my homework."
     "It was really raining heavily when I left home so I took a cab."
     "Are you coming to the party?"
+    "After I finished my homework, I went to the park."
     "A cat, hearing that the birds in a certain aviary were ailing dressed himself up as a physician, and, taking his cane and a bag of instruments becoming his profession, went to call on them."
 )
 
 
 text = (
-    "After I finished my homework, I went to the park."
+    "The author was staring pensively as she wrote."
 )
 # If the match or span includes an adverb then we want to exclude the adverb
 
@@ -46,8 +47,10 @@ def get_verb_matches(span):
     # 1. Find verb phrases in the span
     # (see mdmjsh answer here: https://stackoverflow.com/questions/47856247/extract-verb-phrases-using-spacy)
     verb_matcher = Matcher(span.vocab)
-    verb_matcher.add("Auxiliary verb phrase aux-verb", [
+    verb_matcher.add("Auxiliary verb phrase aux-adv-verb", [
         [{"POS": "AUX"}, {"POS": "ADV", "OP": "+"}, {"POS": "VERB"}]])
+    verb_matcher.add("Auxiliary verb phrase aux-verb", [
+        [{"POS": "AUX"}, {"POS": "VERB"}]])
     verb_matcher.add("Auxiliary verb phrase", [[{"POS": "AUX"}]])
     verb_matcher.add("Verb phrase", [[{"POS": "VERB"}]],)
     return verb_matcher(span)
@@ -65,6 +68,17 @@ def extract_verbs(doc):
     return verbs  # a list of verb matches
 
 # Extract a text representation of the spans from matches
+
+
+def get_verb_chunks(span):
+    matches = get_verb_matches(span)
+
+    # Filter matches (e.g. do not have both "has walked" and "walked" in verbs)
+    verb_chunks = []
+    for match in [span[start:end] for _, start, end in matches]:
+        if match.root not in [vp.root for vp in verb_chunks]:
+            verb_chunks.append(match)
+    return verb_chunks
 
 
 def extract_spans_from_match(sent, match):
@@ -92,3 +106,7 @@ if __name__ == "__main__":
         verb_spans = extract_spans_from_match(sentence, filtered_matches)
         for verb_span in verb_spans:
             print(f"{sentence} : {verb_span.text}")
+
+    verb_chunks = get_verb_chunks(doc)
+    for chunk in verb_chunks:
+        print(f"Verb: {chunk}")

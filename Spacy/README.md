@@ -135,6 +135,10 @@ park         | 10     | NOUN     | pobj     | object of preposition    | to went
 ----------------------------------------------------------------------------------------------------------------------
 
 
+We can look at the dependency chart for the example sentence.
+
+![image](../NLP/tree/main/Resources/../../../../Resources/After-I-finished-my-homework-I-went-to-the-park.svg)
+
 ## Finding the Verbs in the  Sentence
 
 We first find the Verbs (including any auxiliary verbs) in the sentence. Some sample code is provided for tfinding the verbs and auxilary verbs for this sentence. 

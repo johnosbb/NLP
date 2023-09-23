@@ -1,5 +1,13 @@
 # Spacy
 
+
+## Glossary
+
+| Term | Meaning |
+| ---- | ---- |
+| Lemma | In linguistics and natural language processing (NLP), a "lemma" refers to the base or dictionary form of a word. It is the canonical or citation form of a word, from which all its inflected forms (such as different verb conjugations or noun declensions) are derived. |
+| Nominal subject | In the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. |
+| Dependency labels |  Dependency labels in Spacy represent different types of grammatical relationships and structures within sentences. They are all related to how words and phrases are connected and function in the syntax of a sentence.
 ## Tokens
 
 A "token" is the smallest unit of text that can be processed and analyzed. Tokens are individual words or characters, or sometimes even subword units, into which a text is divided for various NLP tasks. Tokenization is the process of breaking down a text into these individual tokens.
@@ -128,9 +136,15 @@ We can look at the dependency chart for the example sentence.
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence.png)
 
+
+- The first line in the diagram shows the text.
+- The second line shows the lemma or base form of the word.
+- The third line shows the part of speech.
+- The fourth line shows the dependency identifier associated with that word.
+
 ## Finding the Verbs in the  Sentence
 
-We first find the Verbs (including any auxiliary verbs) in the sentence. Some sample code is provided for tfinding the verbs and auxilary verbs for this sentence. 
+We first find the Verbs (including any auxiliary verbs) in the sentence. Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used specifiec version of the more generalised code [here](./finding_verbs.md)
 
 This produces the result
 

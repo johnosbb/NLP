@@ -107,32 +107,21 @@ In this sentence, there are two clauses:
 "I went to the park" is an independent clause because it can stand alone as a complete sentence and expresses a complete thought.
 
 
-Text         | Index  | POS      | Dep      | Dep Detail               | Ancestors            | Children   
-----------------------------------------------------------------------------------------------------------------------
-After        | 0      | SCONJ    | mark     | marker                   | finished went        |            
-----------------------------------------------------------------------------------------------------------------------
-I            | 1      | PRON     | nsubj    | nominal subject          | finished went        |            
-----------------------------------------------------------------------------------------------------------------------
-finished     | 2      | VERB     | advcl    | adverbial clause modifier | went                 | After I homework 
-----------------------------------------------------------------------------------------------------------------------
-my           | 3      | PRON     | poss     | possession modifier      | homework finished went |            
-----------------------------------------------------------------------------------------------------------------------
-homework     | 4      | NOUN     | dobj     | direct object            | finished went        | my         
-----------------------------------------------------------------------------------------------------------------------
-,            | 5      | PUNCT    | punct    | punctuation              | went                 |            
-----------------------------------------------------------------------------------------------------------------------
-I            | 6      | PRON     | nsubj    | nominal subject          | went                 |            
-----------------------------------------------------------------------------------------------------------------------
-went         | 7      | VERB     | ROOT     | root                     |                      | finished , I to . 
-----------------------------------------------------------------------------------------------------------------------
-to           | 8      | ADP      | prep     | prepositional modifier   | went                 | park       
-----------------------------------------------------------------------------------------------------------------------
-the          | 9      | DET      | det      | determiner               | park to went         |            
-----------------------------------------------------------------------------------------------------------------------
-park         | 10     | NOUN     | pobj     | object of preposition    | to went              | the        
-----------------------------------------------------------------------------------------------------------------------
-.            | 11     | PUNCT    | punct    | punctuation              | went                 |            
-----------------------------------------------------------------------------------------------------------------------
+| Text         | Index  | POS      | Dep      | Dep Detail               | Ancestors            | Children    |
+| ------------ | ------ | -------- | -------- | ------------------------ | -------------------- |  ------------|
+| After        | 0      | SCONJ    | mark     | marker                   | finished went        |            |
+| I            | 1      | PRON     | nsubj    | nominal subject          | finished went        |            |
+| finished     | 2      | VERB     | advcl    | adverbial clause modifier | went                 | After I homework |
+| my           | 3      | PRON     | poss     | possession modifier      | homework finished went |            |
+| homework     | 4      | NOUN     | dobj     | direct object            | finished went        | my         |
+| ,            | 5      | PUNCT    | punct    | punctuation              | went                 |            |
+| I            | 6      | PRON     | nsubj    | nominal subject          | went                 |            | 
+| went         | 7      | VERB     | ROOT     | root                     |                      | finished , I to . |
+| to           | 8      | ADP      | prep     | prepositional modifier   | went                 | park       |
+| the          | 9      | DET      | det      | determiner               | park to went         |            |  |
+| park         | 10     | NOUN     | pobj     | object of preposition    | to went              | the        |    |
+| .            | 11     | PUNCT    | punct    | punctuation              | went                 |            |  |
+
 
 
 We can look at the dependency chart for the example sentence.

@@ -10,7 +10,7 @@ nltk.download('averaged_perceptron_tagger')
 # https://lin-tree-solver.adambcomer.com/
 # https://www.bu.edu/linguistics/UG/course/lx522-f01/handouts/lx522-2-trees.pdf
 # https://study.com/skill/learn/how-to-identify-noun-and-verb-phrases-explanation.html
-
+# http://mshang.ca/syntree/
 
 def convert_element_tree(element):
     converted_element = f"[{element.label()} "
@@ -36,22 +36,16 @@ def show(node):
         # print(f"node = {node}")
         print(f"non tree node = {node}")
 
-# [S  [NNP John]
-#   [MD may]
-#   [VP    [VB eat]
-#   ]
-#   [NNS apples]
-#   [. .]
-# ]
-
 
 # Example text
 
 sample_text = "Bell, a telecommunication company, which is based in Los Angeles, makes and distributes electronic, computer and building products."
-sample_text = "She walked to the park."
-sample_text = "She painted a beautiful landscape with a palette of vibrant colors."
-sample_text = "John may eat apples."
-sample_text = "The quick brown fox jumps over the lazy dog"
+# sample_text = "She walked to the park."
+# sample_text = "She painted a beautiful landscape with a palette of vibrant colors."
+# sample_text = "John may eat apples."
+# sample_text = "The quick brown fox jumps over the lazy dog"
+sample_text = "The cake, which was baked by my sister, was delicious."
+sample_text = "After the boy finished his homework, he went to the park."
 
 # Find all parts of speech in above sentence
 tagged = pos_tag(word_tokenize(sample_text))
@@ -75,10 +69,5 @@ output = chunker.parse(tagged)
 print("After Extracting\n", output)
 converted = convert_element_tree(output) + "]"
 print(converted)
-# for node in output:
-#     parse_node(node)
-# for node in output:
-#     show(output)
-
 # To draw the parse tree
 # output.draw()

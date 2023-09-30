@@ -205,32 +205,31 @@ Due to the richness and variety of the English language extracting clauses from 
 In this exercise we will use the following target sentence:
 
 ```txt
-After I finished my homework, I went to the park.
+After the boy finished his homework, he went to the park.
 ```
 
 
 In this sentence, there are two clauses:
 
-"After I finished my homework" is a dependent (subordinate) clause because it cannot stand alone as a complete sentence. It provides additional information about the timing or condition for the action in the independent clause.
+"After the boy finished his homework" is a dependent (subordinate) clause because it cannot stand alone as a complete sentence. It provides additional information about the timing or condition for the action in the independent clause.
 
-"I went to the park" is an independent clause because it can stand alone as a complete sentence and expresses a complete thought.
+"He went to the park" is an independent clause because it can stand alone as a complete sentence and expresses a complete thought.
 
-
-| Text         | Index  | POS      | Dep      | Dep Detail               | Ancestors            | Children    |
-| ------------ | ------ | -------- | -------- | ------------------------ | -------------------- |  ------------|
+| Text         | Index  | POS      | Dep      | Dep Detail               | Ancestors            | Children   |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- |
 | After        | 0      | SCONJ    | mark     | marker                   | finished went        |            |
-| I            | 1      | PRON     | nsubj    | nominal subject          | finished went        |            |
-| finished     | 2      | VERB     | advcl    | adverbial clause modifier | went                 | After I homework |
-| my           | 3      | PRON     | poss     | possession modifier      | homework finished went |            |
-| homework     | 4      | NOUN     | dobj     | direct object            | finished went        | my         |
-| ,            | 5      | PUNCT    | punct    | punctuation              | went                 |            |
-| I            | 6      | PRON     | nsubj    | nominal subject          | went                 |            | 
-| went         | 7      | VERB     | ROOT     | root                     |                      | finished , I to . |
-| to           | 8      | ADP      | prep     | prepositional modifier   | went                 | park       |
-| the          | 9      | DET      | det      | determiner               | park to went         |            |  |
-| park         | 10     | NOUN     | pobj     | object of preposition    | to went              | the        |    |
-| .            | 11     | PUNCT    | punct    | punctuation              | went                 |            |  |
-
+| the          | 1      | DET      | det      | determiner               | boy finished went    |            |
+| boy          | 2      | NOUN     | nsubj    | nominal subject          | finished went        | the        |
+| finished     | 3      | VERB     | advcl    | adverbial clause modifier | went                 | After boy homework |
+| his          | 4      | PRON     | poss     | possession modifier      | homework finished went |            |
+| homework     | 5      | NOUN     | dobj     | direct object            | finished went        | his        |
+| ,            | 6      | PUNCT    | punct    | punctuation              | went                 |            |
+| he           | 7      | PRON     | nsubj    | nominal subject          | went                 |            |
+| went         | 8      | VERB     | ROOT     | root                     |                      | finished , he to . |
+| to           | 9      | ADP      | prep     | prepositional modifier   | went                 | park       |
+| the          | 10     | DET      | det      | determiner               | park to went         |            |
+| park         | 11     | NOUN     | pobj     | object of preposition    | to went              | the        |
+| .            | 12     | PUNCT    | punct    | punctuation              | went                 |            |
 
 
 We can look at the dependency chart for the example sentence.
@@ -265,7 +264,7 @@ We can also view this sentence as a Syntax Tree
 
 You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 
-## Finding the Verbs in the  Sentence
+## Finding the Verbs in the Sentence
 
 We first find the Verbs (including any auxiliary verbs) in the sentence. Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used specific version of the more generalised code [here](./finding_verbs.md)
 
@@ -273,9 +272,8 @@ This produces the result
 
 | Sentence                                           | Verb Parts           |
 | -------------------------------------------------- | -------------------- |
-| After I finished my homework, I went to the park. | finished |
-| After I finished my homework, I went to the park. | went |
-
+| After the boy finished my homework, he went to the park. | finished |
+| After the boy finished my homework, he went to the park. | went |
 
 
 ### Find the Subject of a Verb
@@ -284,9 +282,9 @@ The second stage in finding the clauses in a sentence is to find the subjects of
 
 
 
-To find the subjects of a verb we must first find it children. We can initially search for nominal subjects (nsubj) and passive nominal subjects (nsubjpass). 
+To find the subjects of a verb we must first find its children. We can initially search for nominal subjects (nsubj) and passive nominal subjects (nsubjpass). 
 
-The code for a general approach to finding verbs using Python and SpaCy is provided [here](./finding_verbs.py)
+The code for a general approach to finding verbs using Python and SpaCy is provided [here](./finding_subjects.py)
 
 
 
@@ -324,7 +322,7 @@ __Examples__:
 
 
 
-## Entending SpaCys
+## Entending SpaCy
 
 - [Entending SpaCy through Custom Factories and Components](./NER/custom_factory_example/ExtendingSpaCy.md)
 - [Training SpaCy 3.0 for Entity Recognition](./NER/ner_model_training.md)

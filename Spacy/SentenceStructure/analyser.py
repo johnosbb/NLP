@@ -10,6 +10,7 @@ def main():
     doc = nlp(sentence)
     # show_sentence_structure(doc)
     lnlp.show_sentence_parts(doc)
+    lnlp.show_sentence_parts_as_md(doc)
     subject_phrase = lnlp.get_subject_phrase(doc)
     object_phrase = lnlp.get_object_phrase(doc)
     dative_phrase = lnlp.get_dative_phrase(doc)

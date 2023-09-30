@@ -2,7 +2,7 @@ import spacy
 from spacy.matcher import Matcher
 
 
-text_complex = (
+text_examples = (
     "The author was staring pensively as she wrote."
     "She is playing the piano."
     "They have been working on this project for months."
@@ -24,7 +24,7 @@ text_complex = (
 
 
 text = (
-    "The author was staring pensively as she wrote."
+    "After the boy finished his homework, he went to the park."
 )
 # If the match or span includes an adverb then we want to exclude the adverb
 

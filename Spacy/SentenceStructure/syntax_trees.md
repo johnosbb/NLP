@@ -32,6 +32,10 @@ It explicitly shows the structure of the tree with nested brackets and includes 
 ]
 ```
 
+```txt
+[S [PP [P [IN After]][NP [DT the][NN boy]]][VP [V [VBD finished]][NP [PRP$ his][NN homework]]][, ,][PRP he][VP [V [VBD went]][PP [TO to][NP [DT the][NN park]]]][. .]]
+```
+
 ## Indented Text Notation
 
 The second form represents the syntax tree using indented text. It is a more human-readable format that uses indentation to indicate the hierarchy of nodes. It is often used in programming and scripting contexts where a more compact and visually accessible representation is preferred.
@@ -99,3 +103,13 @@ If it is a subtree then it has a label and one of more tuples
 )
 ```
 
+
+```txt
+ (S
+  (PP (P After/IN) (NP the/DT boy/NN))
+  (VP (V finished/VBD) (NP his/PRP$ homework/NN))
+  ,/,
+  he/PRP
+  (VP (V went/VBD) (PP to/TO (NP the/DT park/NN)))
+  ./.)
+```

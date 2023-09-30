@@ -246,16 +246,19 @@ We can look at the dependency chart for the example sentence.
 We can also view this sentence as a Syntax Tree
 
 ```txt
-[S  [PP    [IN After]
-    [S      [NP [PRP I]]
-      [VP        [VBD finished]
-        [NP [PRP$ my] [NN homework]]
-      ]
+[S 
+    [PP
+        [P [IN After]][NP [DT the][NN boy]]
     ]
-  ]
-  [VP    [VBD went]
-    [PP [TO to] [NP [DT the] [NN park]]]
-  ]
+    [VP 
+        [V [VBD finished]][NP [PRP$ his][NN homework]]
+    ]
+    [, ,]
+    [PRP he]
+    [VP 
+        [V [VBD went]][PP [TO to][NP [DT the][NN park]]]
+    ]
+    [. .]
 ]
 ```
 
@@ -272,8 +275,8 @@ This produces the result
 
 | Sentence                                           | Verb Parts           |
 | -------------------------------------------------- | -------------------- |
-| After the boy finished my homework, he went to the park. | finished |
-| After the boy finished my homework, he went to the park. | went |
+| After the boy finished his homework, he went to the park. | finished |
+| After the boy finished his homework, he went to the park. | went |
 
 
 ### Find the Subject of a Verb
@@ -282,11 +285,7 @@ The second stage in finding the clauses in a sentence is to find the subjects of
 
 
 
-To find the subjects of a verb we must first find its children. We can initially search for nominal subjects (nsubj) and passive nominal subjects (nsubjpass). 
-
-The code for a general approach to finding verbs using Python and SpaCy is provided [here](./finding_subjects.py)
-
-
+To find the subjects of a verb we must first find its children. We can initially search for nominal subjects (nsubj) and passive nominal subjects (nsubjpass).
 
 #### Nominal Subjects
 
@@ -308,6 +307,33 @@ __Examples__:
 - __The cake__ (passive nominal subject) was eaten (passive verb) by the children.
 - __The car__ (passive nominal subject) was damaged (passive verb) in the accident.
 - __The meal__ (passive nominal subject) is cooked (passive verb) by the chef (agent).
+
+
+If the verb has no children, or if its children do not have dependencies of type nsubj and nsubjpass, then we must move up the tree and continue our search. 
+The code for a general approach to finding verbs using Python and SpaCy is provided [here](./finding_subjects.py)
+
+
+For our example sentence we get the following:
+
+```txt
+Finding the subjects for the sentence: After the boy finished his homework, he went to the park.
+Finding the subjects for the verb: finished
+The verb phrase that contains [finished] has a child dependency [nsubj] that points to a Nominal Subject: [the boy].
+Verb: finished  Subject: the boy
+Finding the subjects for the verb: went
+The verb phrase that contains [went] has a child dependency [nsubj] that points to a Nominal Subject: [he].
+Verb: went  Subject: he
+```
+
+| Subject | Verb |
+| ------ | ----- |
+|   the boy       |   finished         |
+|   he       |   went        |
+
+
+We can see this diagrammatically by looking at the dependency diagram and following the dependency arrows (shown in red) from the verbs (shown in blue) to the subjects (shown in green)
+
+![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence_annotated.png)
 
 
 ## Identifying Clauses

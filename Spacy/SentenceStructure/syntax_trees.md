@@ -33,7 +33,21 @@ It explicitly shows the structure of the tree with nested brackets and includes 
 ```
 
 ```txt
-[S [PP [P [IN After]][NP [DT the][NN boy]]][VP [V [VBD finished]][NP [PRP$ his][NN homework]]][, ,][PRP he][VP [V [VBD went]][PP [TO to][NP [DT the][NN park]]]][. .]]
+[S 
+    [PP
+        [P [IN After]][NP [DT the][NN boy]]
+    ]
+    [VP 
+        [V [VBD finished]][NP [PRP$ his][NN homework]]
+    ]
+    [, ,]
+    [PRP he]
+    [VP 
+        [V [VBD went]][PP [TO to][NP [DT the][NN park]]]
+    ]
+    [. .]
+]
+
 ```
 
 ## Indented Text Notation

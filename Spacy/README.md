@@ -114,6 +114,7 @@ Syntax trees, also known as parse trees or syntactic trees, are used in linguist
 
 ### Representing a sentence as a Syntax Tree
 
+### NLTK Tags
 
 | POS Tag | Description                    |
 |---------|--------------------------------|
@@ -160,6 +161,29 @@ Syntax trees, also known as parse trees or syntactic trees, are used in linguist
 
 These abbreviations and their explanations are commonly used in syntactic analysis and tree representations to describe the structure of sentences and phrases in natural language. For example:
 
+SpaCy uses different POS Tags, the following table shows a comparison:
+
+| POS Tag (spaCy) | Description           | POS Tag (NLTK) | Description             |
+|------------------|-----------------------|----------------|-------------------------|
+| ADJ              | Adjective             | JJ             | Adjective               |
+| ADP              | Adposition (Preposition) | IN          | Preposition             |
+| ADV              | Adverb                | RB             | Adverb                  |
+| AUX              | Auxiliary verb        | MD             | Modal verb              |
+| CCONJ            | Coordinating conjunction | CC          | Coordinating conjunction |
+| DET              | Determiner            | DT             | Determiner              |
+| INTJ             | Interjection          | UH             | Interjection            |
+| NOUN             | Noun                  | NN             | Singular noun           |
+| NUM              | Numeral               | CD             | Cardinal number         |
+| PART             | Particle              | RP             | Particle                |
+| PRON             | Pronoun               | PRP            | Personal pronoun        |
+| PROPN            | Proper noun           | NNP            | Proper noun             |
+| PUNCT            | Punctuation           | .              | Punctuation             |
+| SCONJ            | Subordinating conjunction | IN        | Subordinating conjunction|
+| SYM              | Symbol                | SYM            | Symbol                  |
+| VERB             | Verb                  | VB             | Verb (base form)        |
+| X                | Other                 | -              | -                       |
+
+Please note that this is not an exhaustive list, and both libraries may have additional tags for more specialized linguistic categories.
 
 ```
 [S  [NP [DT The] [NN cat]]
@@ -239,6 +263,7 @@ We can also view this sentence as a Syntax Tree
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence_syntax_tree.png)
 
+You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 
 ## Finding the Verbs in the  Sentence
 
@@ -311,3 +336,8 @@ __Examples__:
 - [Python For Humanities](https://spacy.pythonhumanities.com)
 - https://spacy.pythonhumanities.com/01_04_pipelines.html
 - https://www.youtube.com/watch?v=dIUTsFT2MeQ&t=3382s
+- [ClausIE: Clause-Based Open Information Extraction](https://resources.mpi-inf.mpg.de/d5/clausie/clausie-www13.pdf)
+- [spacy-clausie](https://github.com/mmxgn/spacy-clausie)
+- [ClauseIE Test Portal](https://gate.d5.mpi-inf.mpg.de/ClausIEGate/ClausIEGate/)
+- [ClausIE page at Max Planck Institute](https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/ambiverse-nlu/clausie)
+- [Bracketed Notation](https://www.ling.upenn.edu/courses/Spring_2001/ling150/box-bracketing.html#:~:text=In%20a%20tree%20diagram%2C%20the,label%20of%20the%20dominating%20node.)

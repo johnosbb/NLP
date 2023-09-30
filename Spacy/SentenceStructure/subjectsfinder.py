@@ -2,6 +2,8 @@ import spacy
 from spacy.tokens import Span, Doc
 from spacy.matcher import Matcher
 from verbfinder import get_verb_chunks
+import libnlp as lnlp
+
 
 text_complex = (
     "The author was staring pensively as she wrote."
@@ -20,12 +22,16 @@ text_complex = (
     "It was really raining heavily when I left home so I took a cab."
     "Are you coming to the party?"
     "After I finished my homework, I went to the park."
+    "She wanted to visit the museum, but he preferred to explore the park."
+    "She sings beautifully, and he dances gracefully."
+    "Bell, a telecommunication company, which is based in Los Angeles, makes and distributes electronic, computer and building products."
+    "The book that he recommended is on the shelf."
     "A cat, hearing that the birds in a certain aviary were ailing dressed himself up as a physician, and, taking his cane and a bag of instruments becoming his profession, went to call on them."
 )
 
 
 text = (
-    "After I finished my homework, I went to the park."
+    "Bell, a telecommunication company, which is based in Los Angeles, makes and distributes electronic, computer and building products."
 )
 
 # Given an entity or token, find the complete span associated with it by finding it children
@@ -43,7 +49,6 @@ def extract_subjects(verb):
     root = verb.root
     while root:
         if(root.children):
-
             # Can we find subject at current level by looking for Nominal Subjects or a Passive Nominal Subjects?
             for child in root.children:  # examine the children of the verb
                 # is it a Nominal Subject or a Passive Nominal Subject. Note: there are other less common dependencies that can indicate subjects:
@@ -54,46 +59,20 @@ def extract_subjects(verb):
                     subject = extract_span_from_entity(child)
                     if(child.dep_ == "nsubj"):
                         print(
-                            f"The verb [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject: [{subject}].")
+                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject: [{subject}].")
                     else:
                         print(
-                            f"The verb [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
+                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
                     return subject
         else:
             print(f"The verb [{verb}] has no children")
-        # ... otherwise recurse up one level in the sentence tree by looking for dependencies that point towards other clauses
+        # If we cannot find children which are subjects then we recurse up one level in the sentence tree by looking for dependencies that point towards other clauses
         if (root.dep_ in ["conj", "cc", "advcl", "acl", "ccomp"]
                 and root != root.head):
             print(
                 f"The verb [{verb}] has a dependency [{root.dep_}] that indicates the presence of other clauses.")
             root = root.head
-        else:  # we have a verb with no children or one whose children do not have a nominal or passive nominal subject
-            root = None
-
-    return None
-
-
-def extract_subjects2(verb):
-    root = verb.root
-    while root:
-        if(root.children):
-            print(f"The verb [{verb}] has no children")
-        else:
-            # Can we find subject at current level by looking for Nominal Subjects or a Passive Nominal Subjects?
-            for child in root.children:  # examine the children of the verb
-                # is it a Nominal Subject or a Passive Nominal Subject
-                if child.dep_ in ["nsubj", "nsubjpass"]:
-                    print(
-                        f"The verb [{verb}] has a child [{child}] dependency that points to a Nominal Subject or a Passive Nominal Subject.")
-                    subject = extract_span_from_entity(child)
-                    return subject
-        # ... otherwise recurse up one level in the sentence tree by looking for dependencies that point towards other clauses
-        if (root.dep_ in ["conj", "cc", "advcl", "acl", "ccomp"]
-                and root != root.head):
-            print(
-                f"The verb [{verb}] has a dependency [{root.dep_}] that indicates the presence of other clauses.")
-            root = root.head
-        else:  # we have a verb with no children or one whose children do not have a nominal or passive nominal subject
+        else:  # we have a verb with no children or one whose children do not have a nominal or passive nominal subject and which does not appear to have other clauses
             root = None
 
     return None
@@ -103,6 +82,7 @@ if __name__ == "__main__":
     import spacy
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
+    lnlp.show_sentence_parts(doc)
     print(f"Finding the subjects for the sentence: {text}")
     verb_chunks = get_verb_chunks(doc)
     for verb in verb_chunks:

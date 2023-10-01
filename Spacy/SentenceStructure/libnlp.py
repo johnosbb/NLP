@@ -118,10 +118,30 @@ def find_triplet(doc, nlp=None):
     return phrases
 
 
+def show_token(token):
+    print(f"Text: {token.text}")
+    print(f"Index: {token.i}")
+    print(f"Lemma: {token.lemma_}")
+    print(f"Part of Speech: {token.pos_}")
+    print(f"Tag: {token.tag_}")
+    print(f"Dependency Label: {token.dep_}")
+    print(f"Is Stop Word: {token.is_stop}")
+    print(f"Is Punctuation: {token.is_punct}")
+    print(f"Is Space: {token.is_space}")
+    # a token's "head" refers to the token's syntactic parent in a dependency parse tree. The head of a token is the word that governs or controls the behavior of the current token in the sentence. It represents the main word or element to which the current token is grammatically related.
+    print(f"Head Token: {token.head.text}")
+    # Print children of the token
+    children = [child.text for child in token.children]
+    print(f"Children: {', '.join(children)}")
+    # Print ancestors of the token
+    ancestors = [ancestor.text for ancestor in token.ancestors]
+    print(f"Ancestors: {', '.join(ancestors)}")
+
+
 def show_sentence_parts(doc):
     print(doc)
-    print("{:<12} | {:<6} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} ".format(
-        'Text', 'Index', 'POS', 'Dep', 'Dep Detail', 'Ancestors', 'Children'))
+    print("{:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} ".format(
+        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children'))
     print("----------------------------------------------------------------------------------------------------------------------")
     for token in doc:
         # the term "ancestors" refers to the set of nodes that are higher in the parse tree hierarchy and lead to the current token or span of tokens.
@@ -129,23 +149,23 @@ def show_sentence_parts(doc):
         # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
         children = ' '.join([t.text for t in token.children])
 
-        print("{:<12} | {:<6} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} ".format(
-            token.text, token.i, token.pos_, token.dep_, spacy.explain(token.dep_), ancestors, children))
+        print("{:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} ".format(
+            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children))
         print("----------------------------------------------------------------------------------------------------------------------")
 
 
 def show_sentence_parts_as_md(doc):
     print(doc)
-    print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |".format(
-        'Text', 'Index', 'POS', 'Dep', 'Dep Detail', 'Ancestors', 'Children'))
+    print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |".format(
+        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children'))
     print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- |")
     for token in doc:
         # the term "ancestors" refers to the set of nodes that are higher in the parse tree hierarchy and lead to the current token or span of tokens.
         ancestors = ' '.join([t.text for t in token.ancestors])
         # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
         children = ' '.join([t.text for t in token.children])
-        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |".format(
-            token.text, token.i, token.pos_, token.dep_, spacy.explain(token.dep_), ancestors, children))
+        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |".format(
+            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children))
 
 
 def show_noun_chunks(doc):

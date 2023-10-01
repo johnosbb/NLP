@@ -197,6 +197,11 @@ Please note that this is not an exhaustive list, and both libraries may have add
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/the-cat-sat-on-the-mat-syntax-tree.png)
 
+### Children and Ancestors
+
+__Child__: A "child" token is a token that directly depends on or is governed by another token. In a dependency parse tree, it represents a word or phrase that is syntactically subordinate to and dependent on its parent token.
+
+__Ancestor__: An "ancestor" token is a token that governs or controls another token in the parse tree. It is a token higher up in the tree hierarchy that has one or more tokens depending on it, either directly or indirectly.
 
 ## Extracting Clauses from a Sentence
 
@@ -336,6 +341,33 @@ We can see this diagrammatically by looking at the dependency diagram and follow
 ![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence_annotated.png)
 
 
+#### A More Complex Example
+
+Not all sentences will be so straightforward of course. Depending on the sentence structure we may have to recurse further up the dependency 
+
+Consider the sentence:
+
+```txt
+The cake, which was baked by my sister, was delicious.
+```
+
+
+
+| Text         | Index  | POS      | Dep      | Dep Detail               | Ancestors            | Children   |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- |
+| The          | 0      | DET      | det      | determiner               | cake was             |            |
+| cake         | 1      | NOUN     | nsubj    | nominal subject          | was                  | The , baked , |
+| ,            | 2      | PUNCT    | punct    | punctuation              | cake was             |            |
+| which        | 3      | PRON     | nsubjpass | nominal subject (passive) | baked cake was       |            |
+| was          | 4      | AUX      | auxpass  | auxiliary (passive)      | baked cake was       |            |
+| baked        | 5      | VERB     | relcl    | relative clause modifier | cake was             | which was by |
+| by           | 6      | ADP      | agent    | agent                    | baked cake was       | sister     |
+| my           | 7      | PRON     | poss     | possession modifier      | sister by baked cake was |            |
+| sister       | 8      | NOUN     | pobj     | object of preposition    | by baked cake was    | my         |
+| ,            | 9      | PUNCT    | punct    | punctuation              | cake was             |            |
+| was          | 10     | AUX      | ROOT     | root                     |                      | cake delicious . |
+| delicious    | 11     | ADJ      | acomp    | adjectival complement    | was                  |            |
+| .            | 12     | PUNCT    | punct    | punctuation              | was                  |            |
 ## Identifying Clauses
 
 | Dependency  | Description                                              |

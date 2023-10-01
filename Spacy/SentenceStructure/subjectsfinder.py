@@ -32,7 +32,7 @@ text_examples = (
 
 
 text = (
-    "After the boy finished his homework, he went to the park."
+    "The cake, which was baked by my sister, was delicious."
 )
 
 # Given an entity or token, find the complete span associated with it by finding its children
@@ -49,7 +49,44 @@ def extract_span_from_entity(token):
     return extracted_span
 
 
-def extract_subjects(verb):
+def find_determiners_for_noun(noun, doc):
+    for child in noun.children:
+        if(child.pos_ == "DET"):
+            return child
+    return None
+
+
+def find_parent_token_for_child(target_child, doc):
+    for token in doc:
+        for child in token.children:
+            if child == target_child:
+                return token
+    return None
+
+
+def find_subject_in_active_voice_construction(verb_span, doc):
+    # print(type(verb_span))
+    number_of_parts = len(verb_span)
+    if number_of_parts > 1:
+        for verb_part in verb_span:
+            print(f"verb part {verb_part.text}")
+            if(verb_part.tag_ == "VBN"):
+                parent = find_parent_token_for_child(verb_part, doc)
+                if(parent):
+                    if parent.dep_ == "nsubj":
+                        # now we find any determiners
+                        determiner = find_determiners_for_noun(parent, doc)
+                        if(determiner):
+                            parent_as_span = doc[determiner.i: parent.i + 1]
+                        else:
+                            parent_as_span = doc[parent.i: parent.i + 1]
+                        print(
+                            f"verb : {verb} has an active voice subject {parent_as_span}")
+                        return parent_as_span
+    return None
+
+
+def extract_subjects(verb, doc):
     root = verb.root
     while root:
         if(root.children):
@@ -67,6 +104,10 @@ def extract_subjects(verb):
                     else:
                         print(
                             f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
+                        subject_as_active_voice_construction = find_subject_in_active_voice_construction(
+                            verb, doc)
+                        if(subject_as_active_voice_construction):
+                            return subject_as_active_voice_construction
                     return subject
         else:
             print(f"The verb [{verb}] has no children")
@@ -91,5 +132,5 @@ if __name__ == "__main__":
     verb_chunks = get_verb_chunks(doc)
     for verb in verb_chunks:
         print(f"Finding the subjects for the verb: {verb}")
-        subject = extract_subjects(verb)
+        subject = extract_subjects(verb, doc)
         print(f"Verb: {verb}  Subject: {subject}")

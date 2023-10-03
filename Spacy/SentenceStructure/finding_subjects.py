@@ -64,7 +64,7 @@ def find_parent_token_for_child(target_child, doc):
     return None
 
 
-def find_subject_in_active_voice_construction(verb_span, doc):
+def find_subject_in_passive_construction(verb_span, doc):
     # print(type(verb_span))
     number_of_parts = len(verb_span)
     if number_of_parts > 1:
@@ -104,7 +104,7 @@ def extract_subjects(verb, doc):
                     else:
                         print(
                             f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
-                        subject_as_active_voice_construction = find_subject_in_active_voice_construction(
+                        subject_as_active_voice_construction = find_subject_in_passive_construction(
                             verb, doc)
                         if(subject_as_active_voice_construction):
                             return subject_as_active_voice_construction

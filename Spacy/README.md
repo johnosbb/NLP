@@ -343,7 +343,7 @@ We can see this diagrammatically by looking at the dependency diagram and follow
 
 #### A More Complex Example
 
-Not all sentences will be so straightforward of course. Depending on the sentence structure we may have to recurse further up the dependency 
+Not all sentences will be so straightforward of course. Depending on the sentence structure we may have to recurse further up the dependency tree.
 
 Consider the sentence:
 
@@ -368,6 +368,12 @@ The cake, which was baked by my sister, was delicious.
 | was          | 10     | AUX      | ROOT     | root                     |                      | cake delicious . |
 | delicious    | 11     | ADJ      | acomp    | adjectival complement    | was                  |            |
 | .            | 12     | PUNCT    | punct    | punctuation              | was                  |            |
+
+
+
+![image](../NLP/tree/main/Resources/example_sentence_annotated.png)
+
+
 ## Identifying Clauses
 
 | Dependency  | Description                                              |

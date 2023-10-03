@@ -371,7 +371,7 @@ The cake, which was baked by my sister, was delicious.
 
 
 
-![image](../NLP/tree/main/Resources/example_sentence_annotated.png)
+![image](../NLP/tree/main/Resources/../../../../Resources/the-cake-which-was_children_ancestors.png)
 
 
 ## Identifying Clauses

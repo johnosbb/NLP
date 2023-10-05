@@ -95,11 +95,11 @@ This has the following structure.
 
 
 
-- 'The' has ancestors 'cat' and 'sat', but it has no children as seen on the graph, there is no arrow starting from 'The and travelling to another token.
-- 'cat' has an ancestor 'sat' as seen in the arrow that starts from sat and points back to 'sat'. 'cat' also has a 'The' with the arrow originating at 'sat and pointing back to 'cat'.
-- 'sat' the ROOT has no ancestors, but it does have two children, one on each side.
-- Similarly 'sat' is an ancestor of 'on'
-- 'mat' has ancestors 'on' through a direct dependency and sat indirectly via 'on's relationship with 'sat'. 'mat' also has a child 'a'.
+- __'The'__ has ancestors __'cat'__ and __'sat'__, but it has no children as seen on the graph, there is no arrow starting from __'The'__ and travelling to another token.
+- __'cat'__ has an ancestor __'sat'__ as seen in the arrow that starts from __'sat'__ and points back to __'cat'__. 'cat' also has a child __'The'__ with the arrow originating at __'cat'__ and pointing back to __'The'__.
+- __'sat'__ the ROOT verb has no ancestors, but it does have two children, one on each side.
+- Similarly __'sat'__ is an ancestor of __'on'__
+- __'mat'__ has ancestors __'on'__ through a direct dependency and sat indirectly via 'on's relationship with ___'sat'__. __'mat'__ also has a child __'a'__.
 
 ## Syntax Tree
 

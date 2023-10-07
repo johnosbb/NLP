@@ -280,7 +280,44 @@ You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 
 ## Finding the Verbs in the Sentence
 
-We first find the Verbs (including any auxiliary verbs) in the sentence. Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used specific version of the more generalised code [here](./finding_verbs.md)
+The first step in identifying clauses is to find the verbs or verb phrases (including any auxiliary verbs) in the sentence. SpaCy's dependency analysis allows us identify verbs through its part of speech tagging (pos). 
+
+| POS   | Description                                     | Example              |
+|-----------|-------------------------------------------------|----------------------|
+| VERB      | Main verb in base form                         | "run," "jump"        |
+| AUX       | Auxiliary verb or helping verb                 | "is," "have," "will" |
+
+
+
+The POS VERB can have a number of associated Tags
+
+| Tags for VERB | Description                                     | Example              |
+|-----------|-------------------------------------------------|----------------------|
+| VB        | Verb in base form (general verb tag)           |             "fix", "join", "see"         |
+| VBD       | Verb in the past tense                         | "ate," "ran," "jumped" |
+| VBG       | Verb in gerund or present participle form     | "eating," "running," "jumping" |
+| VBN       | Verb in past participle form                   | "eaten," "taken," "written" |
+| VBP       | Verb in non-3rd person singular present tense | "eat" in "I eat"     |
+| VBZ       | Verb in 3rd person singular present tense     | "eats" in "He eats"  |
+
+The POS AUX can have a number of associated Tags
+
+| Tags for AUX | Description                                     | Example              |
+|-----------|-------------------------------------------------|----------------------|
+| VB        | Verb in base form (general verb tag)           |       "be"           |
+| AUXPASS   | Auxiliary verb in passive voice                | "was," "were"         |
+| MD        | Modal verb                                      |  "can," "could," "may," "might," "shall," "should," "will," "would," "must,"  |
+| VBD       | Verb in the past tense                         | "was," "were," "been" ,"did" ,"had"|
+| VBG       | Verb in gerund or present participle form     | "are dancing" |
+| VBN       | Verb in past participle form                   | "had eaten," "was taken," "had written" |
+| VBP       | Verb in non-3rd person singular present tense | "are"     |
+| VBZ       | Verb in 3rd person singular present tense     | "is", "has"  |
+
+
+
+
+
+Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used specific version of the more generalised code [here](./finding_verbs.md)
 
 This produces the result
 
@@ -426,3 +463,4 @@ The cake was delicious.
 - [ClauseIE Test Portal](https://gate.d5.mpi-inf.mpg.de/ClausIEGate/ClausIEGate/)
 - [ClausIE page at Max Planck Institute](https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/ambiverse-nlu/clausie)
 - [Bracketed Notation](https://www.ling.upenn.edu/courses/Spring_2001/ling150/box-bracketing.html#:~:text=In%20a%20tree%20diagram%2C%20the,label%20of%20the%20dominating%20node.)
+- [Spacy Tags](https://www.kaggle.com/code/weka511/list-spacy-tags)

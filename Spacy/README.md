@@ -101,6 +101,12 @@ This has the following structure.
 - Similarly __'sat'__ is an ancestor of __'on'__
 - __'mat'__ has ancestors __'on'__ through a direct dependency and sat indirectly via 'on's relationship with ___'sat'__. __'mat'__ also has a child __'a'__.
 
+
+![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence_relationships.png)
+
+
+
+
 ## Syntax Tree
 
 Syntax trees, also known as parse trees or syntactic trees, are used in linguistics and natural language processing (NLP) for several important purposes:
@@ -373,6 +379,11 @@ The cake, which was baked by my sister, was delicious.
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/the-cake-which-was_children_ancestors.png)
 
+To find the subjects in this sentence we must find the verbs or verb phrases (shown below in bold)
+
+The cake, which __"was baked"__ by my sister, __"was"__ delicious.
+
+If we examine the dependency graph we find that __"baked"__ has a dependency on __"which"__, which is a Nominal Subject in passive form.
 
 ## Identifying Clauses
 

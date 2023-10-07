@@ -314,18 +314,105 @@ The POS AUX can have a number of associated Tags
 | VBZ       | Verb in 3rd person singular present tense     | "is", "has"  |
 
 
+Usingh these POS and Tags we can create a SpaCy [matcher](https://spacy.io/api/matcher) which will identify the verb and verb phrases in a sentence.
+
+
+```python
+    verb_matcher.add("Auxiliary verb phrase aux-adv-verb", [
+        [{"POS": "AUX"}, {"POS": "ADV", "OP": "+"}, {"POS": "VERB"}]])
+    verb_matcher.add("Auxiliary verb phrase aux-verb", [
+        [{"POS": "AUX"}, {"POS": "VERB"}]])
+    verb_matcher.add("Auxiliary verb phrase", [[{"POS": "AUX"}]])
+    verb_matcher.add("Verb phrase", [[{"POS": "VERB"}]],)
+
+```
+
+The first of these rules:
+
+```python
+[[{"POS": "AUX"}, {"POS": "ADV", "OP": "+"}, {"POS": "VERB"}]]
+```
+
+Matches the following: 
+
+```txt
+An auxiliary verb (POS: "AUX").
+One or more adverbs (POS: "ADV") with the "+" operator (indicating one or more).
+A main verb (POS: "VERB").
+```
+
+```txt
+Example: "has always been studying"
+```
+
+The rule:
+
+```python
+[[{"POS": "AUX"}, {"POS": "VERB"}]]
+```
+
+Matches the following: 
+
+```txt
+An auxiliary verb phrase that includes:
+An auxiliary verb (POS: "AUX").
+A main verb (POS: "VERB").
+```
+
+```txt
+Example: "is running"
+```
+
+```python
+[[{"POS": "AUX"}]]
+```
+
+```txt
+This pattern is simply matching an auxiliary verb phrase containing only:
+An auxiliary verb (POS: "AUX").
+```
+
+
+```txt
+Example: "have" 
+```
 
 
 
-Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used specific version of the more generalised code [here](./finding_verbs.md)
 
-This produces the result
+The final pattern
+
+```python
+[[{"POS": "VERB"}]]
+```
+
+
+```txt
+This pattern is identifying a verb phrase consisting of:
+A main verb (POS: "VERB").
+```
+
+```txt
+Example: "runs"
+```
+
+Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used a specific version of the more generalised code which can be found [here](./finding_verbs.md) for these examples.
+
+
+Analysing our sample sentence we get:
+
 
 | Sentence                                           | Verb Parts           |
 | -------------------------------------------------- | -------------------- |
 | After the boy finished his homework, he went to the park. | finished |
 | After the boy finished his homework, he went to the park. | went |
 
+In this simple sentence the rule:
+
+```python
+[[{"POS": "VERB"}]]
+```
+matches both verbs.
 
 ### Find the Subject of a Verb
 

@@ -80,7 +80,7 @@ This has the following structure.
 
 
 
-| Text         | Index  | POS      | Dep      | Dep Detail               | Ancestors            | Children   |
+| Text         | Index  | POS      | Dependency      | Dependency Detail               | Ancestors            | Children   |
 | ------------ | -------- | ------ | -------- | ------------------- |-------------- | --------- |
 | The          | 0      | DET      | det      | determiner               | cat sat              |            |
 | cat          | 1      | NOUN     | nsubj    | nominal subject          | sat                  | The        |
@@ -226,7 +226,7 @@ In this sentence, there are two clauses:
 
 "He went to the park" is an independent clause because it can stand alone as a complete sentence and expresses a complete thought.
 
-| Text         | Index  | POS      | Dep      | Dep Detail               | Ancestors            | Children   |
+| Text         | Index  | POS      | Dependency      | Dependency Detail               | Ancestors            | Children   |
 | ------ | ------ | ---- | ------- | ------- | --------- |  ------- |
 | After        | 0      | SCONJ    | mark     | marker                   | finished went        |            |
 | the          | 1      | DET      | det      | determiner               | boy finished went    |            |
@@ -405,7 +405,7 @@ Analysing our sample sentence we get:
 | Sentence                                           | Verb Parts           |
 | -------------------------------------------------- | -------------------- |
 | After the boy finished his homework, he went to the park. | finished |
-| After the boy finished his homework, he went to the park. | went |
+| ... | went |
 
 In this simple sentence the rule:
 
@@ -424,7 +424,7 @@ To find the subjects of a verb we must first find its children. We can initially
 
 #### Nominal Subjects
 
-A nominal subject, in the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. The nominal subject typically performs the action described by the verb or is the entity about which something is stated. It answers the question "Who or what is performing the action? In English, it usually appears before the verb in a declarative sentence; however, is the passive voice it may not appear before the verb.
+A nominal subject, in the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. The nominal subject typically performs the action described by the verb or is the entity about which something is stated. It answers the question "Who or what is performing the action? In English, it usually appears before the verb in a declarative sentence; however, in the passive voice it may not appear before the verb.
 
 __Examples__:
 
@@ -483,7 +483,7 @@ The cake, which was baked by my sister, was delicious.
 
 
 
-| Text         | Index  | POS      | Dep      | Dep Detail               | Ancestors            | Children   |
+| Text         | Index  | POS      | Dependency      | Dependency Detail               | Ancestors            | Children   |
 | ------ | ------ | ---- | ------- | ------- | --------- |  ------- |
 | The          | 0      | DET      | det      | determiner               | cake was             |            |
 | cake         | 1      | NOUN     | nsubj    | nominal subject          | was                  | The , baked , |

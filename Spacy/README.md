@@ -503,11 +503,18 @@ The cake, which was baked by my sister, was delicious.
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/the-cake-which-was_children_ancestors.png)
 
-To find the subjects in this sentence we must find the verbs or verb phrases (shown below in bold)
+To find the subjects in this sentence we must first find the verbs or verb phrases (shown below in bold)
 
 The cake, which __"was baked"__ by my sister, __"was"__ delicious.
 
-If we examine the dependency graph we find that __"baked"__ has a dependency on __"which"__, which is a nominal subject in passive form. The presence of a nominal subject in passive form (nsubjpass) typically indicates the presence of a passive construction; it signifies that the noun or pronoun attached to nsubjpass element is the subject of a passive verb. To find this subject we recurse up the tree and examine the words with a relationship to __"which"__. We see that __"which"__ has ancestors __"baked","cake"__ and "__was__". We now examine these to see if any of those is a nominal subject. In this case we find that __"cake"__ is a nominal subject and has a child __"baked"__ so we conclude that the subject of the verb phrase __"was baked"__ is __"cake"__. Finally we can add the determiner __"The"__ to get the noun phrase:
+__Finding the subjects__
+
+- If we examine the dependency graph we find that __"baked"__ has a dependency on __"which"__, which is a nominal subject in passive form.
+- The presence of a nominal subject in passive form (nsubjpass) typically indicates the presence of a passive construction; it signifies that the noun or pronoun attached to nsubjpass element is the subject of a passive verb.
+- To find this subject we recurse up the tree and examine the words with a relationship to __"which"__. 
+- We see that __"which"__ has ancestors __"baked","cake"__ and "__was__".
+- We now examine these to see if any of those is a nominal subject. In this case we find that __"cake"__ is a nominal subject and has a child __"baked"__ so we conclude that the subject of the verb phrase __"was baked"__ is __"cake"__.
+- Finally we can add the determiner __"The"__ to get the noun phrase shown below:
 
 ```txt
 The cake was baked.

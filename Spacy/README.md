@@ -314,7 +314,7 @@ The POS AUX can have a number of associated Tags
 | VBZ       | Verb in 3rd person singular present tense     | "is", "has"  |
 
 
-Usingh these POS and Tags we can create a SpaCy [matcher](https://spacy.io/api/matcher) which will identify the verb and verb phrases in a sentence.
+Using these POS and Tags we can create a SpaCy [matcher](https://spacy.io/api/matcher) which will identify the verb and verb phrases in a sentence.
 
 
 ```python

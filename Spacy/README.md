@@ -542,7 +542,7 @@ The cake was delicious.
 
 ## Entending SpaCy
 
-- [Entending SpaCy through Custom Factories and Components](./NER/custom_factory_example/ExtendingSpaCy.md)
+- [Entending SpaCy through Custom Factories and Components](https://github.com/johnosbb/NLP/blob/main/Spacy/NER/custom_factory_example/ExtendingSpacy.md)
 - [Training SpaCy 3.0 for Entity Recognition](./NER/ner_model_training.md)
 
 ## References

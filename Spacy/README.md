@@ -68,6 +68,18 @@ A "sentence" is a linguistic unit that represents a complete and independent tho
 
 ## Understand Ancestors and Children
 
+In spaCy, the concepts of "ancestors" and "children" refer to the relationships between tokens in a parsed document. These relationships are part of the syntactic structure of the text and are useful for analyzing and manipulating the text data. 
+
+### Ancestors
+
+Ancestors are tokens that are higher in the syntactic tree of a sentence. They are usually tokens that govern or modify the given child token. Ancestors are often associated with tokens that play roles like verbs, adjectives, or other head words in the sentence.
+
+### Children
+
+Children are tokens that are lower in the syntactic tree. They are tokens that a given token governs or modifies. When we move down the syntactic tree hierarchy, we encounter the children of a token and these can be elements like nouns, adverbs, prepositional phrases, or other syntactic components that depend on the token.
+
+### Example
+
 Consider the sentence:
 
 - The cat sat on the mat.

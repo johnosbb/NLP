@@ -1,10 +1,12 @@
 import spacy
 from pathlib import Path
 from spacy import displacy
+from spacy.tokens import Span, Doc
 import textacy as tx
 from spacy.matcher import Matcher
 import re
 from svgwrite import Drawing, rgb
+import lemminflect
 
 verb_patterns_for_verb_phrases = [
     [{"POS": "AUX"}, {"POS": "VERB"}, {"POS": "ADP"}],
@@ -140,38 +142,128 @@ def show_token(token):
 
 def show_sentence_parts(doc):
     print(doc)
-    print("{:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} ".format(
-        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children'))
-    print("----------------------------------------------------------------------------------------------------------------------")
+    print("{:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} | {:<12}".format(
+        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children', 'Token Head'))
+    print("--------------------------------------------------------------------------------------------------------------------------------")
     for token in doc:
         # the term "ancestors" refers to the set of nodes that are higher in the parse tree hierarchy and lead to the current token or span of tokens.
         ancestors = ' '.join([t.text for t in token.ancestors])
         # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
         children = ' '.join([t.text for t in token.children])
 
-        print("{:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} ".format(
-            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children))
-        print("----------------------------------------------------------------------------------------------------------------------")
+        print("{:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} | {:<12} ".format(
+            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text))
+        print("--------------------------------------------------------------------------------------------------------------------------------")
 
 
 def show_sentence_parts_as_md(doc):
     print(doc)
-    print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |".format(
-        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children'))
-    print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- |")
+    print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} | {:<12}".format(
+        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children', 'Token Head'))
+    print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- |")
     for token in doc:
         # the term "ancestors" refers to the set of nodes that are higher in the parse tree hierarchy and lead to the current token or span of tokens.
         ancestors = ' '.join([t.text for t in token.ancestors])
         # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
         children = ' '.join([t.text for t in token.children])
-        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |".format(
-            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children))
+        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12}".format(
+            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text))
+
+# extract_ccs_from_token
+# ccs = Coordinating Conjunctions
+# In linguistic analysis, identifying coordinating conjunctions and understanding their usage is important for parsing and interpreting
+# the structure of sentences and clauses.
+# Coordinating conjunctions play a role in coordinating or joining elements with similar grammatical functions within a sentence.
+# How this function works:
+# It starts by checking the part-of-speech (POS) tag of the token. If the POS tag is one of ["NOUN", "PROPN", "ADJ"], it considers the token and its children to potentially form a conjoined noun phrase. These are typically words like nouns, proper nouns, or adjectives that can be part of a noun phrase.
+# It creates an initial list called children, which includes the current token. It then iterates through the token's children (dependencies) and filters them based on their dependency labels (dep_). It only includes children with dependency labels ["advmod", "amod", "det", "poss", "compound"], which are typically modifiers, determiners, possessives, or compound words that can be part of a noun phrase.
+# It sorts the children list by their positions (token.i is the position of the token in the document) to ensure they are in the correct order.
+# It creates a list called entities to store extracted conjoined noun phrases. Initially, it contains a single Span object that spans from the start position of the first child to the end position of the last child.
+# Next, it checks if there are any children of the token with the dependency label "conj" (conjunction). If such children are found, it recursively calls the extract_ccs_from_token function on those children and appends the resulting entities to the current list.
+# Finally, it returns the list of extracted conjoined noun phrases (entities).
+
+
+def extract_ccs_from_token(token):
+    if token.pos_ in ["NOUN", "PROPN", "ADJ"]:
+        children = sorted(
+            [token]
+            + [
+                c
+                for c in token.children
+                if c.dep_ in ["advmod", "amod", "det", "poss", "compound"]
+            ],
+            key=lambda x: x.i,
+        )
+        entities = [Span(token.doc, start=children[0].i,
+                         end=children[-1].i + 1)]
+    else:
+        entities = [Span(token.doc, start=token.i, end=token.i + 1)]
+    for c in token.children:
+        if c.dep_ == "conj":
+            entities += extract_ccs_from_token(c)
+    return entities
+
+
+def extract_ccs_from_token_at_root(span):
+    if span is None:
+        return []
+    else:
+        return extract_ccs_from_token(span.root)
 
 
 def show_noun_chunks(doc):
     print("Noun Chunks\n")
     for noun_chunk in doc.noun_chunks:
         print(f"{noun_chunk.text}  Start: {noun_chunk.start} End: {noun_chunk.end} Root: {noun_chunk.root}")
+
+
+def convert_to_past_tense(nlp, doc):
+    new_sentence = []
+    for token in doc:
+        if token.tag_ == "TO" and token.pos_ == "PART":  # the auxiliary part of verbs in infinitive form
+            new_sentence.append(token.text)
+        elif token.pos_.upper() == "AUX" and token.dep_ == "ROOT":  # if the verb is an auxiliary and a root
+            new_sentence.append(token._.inflect('VBD'))
+        # this is acting as an auxiliary verb to another verb
+        elif token.dep_.upper() == "AUX" and token.head.pos_ == "VERB":
+            new_sentence.append(token._.inflect('VBD'))
+        # if the token is acting as a clausal complement to another verb
+        elif token.dep_.lower() == "ccomp" and token.head.pos_ == "VERB":
+            new_sentence.append(token._.inflect('VBD'))
+        # VBG is a gerund, if it is a gerund we should leave it in gerund form
+        elif(token.pos_.upper() == "VERB" and token.dep_ == "ROOT" and token.tag_ != "VBG"):
+            new_sentence.append(token._.inflect('VBD'))
+        else:
+            new_sentence.append(token.text)
+    new_doc = nlp(" ".join(new_sentence))
+    return new_doc
+
+
+# we must provide a target word (or a target POS) and a replacement
+
+
+def replace_token(nlp, existing_doc, replacement_word, target_word=None, target_pos=None):
+    new_sentence = []
+    new_doc = existing_doc
+    if(target_pos):
+        for token in existing_doc:
+            if token.pos_ in target_pos:
+                # Replace the verb token with a new value
+                new_sentence.append(replacement_word)
+            else:
+                new_sentence.append(token.text)
+        new_doc = nlp(" ".join(new_sentence))
+    else:
+        if(target_word):
+            for token in existing_doc:
+                if token.text == target_word:
+                    # Replace with a new value
+                    new_sentence.append(replacement_word)
+                else:
+                    new_sentence.append(token.text)
+            new_doc = nlp(" ".join(new_sentence))
+    # Create a new Doc with the modified tokens
+    return new_doc
 
 
 def show_sentence_structure(doc):

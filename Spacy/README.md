@@ -201,7 +201,8 @@ SpaCy uses different POS Tags, the following table shows a comparison:
 | VERB             | Verb                  | VB             | Verb (base form)        |
 | X                | Other                 | -              | -                       |
 
-Please note that this is not an exhaustive list, and both libraries may have additional tags for more specialized linguistic categories.
+Please note that this is not an exhaustive list, and both libraries may have additional tags for more specialized linguistic categories. [see](https://universaldependencies.org/u/pos/)
+
 
 ```
 [S  [NP [DT The] [NN cat]]
@@ -570,3 +571,6 @@ The cake was delicious.
 - [ClausIE page at Max Planck Institute](https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/ambiverse-nlu/clausie)
 - [Bracketed Notation](https://www.ling.upenn.edu/courses/Spring_2001/ling150/box-bracketing.html#:~:text=In%20a%20tree%20diagram%2C%20the,label%20of%20the%20dominating%20node.)
 - [Spacy Tags](https://www.kaggle.com/code/weka511/list-spacy-tags)
+- [Universal POS Tags](https://universaldependencies.org/u/pos/)
+- [Spacy Discussion Forum on GIT](https://github.com/explosion/spaCy/discussions)
+- [Verbix - A resource for verb conjugation](https://api.verbix.com/)

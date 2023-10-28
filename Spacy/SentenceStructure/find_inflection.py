@@ -16,10 +16,10 @@ expected_sentences = [
     "Water boiled at 100 degrees Celsius .", "She knew how to swim .", "The Earth orbited the sun .", "Cats chased mice .", "She liked to run .",
     "This was your moment to shine .",
     "He loved to read mystery novels .", "The math teacher taught geometry .", "I was here for you .", "This moment felt so perfect .",
-    "White rabbits with pink eyes ran close by her .", "The South Africans won the match .",  "The South Africans are not winning the match.",
-    "They were getting ready .", "We are here .", "I was here ."]
-test_sentences = ["We are here."]
-expected_sentences = ["We were here ."]
+    "White rabbits with pink eyes ran close by her .", "The South Africans were winning the match .",  "The South Africans were not winning the match .",
+    "They were getting ready .", "We were here .", "I was here ."]
+# test_sentences = ["The South Africans are winning the match."]
+# expected_sentences = ["The South Africans were winning the match ."]
 # print(doc[2]._.lemma())
 # print(doc[4]._.inflect('NNS'))  # Noun, plural
 # print(doc[8]._.inflect('NN'))  # Noun, singular
@@ -29,7 +29,7 @@ expected_sentences = ["We were here ."]
 i = 0
 for sentence in test_sentences:
     doc = nlp(sentence)
-    lnlp.show_sentence_parts(doc)
+    # lnlp.show_sentence_parts(doc)
     answer = lnlp.convert_to_past_tense(nlp, doc)
     if(expected_sentences[i] == answer.text):
         print(f"Correct: {answer.text}")

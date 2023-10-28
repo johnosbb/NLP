@@ -224,7 +224,13 @@ __Ancestor__: An "ancestor" token is a token that governs or controls another to
 
 ## Extracting Clauses from a Sentence
 
-Due to the richness and variety of the English language extracting clauses from a sentence can be a complex process. The process can be accomplished in a number of discrete steps.
+Cognitive linguistics explores how language is shaped by human cognition and experience, and how linguistic structures emerge from cognitive processes. This approach provides insights into how languages evolve in a way that is consistent with cognitive principles. It is fascinating how something that seems to have evolved so organically can maintain so many fundamental structures and rules.
+
+Extracting meaningful information from a sentence with a computer program can be a challenging task due to the richness of the English language and the endless variation in structure and style that result from constant linguistic development.
+
+To extract basic information from a sentence often requires us to first break it into clauses. This can be challenging for Natural Language Processing, but tools like SpaCy do provide many useful elements that can assist us in this process. As we will see in this article (and in subsequent articles), the greater difficulty in a rule-based approach is the high degree of variability and irregularity in grammatical structures used in modern languages.
+
+The process can be accomplished in a number of discrete steps.
 
 In this exercise we will use the following target sentence:
 
@@ -349,13 +355,11 @@ The first of these rules:
 Matches the following: 
 
 ```txt
-An auxiliary verb (POS: "AUX").
-One or more adverbs (POS: "ADV") with the "+" operator (indicating one or more).
-A main verb (POS: "VERB").
+An auxiliary verb (POS: "AUX") followed by one or more adverbs (POS: "ADV") with the "+" operator (indicating one or more), followed by a main verb (POS: "VERB").
 ```
 
 ```txt
-Example: "has always been studying"
+Example: "... has always been studying ..."
 ```
 
 The rule:
@@ -367,13 +371,11 @@ The rule:
 Matches the following: 
 
 ```txt
-An auxiliary verb phrase that includes:
-An auxiliary verb (POS: "AUX").
-A main verb (POS: "VERB").
+An auxiliary verb phrase that includes an auxiliary verb (POS: "AUX") followed by a main verb (POS: "VERB").
 ```
 
 ```txt
-Example: "is running"
+Example: "... is running ..."
 ```
 
 ```python
@@ -381,13 +383,12 @@ Example: "is running"
 ```
 
 ```txt
-This pattern is simply matching an auxiliary verb phrase containing only:
-An auxiliary verb (POS: "AUX").
+This pattern is simply matching an auxiliary verb phrase containing only an auxiliary verb (POS: "AUX").
 ```
 
 
 ```txt
-Example: "have" 
+Example: "... have ..." 
 ```
 
 
@@ -401,12 +402,11 @@ The final pattern
 
 
 ```txt
-This pattern is identifying a verb phrase consisting of:
-A main verb (POS: "VERB").
+This pattern is identifying a verb phrase consisting of a main verb (POS: "VERB").
 ```
 
 ```txt
-Example: "runs"
+Example: "... runs ... "
 ```
 
 Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used a specific version of the more generalised code which can be found [here](./finding_verbs.md) for these examples.
@@ -426,6 +426,9 @@ In this simple sentence the rule:
 [[{"POS": "VERB"}]]
 ```
 matches both verbs.
+
+
+When one begins to implement this rule-based approach, it quickly becomes apparent that there are an enormous number of edge cases and exceptions. This is why machine learning approaches are often employed, as they can learn from a wide variety of sentence constructions without having to explicitly cover every possible variation in structure.
 
 ### Find the Subject of a Verb
 

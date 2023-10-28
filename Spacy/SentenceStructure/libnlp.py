@@ -216,17 +216,52 @@ def show_noun_chunks(doc):
     for noun_chunk in doc.noun_chunks:
         print(f"{noun_chunk.text}  Start: {noun_chunk.start} End: {noun_chunk.end} Root: {noun_chunk.root}")
 
+# this needs to be much more complex, ideally we should pass a subject span
+
+
+def find_grammatical_person(token):
+    if token.pos_ == "PRON" and token.tag_ == "PRP" and token.dep_ == "nsubj":
+        if(token.text in ["i", "I"]):
+            return "FPS"
+        elif(token.text in ["We", "we"]):
+            return "FPP"
+        elif(token.text in ["You", "you"]):
+            return "SPS"
+        elif(token.text in ["He", "he", "she", "she", "It", "it"]):
+            return "TPS"
+        elif(token.text in ["They"]):
+            return "TPP"
+        else:
+            return "TPP"
+    elif(token.pos_ == "PROPN" and token.dep_ == "nsubj"):
+        return "TPP"
+    else:
+        return None
+
 
 def convert_to_past_tense(nlp, doc):
     new_sentence = []
+    nominal_subject = None
     for token in doc:
+        if token.pos_ == "PRON" and token.tag_ == "PRP" and token.dep_ == "nsubj":
+            nominal_subject = token
+        elif(token.pos_ == "PROPN" and token.dep_ == "nsubj"):
+            nominal_subject = token
         if token.tag_ == "TO" and token.pos_ == "PART":  # the auxiliary part of verbs in infinitive form
             new_sentence.append(token.text)
         elif token.pos_.upper() == "AUX" and token.dep_ == "ROOT":  # if the verb is an auxiliary and a root
-            new_sentence.append(token._.inflect('VBD'))
+            past_form = token._.inflect('VBD')
+            if(nominal_subject):
+                if(token.text == "are" and find_grammatical_person(nominal_subject) != "FPS"):
+                    past_form = "were"
+            new_sentence.append(past_form)
         # this is acting as an auxiliary verb to another verb
         elif token.dep_.upper() == "AUX" and token.head.pos_ == "VERB":
-            new_sentence.append(token._.inflect('VBD'))
+            past_form = token._.inflect('VBD')
+            if(nominal_subject):
+                if(token.text == "are" and find_grammatical_person(nominal_subject) != "FPS"):
+                    past_form = "were"
+            new_sentence.append(past_form)
         # if the token is acting as a clausal complement to another verb
         elif token.dep_.lower() == "ccomp" and token.head.pos_ == "VERB":
             new_sentence.append(token._.inflect('VBD'))

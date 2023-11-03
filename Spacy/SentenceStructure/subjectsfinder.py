@@ -40,7 +40,9 @@ text = (
 
 def extract_span_from_entity(token):
     children = []
-    for child in token.subtree:
+    # The .subtree attribute in spaCy includes not only the immediate children of the token but also all descendants,
+    # including the children of the children, and so on. It represents the entire subtree of the token in the syntactic parse tree.
+    for child in token.subtree:  # The subtree includes the token itself and all the tokens that are dependent on it, directly or indirectly, in the parse tree. This can be especially useful for extracting information associated with a specific word in a sentence or document.
         children.append(child)
     # This will sort the list of children based on the values returned by x.i. In other words, it will sort the children in ascending order of their positions in the document.
     entity_subtree = sorted(children, key=lambda x: x.i)
@@ -127,7 +129,7 @@ def extract_subjects(verb, doc):
 
 
 if __name__ == "__main__":
-    import spacy
+    #import spacy
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
     lnlp.show_sentence_parts(doc)

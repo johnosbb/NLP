@@ -42,7 +42,8 @@ def extract_span_from_entity(token):
     children = []
     for child in token.subtree:
         children.append(child)
-    # This will sort the list of children based on the values returned by x.i. In other words, it will sort the children in ascending order of their positions in the document.
+    # This will sort the list of children based on the values returned by x.i.
+    # In other words, it will sort the children in ascending order of their positions in the document.
     entity_subtree = sorted(children, key=lambda x: x.i)
     extracted_span = Span(
         token.doc, start=entity_subtree[0].i, end=entity_subtree[-1].i + 1)  # The -1 index is used to access the last element in the entity_subtree list, which represents the last token in the sorted subtree.

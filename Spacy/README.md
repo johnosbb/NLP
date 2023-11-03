@@ -427,6 +427,7 @@ In this simple sentence the rule:
 ```
 matches both verbs.
 
+Remember we are creating spans that represent a verb or a verb phrase with the above approach so we are not dealing purely with tokens.
 
 When one begins to implement this rule-based approach, it quickly becomes apparent that there are an enormous number of edge cases and exceptions. This is why machine learning approaches are often employed, as they can learn from a wide variety of sentence constructions without having to explicitly cover every possible variation in structure.
 

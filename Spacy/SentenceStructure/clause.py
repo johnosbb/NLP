@@ -7,6 +7,9 @@ from spacy.tokens import Span, Doc
 from spacy.matcher import Matcher
 import libnlp as lnlp
 
+# DO NOT SET MANUALLY
+MOD_CONSERVATIVE = False
+
 
 class Clause:
     def __init__(

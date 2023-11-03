@@ -1,6 +1,6 @@
 import spacy
 from spacy.matcher import Matcher
-
+import libnlp as lnlp
 
 text_examples = (
     "The author was staring pensively as she wrote."
@@ -90,12 +90,8 @@ def extract_spans_from_match(sent, match):
     return verb_spans
 
 
-if __name__ == "__main__":
-    import spacy
-    nlp = spacy.load("en_core_web_sm")
-    doc = nlp(text)
+def method_1(doc):
     verb_matches = extract_verbs(doc)
-
     for sentence, matches in verb_matches:  # there may be multiple matches for a sentence
         # for each span we want to remove any adverbs and just retain the verb parts.
         filtered_matches = []
@@ -106,7 +102,20 @@ if __name__ == "__main__":
         verb_spans = extract_spans_from_match(sentence, filtered_matches)
         for verb_span in verb_spans:
             print(f"{sentence} : {verb_span.text}")
-
     verb_chunks = get_verb_chunks(doc)
     for chunk in verb_chunks:
         print(f"Verb: {chunk}")
+
+
+def method_2(doc):
+    # doc could be a multi-sentence document
+    for sent in doc.sents:
+        matches = lnlp.get_verb_matches_for_span(sent)
+        unique_matches = lnlp.get_unique_verb_phrases(sent)
+        print(f"Sentence: {sent} Unique verb phrases: {unique_matches}")
+
+
+if __name__ == "__main__":
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(text_examples)
+    method_2(doc)

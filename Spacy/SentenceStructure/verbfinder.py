@@ -43,17 +43,7 @@ def remove_adverbs(match):
     return filtered_matches
 
 
-def get_verb_matches(span):
-    # 1. Find verb phrases in the span
-    # (see mdmjsh answer here: https://stackoverflow.com/questions/47856247/extract-verb-phrases-using-spacy)
-    verb_matcher = Matcher(span.vocab)
-    verb_matcher.add("Auxiliary verb phrase aux-adv-verb", [
-        [{"POS": "AUX"}, {"POS": "ADV", "OP": "+"}, {"POS": "VERB"}]])
-    verb_matcher.add("Auxiliary verb phrase aux-verb", [
-        [{"POS": "AUX"}, {"POS": "VERB"}]])
-    verb_matcher.add("Auxiliary verb phrase", [[{"POS": "AUX"}]])
-    verb_matcher.add("Verb phrase", [[{"POS": "VERB"}]],)
-    return verb_matcher(span)
+
 
 # for each sentence in the document, get the verb forms
 
@@ -63,7 +53,7 @@ def get_verb_matches(span):
 def extract_verbs(doc):
     verbs = []
     for sent in doc.sents:
-        verb_phrase = get_verb_matches(sent)
+        verb_phrase = lnlp.get_verb_matches_for_span(sent)
         verbs.append((sent, verb_phrase))
     return verbs  # a list of verb matches
 
@@ -71,8 +61,7 @@ def extract_verbs(doc):
 
 
 def get_verb_chunks(span):
-    matches = get_verb_matches(span)
-
+    matches = lnlp.get_verb_matches_for_span(span)
     # Filter matches (e.g. do not have both "has walked" and "walked" in verbs)
     verb_chunks = []
     for match in [span[start:end] for _, start, end in matches]:
@@ -81,13 +70,6 @@ def get_verb_chunks(span):
     return verb_chunks
 
 
-def extract_spans_from_match(sent, match):
-    verb_spans = []
-    for match_id, start, end in match:
-        # Create a span from the match indices
-        verb_span = sent[start:end]
-        verb_spans.append(verb_span)
-    return verb_spans
 
 
 def method_1(doc):
@@ -99,7 +81,8 @@ def method_1(doc):
             # print(match)
             # filtered = remove_adverbs(match)
             filtered_matches.append(match)
-        verb_spans = extract_spans_from_match(sentence, filtered_matches)
+        verb_spans = lnlp.extract_spans_from_matches(sentence, filtered_matches)    
+        # verb_spans = extract_spans_from_match(sentence, filtered_matches)
         for verb_span in verb_spans:
             print(f"{sentence} : {verb_span.text}")
     verb_chunks = get_verb_chunks(doc)
@@ -119,3 +102,4 @@ if __name__ == "__main__":
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text_examples)
     method_2(doc)
+    method_1(doc)

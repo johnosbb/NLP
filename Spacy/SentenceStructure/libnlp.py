@@ -325,6 +325,19 @@ def get_verb_matches_for_span(span):
     return verb_matcher(span)
 
 
+
+# For a given sentence and an associated matches, return the spans associated with those matches
+def extract_spans_from_matches(sent, matches):
+    spans = []
+    for match_id, start, end in matches:
+        # Create a span from the match indices
+        span = sent[start:end]
+        spans.append(span)
+    return spans
+
+
+
+
 def check_if_span_is_subspan(span_to_check, existing_spans):
     for span in existing_spans:
         if span == span_to_check:  # we do not check a span against itself
@@ -338,17 +351,17 @@ def check_if_span_is_subspan(span_to_check, existing_spans):
     return False
 
 
-# This will create a unique list of verb chunks. It filters out any redundancy due to the use of auxiliary verbs for example
+# This will create a unique list of verb chunks (spans). It filters out any redundancy due to the use of auxiliary verbs for example
 # if a span has the same root as a previous span we do not add it
 # This does not return unique verb phrases in all cases, it return "has" and "has eaten", I assume we only want one of these.
 def get_unique_verb_phrases(span):
     matches = get_verb_matches_for_span(span)
-    verb_chunks = []
+    verb_spans = []
     # we filter them to ensure they are unique
     for match in [span[start:end] for _, start, end in matches]:
         # print(f"Checking span : {match} with root = {match.root}")
         found = False
-        for vp in verb_chunks:
+        for vp in verb_spans:
             # In a Span, the root property refers to the root token of the span, not the entire document. The root token of a span is the token within that span that serves as the head or main word of the span. It might not necessarily be a verb; it depends on the specific syntactic structure of the span.
             if match.root == vp.root:  # ensure they do not have the same root, so do not have both "has walked" and "walked" in the list
                 # print(
@@ -357,14 +370,14 @@ def get_unique_verb_phrases(span):
                 break
 
         if not found:  # we only add them if they do not already exist
-            verb_chunks.append(match)
+            verb_spans.append(match)
     unique = []
-    for verb_phrase in verb_chunks:
-        if (check_if_span_is_subspan(verb_phrase, verb_chunks)):
+    for verb_phrase_span in verb_spans:
+        if (check_if_span_is_subspan(verb_phrase_span, verb_spans)):
             continue
         else:
-            unique.append(verb_phrase)
-    return unique  # a unique list of verb chunks in the form of matches
+            unique.append(verb_phrase_span)
+    return unique  # a unique list of verb chunks (spans) in the form of matches
 
 
 def filter_verb_children(children):

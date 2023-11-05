@@ -312,6 +312,15 @@ You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 | SVOA      | Subject-Verb | clause type represents a simple sentence structure that contains a subject and a verb but does not have a direct object.  | "She sings."  |
 
 
+### Spacy Clause Dependencies
+
+| Dependency  | Description                                              |
+|-------------|----------------------------------------------------------|
+| "advcl"     | Represents adverbial clauses that modify verbs, providing additional information about the action's circumstances. |
+| "acl"       | Denotes adjectival clauses that modify nouns, describing the qualities or characteristics of the nouns. |
+
+
+
 
 ## Finding the Verbs in the Sentence
 
@@ -580,6 +589,11 @@ A complement is a grammatical element that completes the meaning of a verb, adje
 | attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun. | "The big house is beautiful." In this sentence, "big" is an attribute of the noun "house." |
 
 
+
+
+
+
+
 ## Identifying Conjunctions
 
 A conjunction is a part of speech in grammar that serves as a connecting word or a link between words, phrases, clauses, or sentences. Conjunctions are used to establish relationships, connections, or logical links between different elements in a sentence or between multiple sentences. They help convey the flow of information and the relationships between various parts of a text.
@@ -587,7 +601,7 @@ A conjunction is a part of speech in grammar that serves as a connecting word or
 
 ### Grammatical Classifications
 
-| Type  | Description                                              | Associated spacy identifier |
+| Type  | Description                                              | Associated Spacy identifier |
 |-------------|----------------------------------------------------------| -------------- |
 | Coordinating Conjunctions | Coordinating conjunctions are used to connect words, phrases, or clauses of equal grammatical rank. They are often remembered using the acronym "FANBOYS," which stands for "for," "and," "nor," "but," "or," "yet," and "so." These words help combine elements that are equally important within a sentence. | "cc"  |
 | Subordinating Conjunctions | Subordinating conjunctions are used to introduce dependent clauses (subordinate clauses) that cannot stand alone as complete sentences. They indicate a relationship of dependence or subordination between the main clause and the dependent clause. Common subordinating conjunctions include "because," "although," "while," "if," "when," "since," and "unless." | "mark" |
@@ -599,9 +613,8 @@ A conjunction is a part of speech in grammar that serves as a connecting word or
 |-------------|----------------------------------------------------------|
 | "conj"      | Indicates coordination, connecting words, phrases, or clauses of the same grammatical type. |
 | "cc"        | Identifies coordinating conjunctions connecting elements of equal grammatical importance. |
-| "advcl"     | Represents adverbial clauses that modify verbs, providing additional information about the action's circumstances. |
-| "acl"       | Denotes adjectival clauses that modify nouns, describing the qualities or characteristics of the nouns. |
-| "ccomp"     | Identifies clauses serving as complements of verbs, functioning as direct objects of verbs when clauses. |
+| "mark"      | Subordinating conjunctions are used to introduce dependent clauses |
+
 
 
 

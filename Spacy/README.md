@@ -23,6 +23,8 @@ Finally SpaCy provides pre-trained word vectors (word embeddings) that capture s
 | Lemma | In linguistics and natural language processing (NLP), a "lemma" refers to the base or dictionary form of a word. It is the canonical or citation form of a word, from which all its inflected forms (such as different verb conjugations or noun declensions) are derived. |
 | Nominal subject | In the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. |
 | Dependency labels |  Dependency labels in SpaCy represent different types of grammatical relationships and structures within sentences. They are all related to how words and phrases are connected and function in the syntax of a sentence.
+| Ditransitive verbs | Also known as double-object verbs, are a subset of transitive verbs that require both a direct object and an indirect object to complete their meaning in a sentence. |
+| Transitive verbs | a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object. |
 
 ## Tokens
 
@@ -534,7 +536,17 @@ The cake was delicious.
 
 ### Finding the Objects of a Sentence
 
-An object is a grammatical element in a sentence that typically receives the action of a verb. Objects are associated with verbs that can take a direct object. 
+In grammar, "objects" refer to specific elements or constituents in a sentence that are typically associated with the action of a verb. Objects play a crucial role in the structure of a sentence and help convey additional information about the action or the relationships between different elements. There are two main types of objects in English grammar: direct objects and indirect objects.
+
+#### Direct Object
+
+A direct object is a noun, pronoun, or noun phrase that receives the action of a transitive verb (a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object). In other words, it answers the question "what" or "whom" with regard to the action expressed by the verb. Direct objects are typically found in sentences with transitive verbs.
+__Example:__ In the sentence "She ate the apple," "the apple" is the direct object because it receives the action of the verb "ate."
+
+#### Indirect Object
+
+An indirect object is a noun, pronoun, or noun phrase that indicates the recipient or beneficiary of an action in a sentence. It answers the question "to whom" or "for whom" the action is performed. Indirect objects are commonly found in sentences with ditransitive verbs (Ditransitive verbs, also known as double-object verbs, are a subset of transitive verbs that require both a direct object and an indirect object to complete their meaning in a sentence), which are verbs that take both a direct and an indirect object.
+__Example:__ In the sentence "She gave John a book," "John" is the indirect object because he receives the book, which is the direct object.
 
 ## Identifying Complements
 

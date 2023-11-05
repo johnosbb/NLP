@@ -23,6 +23,7 @@ Finally SpaCy provides pre-trained word vectors (word embeddings) that capture s
 | Lemma | In linguistics and natural language processing (NLP), a "lemma" refers to the base or dictionary form of a word. It is the canonical or citation form of a word, from which all its inflected forms (such as different verb conjugations or noun declensions) are derived. |
 | Nominal subject | In the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. |
 | Dependency labels |  Dependency labels in SpaCy represent different types of grammatical relationships and structures within sentences. They are all related to how words and phrases are connected and function in the syntax of a sentence.
+
 ## Tokens
 
 A "token" is the smallest unit of text that can be processed and analyzed. Tokens are individual words or characters, or sometimes even subword units, into which a text is divided for various NLP tasks. Tokenization is the process of breaking down a text into these individual tokens.
@@ -56,8 +57,6 @@ In the sentence: "It was really raining heavily when I left home so I took a cab
 
 So, when you refer to the span [3:4], we are specifying a span that includes only one token, which is "raining" (token 3). The notation [3:4] represents a span that starts at token 3 (inclusive) and ends just before token 4 (exclusive). In this case, the span [3:4] represents the single token "raining" in the sentence.
 
-
-
 ## Sentences
 
 A "sentence" is a linguistic unit that represents a complete and independent thought or statement within a text. SpaCy provides tools for sentence segmentation, which is the process of identifying and separating text into individual sentences. Each sentence is composed of one or more tokens (words or subword units) that form a grammatical and semantic unit.
@@ -84,13 +83,9 @@ Consider the sentence:
 
 - The cat sat on the mat.
 
-
 ![image](https://github.com/johnosbb/ProgrammingInPyQT/assets/12407183/57794b3d-59d4-41d5-944c-3b26eb2f1192)
 
-
 This has the following structure.
-
-
 
 | Text         | Index  | POS      | Dependency      | Dependency Detail               | Ancestors            | Children   |
 | ------------ | -------- | ------ | -------- | ------------------- |-------------- | --------- |
@@ -102,22 +97,13 @@ This has the following structure.
 | mat          | 5      | NOUN     | pobj     | object of preposition    | on sat               | a          |
 | .            | 6      | PUNCT    | punct    | punctuation              | sat                  |            |
 
-
-
-
-
-
 - __'The'__ has ancestors __'cat'__ and __'sat'__, but it has no children as seen on the graph, there is no arrow starting from __'The'__ and travelling to another token.
 - __'cat'__ has an ancestor __'sat'__ as seen in the arrow that starts from __'sat'__ and points back to __'cat'__. 'cat' also has a child __'The'__ with the arrow originating at __'cat'__ and pointing back to __'The'__.
 - __'sat'__ the ROOT verb has no ancestors, but it does have two children, one on each side.
 - Similarly __'sat'__ is an ancestor of __'on'__
 - __'mat'__ has ancestors __'on'__ through a direct dependency and sat indirectly via 'on's relationship with ___'sat'__. __'mat'__ also has a child __'a'__.
 
-
 ![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence_relationships.png)
-
-
-
 
 ## Syntax Tree
 
@@ -176,7 +162,6 @@ Syntax trees, also known as parse trees or syntactic trees, are used in linguist
 | WP$     | Possessive Wh-Pronoun (e.g., "whose") |
 | WRB     | Wh-Adverb                      |
 
-
 These abbreviations and their explanations are commonly used in syntactic analysis and tree representations to describe the structure of sentences and phrases in natural language. For example:
 
 SpaCy uses different POS Tags, the following table shows a comparison:
@@ -202,7 +187,6 @@ SpaCy uses different POS Tags, the following table shows a comparison:
 | X                | Other                 | -              | -                       |
 
 Please note that this is not an exhaustive list, and both libraries may have additional tags for more specialized linguistic categories. [see](https://universaldependencies.org/u/pos/)
-
 
 ```
 [S  [NP [DT The] [NN cat]]
@@ -238,7 +222,6 @@ In this exercise we will use the following target sentence:
 After the boy finished his homework, he went to the park.
 ```
 
-
 In this sentence, there are two clauses:
 
 "After the boy finished his homework" is a dependent (subordinate) clause because it cannot stand alone as a complete sentence. It provides additional information about the timing or condition for the action in the independent clause.
@@ -261,17 +244,14 @@ In this sentence, there are two clauses:
 | park         | 11     | NOUN     | pobj     | object of preposition    | to went              | the        |
 | .            | 12     | PUNCT    | punct    | punctuation              | went                 |            |
 
-
 We can look at the dependency chart for the example sentence.
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence.png)
-
 
 - The first line in the diagram shows the text.
 - The second line shows the lemma or base form of the word.
 - The third line shows the part of speech.
 - The fourth line shows the dependency identifier associated with that word.
-
 
 We can also view this sentence as a Syntax Tree
 
@@ -292,14 +272,11 @@ We can also view this sentence as a Syntax Tree
 ]
 ```
 
-
 ![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence_syntax_tree.png)
 
 You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 
-
 ## Clause Types
-
 
 | Identifier  | Type | Description                                              | Example |
 |-------------|------ | ----------------------------------------------------| ------ |
@@ -311,16 +288,12 @@ You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 | SVOA      | Subject-Verb-Object-Adverbial | This clause combines a subject, a transitive verb, a direct object, and an adverbial phrase. | "She eats an apple slowly."  |
 | SVOA      | Subject-Verb | clause type represents a simple sentence structure that contains a subject and a verb but does not have a direct object.  | "She sings."  |
 
-
 ### Spacy Clause Dependencies
 
 | Dependency  | Description                                              |
 |-------------|----------------------------------------------------------|
 | "advcl"     | Represents adverbial clauses that modify verbs, providing additional information about the action's circumstances. |
 | "acl"       | Denotes adjectival clauses that modify nouns, describing the qualities or characteristics of the nouns. |
-
-
-
 
 ## Finding the Verbs in the Sentence
 
@@ -330,8 +303,6 @@ The first step in identifying clauses is to find the verbs or verb phrases (incl
 |-----------|-------------------------------------------------|----------------------|
 | VERB      | Main verb in base form                         | "run," "jump"        |
 | AUX       | Auxiliary verb or helping verb                 | "is," "have," "will" |
-
-
 
 The POS VERB can have a number of associated Tags
 
@@ -357,9 +328,7 @@ The POS AUX can have a number of associated Tags
 | VBP       | Verb in non-3rd person singular present tense | "are"     |
 | VBZ       | Verb in 3rd person singular present tense     | "is", "has"  |
 
-
 Using these POS and Tags we can create a SpaCy [matcher](https://spacy.io/api/matcher) which will identify the verb and verb phrases in a sentence.
-
 
 ```python
     verb_matcher.add("Auxiliary verb phrase aux-adv-verb", [
@@ -393,7 +362,7 @@ The rule:
 [[{"POS": "AUX"}, {"POS": "VERB"}]]
 ```
 
-Matches the following: 
+Matches the following:
 
 ```txt
 An auxiliary verb phrase that includes an auxiliary verb (POS: "AUX") followed by a main verb (POS: "VERB").
@@ -411,20 +380,15 @@ Example: "... is running ..."
 This pattern is simply matching an auxiliary verb phrase containing only an auxiliary verb (POS: "AUX").
 ```
 
-
 ```txt
 Example: "... have ..." 
 ```
-
-
-
 
 The final pattern
 
 ```python
 [[{"POS": "VERB"}]]
 ```
-
 
 ```txt
 This pattern is identifying a verb phrase consisting of a main verb (POS: "VERB").
@@ -436,9 +400,7 @@ Example: "... runs ... "
 
 Some sample code is provided for finding the verbs and auxilary verbs for this sentence. I have used a specific version of the more generalised code which can be found [here](./finding_verbs.md) for these examples.
 
-
 Analysing our sample sentence we get:
-
 
 | Sentence                                           | Verb Parts           |
 | -------------------------------------------------- | -------------------- |
@@ -450,21 +412,18 @@ In this simple sentence the rule:
 ```python
 [[{"POS": "VERB"}]]
 ```
+
 matches both verbs.
 
 Remember we are creating spans that represent a verb or a verb phrase with the above approach so we are not dealing purely with tokens.
 
 When one begins to implement this rule-based approach, it quickly becomes apparent that there are an enormous number of edge cases and exceptions. This is why machine learning approaches are often employed, as they can learn from a wide variety of sentence constructions without having to explicitly cover every possible variation in structure.
 
-
-
 ### Find the Subject of a Verb
 
 The second stage in finding the clauses in a sentence is to find the subjects of the verbs we found in the previous step.
 
 To find the subjects of a verb we must first find its children. We can initially search for nominal subjects (nsubj) and passive nominal subjects (nsubjpass).
-
-
 
 #### SpaCy Subject Dependencies
 
@@ -478,7 +437,6 @@ To find the subjects of a verb we must first find its children. We can initially
 | nsubj:pass         | Passive Nominal Subject | This label is used for nominal subjects in passive constructions, particularly when the sentence structure allows for more detailed analysis. | There is no single dependency for this. If you need to work with specific subject variations like "nsubj:pass" you may need to implement custom logic in your code to recognize and handle these cases based on the broader dependency labels provided by spaCy and additional context.   | "There [expl] is a book on the table." |
 | nsubj:poss         | Possessive Nominal Subject | This label is used for nominal subjects that are possessive in nature. It indicates the subject of a possessive construction. |  There is no single dependency for this. If you need to work with specific subject variations like "nsubj:poss," you may need to implement custom logic in your code to recognize and handle these cases based on the broader dependency labels provided by spaCy and additional context.  | "John's [nsubj:poss] car is red." |
 
-
 #### Nominal Subjects
 
 A nominal subject, in the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. The nominal subject typically performs the action described by the verb or is the entity about which something is stated. It answers the question "Who or what is performing the action? In English, it usually appears before the verb in a declarative sentence; however, in the passive voice it may not appear before the verb.
@@ -488,7 +446,6 @@ __Examples__:
 - __John__ Sings.
 - __He__ likes apples.
 - __The chef__ cooks the meal. (active voice)
-
 
 #### Passive Nominal Subject (Passive Voice):
 
@@ -500,10 +457,8 @@ __Examples__:
 - __The car__ (passive nominal subject) was damaged (passive verb) in the accident.
 - __The meal__ (passive nominal subject) is cooked (passive verb) by the chef (agent).
 
-
 If the verb has no children, or if its children do not have dependencies of type nsubj and nsubjpass, then we must move up the tree and continue our search. 
 The code for a general approach to finding verbs using Python and SpaCy is provided [here](./finding_subjects.py)
-
 
 For our example sentence we get the following:
 
@@ -522,15 +477,9 @@ Verb: went  Subject: he
 |   the boy       |   finished         |
 |   he       |   went        |
 
-
 We can see this diagrammatically by looking at the dependency diagram and following the dependency arrows (shown in red) from the verbs (shown in blue) to the subjects (shown in green)
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence_annotated.png)
-
-
-
-
-
 
 #### A More Complex Example
 
@@ -541,8 +490,6 @@ Consider the sentence:
 ```txt
 The cake, which was baked by my sister, was delicious.
 ```
-
-
 
 | Text         | Index  | POS      | Dependency      | Dependency Detail               | Ancestors            | Children   |
 | ------ | ------ | ---- | ------- | ------- | --------- |  ------- |
@@ -559,8 +506,6 @@ The cake, which was baked by my sister, was delicious.
 | was          | 10     | AUX      | ROOT     | root                     |                      | cake delicious . |
 | delicious    | 11     | ADJ      | acomp    | adjectival complement    | was                  |            |
 | .            | 12     | PUNCT    | punct    | punctuation              | was                  |            |
-
-
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/the-cake-which-was_children_ancestors.png)
 
@@ -581,7 +526,6 @@ __Finding the subjects__
 The cake was baked.
 ```
 
-
 We can also use this process to derive:
 
 ```txt
@@ -591,8 +535,6 @@ The cake was delicious.
 ### Finding the Objects of a Sentence
 
 An object is a grammatical element in a sentence that typically receives the action of a verb. Objects are associated with verbs that can take a direct object. 
-
-
 
 ## Identifying Complements
 
@@ -605,16 +547,9 @@ A complement is a grammatical element that completes the meaning of a verb, adje
 | xcomp        | Open Clausal Complement | The "xcomp" label is used to indicate an open clausal complement, which typically involves verbs that take infinitive clauses as complements. It represents an infinitive or gerund clause that serves as the complement of a verb. | "She likes to swim." In this sentence, "to swim" is an open clausal complement of the verb "likes."  |
 | attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun. | "The big house is beautiful." In this sentence, "big" is an attribute of the noun "house." |
 
-
-
-
-
-
-
 ## Identifying Conjunctions
 
 A conjunction is a part of speech in grammar that serves as a connecting word or a link between words, phrases, clauses, or sentences. Conjunctions are used to establish relationships, connections, or logical links between different elements in a sentence or between multiple sentences. They help convey the flow of information and the relationships between various parts of a text.
-
 
 ### Grammatical Classifications
 
@@ -631,9 +566,6 @@ A conjunction is a part of speech in grammar that serves as a connecting word or
 | "conj"      | Indicates coordination, connecting words, phrases, or clauses of the same grammatical type. |
 | "cc"        | Identifies coordinating conjunctions connecting elements of equal grammatical importance. |
 | "mark"      | Subordinating conjunctions are used to introduce dependent clauses |
-
-
-
 
 ## Entending SpaCy
 

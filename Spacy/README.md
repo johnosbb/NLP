@@ -297,6 +297,22 @@ We can also view this sentence as a Syntax Tree
 
 You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 
+
+## Clause Types
+
+
+| Identifier  | Type | Description                                              | Example |
+|-------------|------ | ----------------------------------------------------| ------ |
+| SVC         | Subject-Verb-Clause | This type of clause consists of a subject and a copular (linking) verb, such as "be," "seem," "appear," etc. It typically doesn't have a direct object. | "She is a doctor." |
+| SVO       | Subject-Verb-Object | This type of clause contains a subject, a transitive verb, and a direct object. It represents an action performed by the subject on the object. | "She eats an apple." |
+| SVOO       | Subject-Verb-Object-Object| This type of clause includes a subject, a transitive verb, and both a direct object and an indirect object. | "She gives the book to him." |
+| SVOC      | Subject-Verb-Object-Complement | In this clause, the subject performs an action (verb) on the direct object, and there's a complement that provides additional information about the object. | "She painted the room blue." |
+| SVA      | Subject-Verb-Adverbial| This type of clause includes a subject, a verb, and an adverbial phrase that provides additional information about the action. | "She runs quickly."  |
+| SVOA      | Subject-Verb-Object-Adverbial | This clause combines a subject, a transitive verb, a direct object, and an adverbial phrase. | "She eats an apple slowly."  |
+| SVOA      | Subject-Verb | clause type represents a simple sentence structure that contains a subject and a verb but does not have a direct object.  | "She sings."  |
+
+
+
 ## Finding the Verbs in the Sentence
 
 The first step in identifying clauses is to find the verbs or verb phrases (including any auxiliary verbs) in the sentence. SpaCy's dependency analysis allows us identify verbs through its part of speech tagging (pos). 
@@ -431,6 +447,8 @@ Remember we are creating spans that represent a verb or a verb phrase with the a
 
 When one begins to implement this rule-based approach, it quickly becomes apparent that there are an enormous number of edge cases and exceptions. This is why machine learning approaches are often employed, as they can learn from a wide variety of sentence constructions without having to explicitly cover every possible variation in structure.
 
+
+
 ### Find the Subject of a Verb
 
 The second stage in finding the clauses in a sentence is to find the subjects of the verbs we found in the previous step.
@@ -544,8 +562,39 @@ We can also use this process to derive:
 The cake was delicious.
 ```
 
+### Finding the Objects of a Sentence
 
-## Identifying Clauses
+An object is a grammatical element in a sentence that typically receives the action of a verb. Objects are associated with verbs that can take a direct object. 
+
+
+
+## Identifying Complements
+
+A complement is a grammatical element that completes the meaning of a verb, adjective, or noun. Complements provide additional information that is necessary to fully understand the intended meaning of the sentence.
+
+| Identifier  | Type | Description                                              | Example |
+|-------------|------ | ----------------------------------------------------| ------ |
+| ccomp       | Clausal Complement | The "ccomp" label is used to indicate that a clause serves as the complement of a verb. In other words, it represents a subordinate clause that functions as an object of the main verb. | "She believes that he is honest." In this sentence, "that he is honest" is a clausal complement of the verb "believes." |
+| acomp        | Adjectival Complement | The "acomp" label is used to indicate that an adjective serves as the complement of a verb. It represents an adjective that modifies the subject of the clause. | "She seems happy." In this sentence, "happy" is an adjectival complement of the verb "seems."  |
+| xcomp        | Open Clausal Complement | The "xcomp" label is used to indicate an open clausal complement, which typically involves verbs that take infinitive clauses as complements. It represents an infinitive or gerund clause that serves as the complement of a verb. | "She likes to swim." In this sentence, "to swim" is an open clausal complement of the verb "likes."  |
+| attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun. | "The big house is beautiful." In this sentence, "big" is an attribute of the noun "house." |
+
+
+## Identifying Conjunctions
+
+A conjunction is a part of speech in grammar that serves as a connecting word or a link between words, phrases, clauses, or sentences. Conjunctions are used to establish relationships, connections, or logical links between different elements in a sentence or between multiple sentences. They help convey the flow of information and the relationships between various parts of a text.
+
+
+### Grammatical Classifications
+
+| Type  | Description                                              | Associated spacy identifier |
+|-------------|----------------------------------------------------------| -------------- |
+| Coordinating Conjunctions | Coordinating conjunctions are used to connect words, phrases, or clauses of equal grammatical rank. They are often remembered using the acronym "FANBOYS," which stands for "for," "and," "nor," "but," "or," "yet," and "so." These words help combine elements that are equally important within a sentence. | "cc"  |
+| Subordinating Conjunctions | Subordinating conjunctions are used to introduce dependent clauses (subordinate clauses) that cannot stand alone as complete sentences. They indicate a relationship of dependence or subordination between the main clause and the dependent clause. Common subordinating conjunctions include "because," "although," "while," "if," "when," "since," and "unless." | "mark" |
+| Correlative Conjunctions | Correlative conjunctions are pairs of words that work together to connect elements. They are used in pairs, and each word in the pair has a specific role. Common correlative conjunctions include "either...or," "neither...nor," "both...and," "not only...but also," and "whether...or."
+Example: "He can either take the train or drive to work." | In SpaCy the ext must be parsed to find token pairs with a specific syntactic structure |
+
+### SpaCy Dependencies for conjunctions
 
 | Dependency  | Description                                              |
 |-------------|----------------------------------------------------------|
@@ -578,3 +627,4 @@ The cake was delicious.
 - [Universal POS Tags](https://universaldependencies.org/u/pos/)
 - [Spacy Discussion Forum on GIT](https://github.com/explosion/spaCy/discussions)
 - [Verbix - A resource for verb conjugation](https://api.verbix.com/)
+- [English Clause Classifications](https://en.wikipedia.org/wiki/English_clause_element)

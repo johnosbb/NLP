@@ -1,7 +1,9 @@
 import spacy
 from spacy.tokens import Span, Doc
+from spacy.tokens.token import Token  # Import the Token type
 from spacy.matcher import Matcher
-from verbfinder import get_verb_chunks
+from typing import Union  # Import the Union type
+
 import libnlp as lnlp
 
 
@@ -35,97 +37,8 @@ text = (
     "The cake, which was baked by my sister, was delicious."
 )
 
-# Given an entity or token, find the complete span associated with it by finding its children
 
 
-def extract_span_from_entity(token):
-    children = []
-    # The .subtree attribute in spaCy includes not only the immediate children of the token but also all descendants,
-    # including the children of the children, and so on. It represents the entire subtree of the token in the syntactic parse tree.
-    for child in token.subtree:  # The subtree includes the token itself and all the tokens that are dependent on it, directly or indirectly, in the parse tree. This can be especially useful for extracting information associated with a specific word in a sentence or document.
-        children.append(child)
-    # This will sort the list of children based on the values returned by x.i. In other words, it will sort the children in ascending order of their positions in the document.
-    entity_subtree = sorted(children, key=lambda x: x.i)
-    extracted_span = Span(
-        token.doc, start=entity_subtree[0].i, end=entity_subtree[-1].i + 1)  # The -1 index is used to access the last element in the entity_subtree list, which represents the last token in the sorted subtree.
-    return extracted_span
-
-
-def find_determiners_for_noun(noun, doc):
-    for child in noun.children:
-        if(child.pos_ == "DET"):
-            return child
-    return None
-
-
-def find_parent_token_for_child(target_child, doc):
-    for token in doc:
-        for child in token.children:
-            if child == target_child:
-                return token
-    return None
-
-
-def find_subject_in_passive_construction(verb_span, doc):
-    # print(type(verb_span))
-    number_of_parts = len(verb_span)
-    if number_of_parts > 1:
-        for verb_part in verb_span:
-            print(f"verb part {verb_part.text}")
-            if(verb_part.tag_ == "VBN"):
-                parent = find_parent_token_for_child(verb_part, doc)
-                if(parent):
-                    if parent.dep_ == "nsubj":
-                        # now we find any determiners
-                        determiner = find_determiners_for_noun(parent, doc)
-                        if(determiner):
-                            parent_as_span = doc[determiner.i: parent.i + 1]
-                        else:
-                            parent_as_span = doc[parent.i: parent.i + 1]
-                        print(
-                            f"verb : {verb} has an active voice subject {parent_as_span}")
-                        return parent_as_span
-    return None
-
-
-def extract_subjects(verb, doc):
-    root = verb.root
-    while root:
-        if(root.children):
-            # Can we find subject at current level by looking for Nominal Subjects or a Passive Nominal Subjects?
-            for child in root.children:  # examine the children of the verb
-                # is it a Nominal Subject or a Passive Nominal Subject. Note: there are other less common dependencies that can indicate subjects:
-                # csubj (Clausal Subject): This label is used to identify clausal subjects, which are entire clauses that function as the subject of the main clause.
-                # expl (Expletive Subject): This label is used for expletive subjects, which are placeholders like "it" or "there" that don't have a clear referent.
-                # csubjpass (Clausal Subject in Passive): Similar to "csubj," this label is used to identify entire clauses that function as the subject in passive voice sentences.
-                if child.dep_ in ["nsubj", "nsubjpass"]:
-                    subject = extract_span_from_entity(child)
-                    if(child.dep_ == "nsubj"):
-                        print(
-                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject: [{subject}].")
-                    else:
-                        subject_in_passive_voice_construction = find_subject_in_passive_construction(
-                            verb, doc)
-                        if(subject_in_passive_voice_construction):
-                            print(
-                                f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a subject in passive voice construction: [{subject}].")
-                            return subject_in_passive_voice_construction
-                        else:
-                            print(
-                                f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
-                    return subject
-        else:
-            print(f"The verb [{verb}] has no children")
-        # If we cannot find children which are subjects then we recurse up one level in the sentence tree by looking for dependencies that point towards other clauses
-        if (root.dep_ in ["conj", "cc", "advcl", "acl", "ccomp", "auxpass"]
-                and root != root.head):
-            print(
-                f"The verb [{verb}] has a dependency [{root.dep_}] that indicates the presence of other clauses.")
-            root = root.head
-        else:  # we have a verb with no children or one whose children do not have a nominal or passive nominal subject and which does not appear to have other clauses
-            root = None
-
-    return None
 
 
 if __name__ == "__main__":
@@ -134,8 +47,8 @@ if __name__ == "__main__":
     doc = nlp(text)
     lnlp.show_sentence_parts(doc)
     print(f"Finding the subjects for the sentence: {text}")
-    verb_chunks = get_verb_chunks(doc)
-    for verb in verb_chunks:
+    verb_spans = lnlp.get_verb_spans(doc)
+    for verb in verb_spans:
         print(f"Finding the subjects for the verb: {verb}")
-        subject = extract_subjects(verb, doc)
+        subject = lnlp.extract_subjects(verb, doc)
         print(f"Verb: {verb}  Subject: {subject}")

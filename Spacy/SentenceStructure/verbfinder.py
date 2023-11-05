@@ -1,6 +1,9 @@
 import spacy
 from spacy.matcher import Matcher
 import libnlp as lnlp
+from spacy.tokens import Span, Doc
+from typing import Union  # Import the Union type
+
 
 text_examples = (
     "The author was staring pensively as she wrote."
@@ -57,17 +60,7 @@ def extract_verbs(doc):
         verbs.append((sent, verb_phrase))
     return verbs  # a list of verb matches
 
-# Extract a text representation of the spans from matches
 
-
-def get_verb_chunks(span):
-    matches = lnlp.get_verb_matches_for_span(span)
-    # Filter matches (e.g. do not have both "has walked" and "walked" in verbs)
-    verb_chunks = []
-    for match in [span[start:end] for _, start, end in matches]:
-        if match.root not in [vp.root for vp in verb_chunks]:
-            verb_chunks.append(match)
-    return verb_chunks
 
 
 
@@ -85,7 +78,7 @@ def method_1(doc):
         # verb_spans = extract_spans_from_match(sentence, filtered_matches)
         for verb_span in verb_spans:
             print(f"{sentence} : {verb_span.text}")
-    verb_chunks = get_verb_chunks(doc)
+    verb_chunks = lnlp.get_verb_spans(doc)
     for chunk in verb_chunks:
         print(f"Verb: {chunk}")
 
@@ -93,8 +86,7 @@ def method_1(doc):
 def method_2(doc):
     # doc could be a multi-sentence document
     for sent in doc.sents:
-        matches = lnlp.get_verb_matches_for_span(sent)
-        unique_matches = lnlp.get_unique_verb_phrases(sent)
+        unique_matches = lnlp.get_unique_verb_spans(sent)
         print(f"Sentence: {sent} Unique verb phrases: {unique_matches}")
 
 

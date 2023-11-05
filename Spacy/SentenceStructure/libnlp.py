@@ -6,7 +6,11 @@ import textacy as tx
 from spacy.matcher import Matcher
 import re
 from svgwrite import Drawing, rgb
+from spacy.tokens.token import Token  # Import the Token type
 import lemminflect
+from typing import Union,List  # Import the Union type
+
+
 
 verb_patterns_for_verb_phrases = [
     [{"POS": "AUX"}, {"POS": "VERB"}, {"POS": "ADP"}],
@@ -312,9 +316,95 @@ def show_sentence_structure(doc):
     print("-------------------------")
 
 
+
+# Find any determiners for the given noun and its associated doc object
+# In English, common examples of determiners include "the," "a," "an," "some," "my," "his," "her," "many," and "several."
+
+def find_determiners_for_noun(noun : Token, doc : Union [Doc,Span]) -> Token:
+    for child in noun.children:
+        if(child.pos_ == "DET"):
+            return child
+    return None
+
+
+# Given a child token, find that child's parent token
+def find_parent_token_for_child(target_child : Token, doc : Union [Doc,Span]) -> Token:
+    for token in doc:
+        for child in token.children:
+            if child == target_child:
+                return token
+    return None
+
+
+# Given a verb span and the associated doc object return the associated subject as a span
+def find_subject_in_passive_construction(verb_span : Span, doc : Doc) -> Span:
+    number_of_parts = len(verb_span)
+    if number_of_parts > 1:
+        for part in verb_span:
+            print(f"verb part {part.text}")
+            if(part.tag_ == "VBN"): # : It checks if the current part of the verb is a past participle verb form (typically used in passive constructions).
+                parent = find_parent_token_for_child(part, doc) #  find the parent token of the verb part in the dependency tree. This parent token is often related to the subject of the passive construction.
+                if(parent):
+                    if parent.dep_ == "nsubj": # It checks if the dependency label of the parent token is "nsubj," which is often used to label subjects in spaCy's dependency parsing.
+                        # now we find any determiners
+                        determiner = find_determiners_for_noun(parent, doc) # Are there any determiners associated with this noun?
+                        if(determiner):
+                            parent_as_span = doc[determiner.i: parent.i + 1] # If there are determiners we include those in the span
+                        else:
+                            parent_as_span = doc[parent.i: parent.i + 1]
+                        print(
+                            f"verb : {verb_span} has an active voice subject {parent_as_span}")
+                        return parent_as_span
+    return None
+
+
+
+# Given a document and a verb span, find the associated spans that represents the subject
+def extract_subjects(verb: Span, doc: Doc) -> Span:
+    root = verb.root
+    while root:
+        if(root.children):
+            # Can we find subject at current level by looking for Nominal Subjects or a Passive Nominal Subjects?
+            for child in root.children:  # examine the children of the verb
+                # is it a Nominal Subject or a Passive Nominal Subject. Note: there are other less common dependencies that can indicate subjects:
+                # csubj (Clausal Subject): This label is used to identify clausal subjects, which are entire clauses that function as the subject of the main clause.
+                # expl (Expletive Subject): This label is used for expletive subjects, which are placeholders like "it" or "there" that don't have a clear referent.
+                # csubjpass (Clausal Subject in Passive): Similar to "csubj," this label is used to identify entire clauses that function as the subject in passive voice sentences.
+                if child.dep_ in ["nsubj", "nsubjpass"]:
+                    subject = find_span_for_token(child)
+                    if(child.dep_ == "nsubj"):
+                        print(
+                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject: [{subject}].")
+                    else:
+                        subject_in_passive_voice_construction = find_subject_in_passive_construction(
+                            verb, doc)
+                        if(subject_in_passive_voice_construction):
+                            print(
+                                f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a subject in passive voice construction: [{subject}].")
+                            return subject_in_passive_voice_construction
+                        else:
+                            print(
+                                f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
+                    return subject
+        else:
+            print(f"The verb [{verb}] has no children")
+        # If we cannot find children which are subjects then we recurse up one level in the sentence tree by looking for dependencies that point towards other clauses
+        if (root.dep_ in ["conj", "cc", "advcl", "acl", "ccomp", "auxpass"]
+                and root != root.head):
+            print(
+                f"The verb [{verb}] has a dependency [{root.dep_}] that indicates the presence of other clauses.")
+            root = root.head
+        else:  # we have a verb with no children or one whose children do not have a nominal or passive nominal subject and which does not appear to have other clauses
+            root = None
+
+    return None
+
+
+
+
 # returns a matcher object meeting the verb criteria for the given span
 
-def get_verb_matches_for_span(span):
+def get_verb_matches_for_span(span: Span) -> Matcher:
     verb_matcher = Matcher(span.vocab)
     verb_matcher.add("Auxiliary verb phrase aux-adv-verb", [
         [{"POS": "AUX"}, {"POS": "ADV", "OP": "+"}, {"POS": "VERB"}]])
@@ -324,10 +414,18 @@ def get_verb_matches_for_span(span):
     verb_matcher.add("Verb phrase", [[{"POS": "VERB"}]],)
     return verb_matcher(span)
 
-
+# Extract a span representation of the verb phrases associated with the given span and return as a list of these verb phrases as Spans
+def get_verb_spans(span:  Union [Doc,Span]) -> list:
+    matches = get_verb_matches_for_span(span)
+    # Filter matches (e.g. do not have both "has walked" and "walked" in verbs)
+    verb_spans = []
+    for match in [span[start:end] for _, start, end in matches]:
+        if match.root not in [vp.root for vp in verb_spans]:
+            verb_spans.append(match)
+    return verb_spans
 
 # For a given sentence and an associated matches, return the spans associated with those matches
-def extract_spans_from_matches(sent, matches):
+def extract_spans_from_matches(sent : Span , matches : list) -> list:
     spans = []
     for match_id, start, end in matches:
         # Create a span from the match indices
@@ -337,6 +435,40 @@ def extract_spans_from_matches(sent, matches):
 
 
 
+
+
+
+# Given an entity or token, find the complete span associated with it by finding its children
+def find_span_for_token(token : Token) -> Span:
+    children = []
+    # The .subtree attribute in spaCy includes not only the immediate children of the token but also all descendants,
+    # including the children of the children, and so on. It represents the entire subtree of the token in the syntactic parse tree.
+    for child in token.subtree:  # The subtree includes the token itself and all the tokens that are dependent on it, directly or indirectly, in the parse tree. This can be especially useful for extracting information associated with a specific word in a sentence or document.
+        children.append(child)
+    # This will sort the list of children based on the values returned by x.i. In other words, it will sort the children in ascending order of their positions in the document.
+    entity_subtree = sorted(children, key=lambda x: x.i)
+    extracted_span = Span(
+        token.doc, start=entity_subtree[0].i, end=entity_subtree[-1].i + 1)  # The -1 index is used to access the last element in the entity_subtree list, which represents the last token in the sorted subtree.
+    return extracted_span
+
+
+# Finds a matching child for a given span based on a list of allowed types
+def find_matching_child_span(root: Token, allowed_types: list)-> Span:
+    for token in root.children:
+        print(f"Root: {root} - Child Token : {token} Child Token Dependency : {token.dep_}")
+        if token.dep_ in allowed_types:
+            return find_span_for_token(token)
+    return None
+
+
+def find_object_as_span_for_token(root: Token) -> Span:
+    return find_matching_child_span(root, ["dobj", "dative"])
+    
+    
+def find_compliment_as_span_for_token(root: Token) -> Span:
+    complement = find_matching_child_span(
+    root, ["ccomp", "acomp", "xcomp", "attr"]    )
+    return complement
 
 def check_if_span_is_subspan(span_to_check, existing_spans):
     for span in existing_spans:
@@ -351,10 +483,10 @@ def check_if_span_is_subspan(span_to_check, existing_spans):
     return False
 
 
-# This will create a unique list of verb chunks (spans). It filters out any redundancy due to the use of auxiliary verbs for example
+# This will create a unique list of verb phrases (spans). It filters out any redundancy due to the use of auxiliary verbs for example
 # if a span has the same root as a previous span we do not add it
 # This does not return unique verb phrases in all cases, it return "has" and "has eaten", I assume we only want one of these.
-def get_unique_verb_phrases(span):
+def get_unique_verb_spans(span: Span) -> List[Span]:
     matches = get_verb_matches_for_span(span)
     verb_spans = []
     # we filter them to ensure they are unique
@@ -402,8 +534,9 @@ def get_clause_token_span_for_verb(verb, doc, all_verbs):
                 last_token_index = child.i
     return(first_token_index, last_token_index)
 
-# The verb with a dependency of ROOT. The top of the syntactic tree
 
+
+# The verb with a dependency of ROOT. The top of the syntactic tree
 
 def find_root_of_sentence(doc):
     root_token = None

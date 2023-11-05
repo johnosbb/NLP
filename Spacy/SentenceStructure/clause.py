@@ -10,6 +10,27 @@ import libnlp as lnlp
 # DO NOT SET MANUALLY
 MOD_CONSERVATIVE = False
 
+# "non_ext_copular" - This category contains words that are typically used as non-extended copular verbs. In English, copular verbs are often used to link the subject of a sentence with a subject complement (e.g., "She is happy"). The words in this list, like "die" and "walk," are often not used in this way and are not extended copular verbs.
+# "ext_copular" - This category contains words that can function as extended copular verbs. Extended copular verbs are used to link the subject of a sentence with a subject complement. They include common verbs like "be," "become," and "seem." These words are often used in sentences like "She became a doctor."
+dictionary = {
+    "non_ext_copular": ["die", "walk"],
+    "ext_copular": [
+        "act", "appear", "be", "become", "come", "come out", "end up",
+        "get", "go", "grow", "fall", "feel", "keep", "leave", "look",
+        "prove", "remain", "seem", "smell", "sound", "stay", "taste",
+        "turn", "turn up", "wind up", "live", "come", "go", "stand",
+        "lie", "love", "do", "try"
+    ],
+    "complex_transitive": [
+        "bring", "catch", "drive", "get", "keep", "lay", "lead", "place",
+        "put", "set", "sit", "show", "stand", "slip", "take"
+    ],
+    "adverbs_ignore": ["so", "then", "thus", "why", "as", "even"],
+    "adverbs_include": [
+        "hardly", "barely", "scarcely", "seldom", "rarely"
+    ]
+}
+
 
 class Clause:
     def __init__(
@@ -57,6 +78,19 @@ class Clause:
         self.doc = self.subject.doc
 
         self.type = self._get_clause_type()
+        
+        
+# """
+# | Identifier  | Type | Description                                              | Example |
+# |-------------|------ | ----------------------------------------------------| ------ |
+# | SVC         | Subject-Verb-Clause | This type of clause consists of a subject and a copular (linking) verb, such as "be," "seem," "appear," etc. It typically doesn't have a direct object. | "She is a doctor." |
+# | SVO       | Subject-Verb-Object | This type of clause contains a subject, a transitive verb, and a direct object. It represents an action performed by the subject on the object. | "She eats an apple." |
+# | SVOO       | Subject-Verb-Object-Object| This type of clause includes a subject, a transitive verb, and both a direct object and an indirect object. | "She gives the book to him." |
+# | SVOC      | Subject-Verb-Object-Complement | In this clause, the subject performs an action (verb) on the direct object, and there's a complement that provides additional information about the object. | "She painted the room blue." |
+# | SVA      | Subject-Verb-Adverbial| This type of clause includes a subject, a verb, and an adverbial phrase that provides additional information about the action. | "She runs quickly."  |
+# | SVOA      | Subject-Verb-Object-Adverbial | This clause combines a subject, a transitive verb, a direct object, and an adverbial phrase. | "She eats an apple slowly."  |
+# | SVOA      | Subject-Verb | clause type represents a simple sentence structure that contains a subject and a verb but does not have a direct object.  | "She sings."  |
+# """
 
     def _get_clause_type(self):
         has_verb = self.verb is not None
@@ -79,29 +113,29 @@ class Clause:
         clause_type = "undefined"
 
         if not has_verb:
-            clause_type = "SVC"
+            clause_type = "SVC" # SVC: Subject-Verb-Clause
             return clause_type
 
         if has_object:
             if has_direct_object and has_indirect_object:
-                clause_type = "SVOO"
+                clause_type = "SVOO" # Subject-Verb-Object-Object
             elif has_complement:
-                clause_type = "SVOC"
+                clause_type = "SVOC"  # Subject-Verb-Object-Complement 
             elif not has_adverbial or not has_direct_object:
-                clause_type = "SVO"
+                clause_type = "SVO" # Subject-Verb-Object
             elif complex_transitive or conservative:
-                clause_type = "SVOA"
+                clause_type = "SVOA" # Subject-Verb-Object-Adverbial
             else:
-                clause_type = "SVO"
+                clause_type = "SVO" # Subject-Verb-Object
         else:
             if has_complement:
-                clause_type = "SVC"
+                clause_type = "SVC" # ubject-Verb-Clause
             elif not has_adverbial or has_non_ext_copular_verb:
-                clause_type = "SV"
+                clause_type = "SV" # Subject-Verb
             elif has_ext_copular_verb or conservative:
-                clause_type = "SVA"
+                clause_type = "SVA" # Subject-Verb-Adverbial
             else:
-                clause_type = "SV"
+                clause_type = "SV" # Subject-Verb
 
         return clause_type
 

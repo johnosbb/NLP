@@ -540,12 +540,14 @@ In grammar, "objects" refer to specific elements or constituents in a sentence t
 
 #### Direct Object
 
-A direct object is a noun, pronoun, or noun phrase that receives the action of a transitive verb (a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object). In other words, it answers the question "what" or "whom" with regard to the action expressed by the verb. Direct objects are typically found in sentences with transitive verbs.
+A direct object is a noun, pronoun, or noun phrase that receives the action of a __transitive verb__ (a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object). In other words, it answers the question "what" or "whom" with regard to the action expressed by the verb. Direct objects are typically found in sentences with transitive verbs.
+
 __Example:__ In the sentence "She ate the apple," "the apple" is the direct object because it receives the action of the verb "ate."
 
 #### Indirect Object
 
-An indirect object is a noun, pronoun, or noun phrase that indicates the recipient or beneficiary of an action in a sentence. It answers the question "to whom" or "for whom" the action is performed. Indirect objects are commonly found in sentences with ditransitive verbs (Ditransitive verbs, also known as double-object verbs, are a subset of transitive verbs that require both a direct object and an indirect object to complete their meaning in a sentence), which are verbs that take both a direct and an indirect object.
+An indirect object is a noun, pronoun, or noun phrase that indicates the recipient or beneficiary of an action in a sentence. It answers the question "to whom" or "for whom" the action is performed. Indirect objects are commonly found in sentences with __ditransitive verbs__ (ditransitive verbs, also known as double-object verbs, are a subset of transitive verbs that require both a direct object and an indirect object to complete their meaning in a sentence), which are verbs that take both a direct and an indirect object.
+
 __Example:__ In the sentence "She gave John a book," "John" is the indirect object because he receives the book, which is the direct object.
 
 ## Identifying Complements

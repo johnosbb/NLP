@@ -377,7 +377,7 @@ The first of these rules:
 [[{"POS": "AUX"}, {"POS": "ADV", "OP": "+"}, {"POS": "VERB"}]]
 ```
 
-Matches the following: 
+Matches the following:
 
 ```txt
 An auxiliary verb (POS: "AUX") followed by one or more adverbs (POS: "ADV") with the "+" operator (indicating one or more), followed by a main verb (POS: "VERB").
@@ -513,6 +513,20 @@ Verb: went  Subject: he
 We can see this diagrammatically by looking at the dependency diagram and following the dependency arrows (shown in red) from the verbs (shown in blue) to the subjects (shown in green)
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/example_sentence_annotated.png)
+
+
+
+#### SpaCy Subject Dependencies
+
+| Identifier  | Type | Description                                    | Comments          | Example |
+|-------------|------ | ----------------------------------------------------| ------ | ------ |
+| nsubj        | Nominal Subject | This label is used for nominal subjects in active voice sentences. It represents the noun or noun phrase that serves as the subject of the sentence. |  | "The cat [nsubj] chased the mouse." |
+| nsubjpass        | Nominal Subject in Passive Voice |   | This label is used for nominal subjects in passive voice sentences. It represents the noun or noun phrase that serves as the subject in a passive construction. |    | "The mouse [nsubjpass] was chased by the cat."  |
+| csubj        | Clausal Subject | This label is used to represent clausal subjects. It indicates that the subject of the sentence is a subordinate (dependent) clause. |   | "What he said [csubj] surprised everyone."  |
+| csubjpass        | Clausal Subject in Passive Voice | Similar to "csubj," this label is used for clausal subjects in passive voice sentences. |   | "What was said [csubjpass] remains a mystery." |
+| expl        | Expletive Subject | The "expl" label is used for expletive subjects, which are words like "there" or "it" that serve as a placeholder subject in sentences. They do not carry specific meaning. |   | "There [expl] is a book on the table." |
+| nsubj:pass         | Passive Nominal Subject | This label is used for nominal subjects in passive constructions, particularly when the sentence structure allows for more detailed analysis. | If you need to work with specific subject variations like "nsubj:pass" you may need to implement custom logic in your code to recognize and handle these cases based on the broader dependency labels provided by spaCy and additional context.   | "There [expl] is a book on the table." |
+| nsubj:poss         | Possessive Nominal Subject | This label is used for nominal subjects that are possessive in nature. It indicates the subject of a possessive construction. |  If you need to work with specific subject variations like "nsubj:poss," you may need to implement custom logic in your code to recognize and handle these cases based on the broader dependency labels provided by spaCy and additional context.  | "John's [nsubj:poss] car is red." |
 
 
 #### A More Complex Example

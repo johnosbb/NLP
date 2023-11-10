@@ -460,7 +460,7 @@ __Examples__:
 - __The meal__ (passive nominal subject) is cooked (passive verb) by the chef (agent).
 
 If the verb has no children, or if its children do not have dependencies of type nsubj and nsubjpass, then we must move up the tree and continue our search. 
-The code for a general approach to finding verbs using Python and SpaCy is provided [here](./finding_subjects.py)
+The code for a general approach to finding subjects using Python and SpaCy is provided [here](./finding_subjects.py)
 
 For our example sentence we get the following:
 

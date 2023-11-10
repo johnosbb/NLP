@@ -438,7 +438,7 @@ def extract_spans_from_matches(sent : Span , matches : list) -> list:
 
 
 
-# Given an entity or token, find the complete span associated with it by finding its children
+# Given an entity or token, find the complete span associated with it by finding its children - originally extract_span_from_entity
 def find_span_for_token(token : Token) -> Span:
     children = []
     # The .subtree attribute in spaCy includes not only the immediate children of the token but also all descendants,
@@ -455,7 +455,7 @@ def find_span_for_token(token : Token) -> Span:
 # Finds a matching child for a given span based on a list of allowed types
 def find_matching_child_span(root: Token, allowed_types: list)-> Span:
     for token in root.children:
-        print(f"Root: {root} - Child Token : {token} Child Token Dependency : {token.dep_}")
+        #print(f"Root: {root} - Child Token : {token} Child Token Dependency : {token.dep_}")
         if token.dep_ in allowed_types:
             return find_span_for_token(token)
     return None

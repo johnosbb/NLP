@@ -189,7 +189,7 @@ def show_sentence_parts_as_md(doc):
 # It sorts the children list by their positions (token.i is the position of the token in the document) to ensure they are in the correct order.
 # It creates a list called entities to store extracted conjoined noun phrases.
 # Initially, it contains a single Span object that spans from the start position of the first child to the end position of the last child.
-# Next, it checks if there are any children of the token with the dependency label "conj" (conjunction).
+# Next, it checks if there are any children of the token with the dependency label "conj" (conjunct).
 # If such children are found, it recursively calls the extract_ccs_from_token function on those children
 # and appends the resulting entities to the current list.
 # Finally, it returns the list of extracted conjoined noun phrases (entities).

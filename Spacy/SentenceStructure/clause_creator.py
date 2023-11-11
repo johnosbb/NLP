@@ -11,6 +11,7 @@ if __name__ == "__main__":
     sentence = nlp(
         "The boy has walked to the school and has eaten his lunch.")
     sentence = nlp("The cat and the dog are playful, and the bird is singing on the tree.")
+    sentence = nlp("The red car sped down the highway.")
     # sentence = nlp(
     #     "The boy walked to the school, ate his lunch and then had taken a nap.")
     # sentence = nlp( "She considers him a friend.")

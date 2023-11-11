@@ -170,7 +170,7 @@ def show_sentence_parts_as_md(doc):
         ancestors = ' '.join([t.text for t in token.ancestors])
         # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
         children = ' '.join([t.text for t in token.children])
-        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12}".format(
+        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12} |".format(
             token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text))
 
 # extract_ccs_from_token
@@ -179,32 +179,40 @@ def show_sentence_parts_as_md(doc):
 # the structure of sentences and clauses.
 # Coordinating conjunctions play a role in coordinating or joining elements with similar grammatical functions within a sentence.
 # How this function works:
-# It starts by checking the part-of-speech (POS) tag of the token. If the POS tag is one of ["NOUN", "PROPN", "ADJ"], it considers the token and its children to potentially form a conjoined noun phrase. These are typically words like nouns, proper nouns, or adjectives that can be part of a noun phrase.
-# It creates an initial list called children, which includes the current token. It then iterates through the token's children (dependencies) and filters them based on their dependency labels (dep_). It only includes children with dependency labels ["advmod", "amod", "det", "poss", "compound"], which are typically modifiers, determiners, possessives, or compound words that can be part of a noun phrase.
+# It starts by checking the part-of-speech (POS) tag of the token. If the POS tag is one of ["NOUN", "PROPN", "ADJ"],
+# it considers the token and its children to potentially form a conjoined noun phrase.
+# These are typically words like nouns, proper nouns, or adjectives that can be part of a noun phrase.
+# It creates an initial list called children, which includes the current token.
+# It then iterates through the token's children (dependencies) and filters them based on their dependency labels (dep_).
+# It only includes children with dependency labels ["advmod", "amod", "det", "poss", "compound"],
+# which are typically modifiers, determiners, possessives, or compound words that can be part of a noun phrase.
 # It sorts the children list by their positions (token.i is the position of the token in the document) to ensure they are in the correct order.
-# It creates a list called entities to store extracted conjoined noun phrases. Initially, it contains a single Span object that spans from the start position of the first child to the end position of the last child.
-# Next, it checks if there are any children of the token with the dependency label "conj" (conjunction). If such children are found, it recursively calls the extract_ccs_from_token function on those children and appends the resulting entities to the current list.
+# It creates a list called entities to store extracted conjoined noun phrases.
+# Initially, it contains a single Span object that spans from the start position of the first child to the end position of the last child.
+# Next, it checks if there are any children of the token with the dependency label "conj" (conjunction).
+# If such children are found, it recursively calls the extract_ccs_from_token function on those children
+# and appends the resulting entities to the current list.
 # Finally, it returns the list of extracted conjoined noun phrases (entities).
 
 
-def extract_ccs_from_token(token):
+def extract_ccs_from_token(token: Token )-> Span:
     if token.pos_ in ["NOUN", "PROPN", "ADJ"]:
         children = sorted(
             [token]
             + [
                 c
                 for c in token.children
-                if c.dep_ in ["advmod", "amod", "det", "poss", "compound"]
+                if c.dep_ in ["advmod", "amod", "det", "poss", "compound"] # If we are dealing with a noun or adjective then we are only interested in children with dependency labels ["advmod", "amod", "det", "poss", "compound"] which are typically modifiers, determiners, possessives, or compound words that can be part of a noun phrase.
             ],
             key=lambda x: x.i,
         )
         entities = [Span(token.doc, start=children[0].i,
                          end=children[-1].i + 1)]
     else:
-        entities = [Span(token.doc, start=token.i, end=token.i + 1)]
+        entities = [Span(token.doc, start=token.i, end=token.i + 1)] # if it is not a noun or adjective, the span is simply the token
     for c in token.children:
-        if c.dep_ == "conj":
-            entities += extract_ccs_from_token(c)
+        if c.dep_ == "conj": # In spaCy, the "conj" dependency label is used to indicate a conjunct in a coordinated structure, for example "The cat and the Dog"
+            entities += extract_ccs_from_token(c) # if a noun has a child with a dependency "conj" then we also need to analyse its conjunct.
     return entities
 
 

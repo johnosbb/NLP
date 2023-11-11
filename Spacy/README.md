@@ -577,9 +577,54 @@ A conjunction is a part of speech in grammar that serves as a connecting word or
 
 | Dependency  | Description                                              |
 |-------------|----------------------------------------------------------|
-| "conj"      | Indicates coordination, connecting words, phrases, or clauses of the same grammatical type. |
 | "cc"        | Identifies coordinating conjunctions connecting elements of equal grammatical importance. |
 | "mark"      | Subordinating conjunctions are used to introduce dependent clauses |
+
+### Conjuncts in Spacy
+
+In spaCy, the "conj" dependency label is used to indicate a conjunct in a coordinated structure.
+
+| Dependency  | Description                                              |
+|-------------|----------------------------------------------------------|
+| "conj"      | Indicates coordination, connecting words, phrases, or clauses of the same grammatical type. |
+
+Consider the sentence:
+
+```txt
+The cat and the dog are playful, and the bird is singing on the tree.
+```
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head  
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- |
+| The          | 0      | DET      | DT       | det      | determiner               | cat are              |            |  cat          |
+| cat          | 1      | NOUN     | NN       | nsubj    | nominal subject          | are                  | The and dog |  are          |
+| and          | 2      | CCONJ    | CC       | cc       | coordinating conjunction | cat are              |            |  cat          |
+| the          | 3      | DET      | DT       | det      | determiner               | dog cat are          |            |  dog          |
+| dog          | 4      | NOUN     | NN       | conj     | conjunct                 | cat are              | the        |  cat          |
+| are          | 5      | AUX      | VBP      | ROOT     | root                     |                      | cat playful , and singing |  are          |
+| playful      | 6      | ADJ      | JJ       | acomp    | adjectival complement    | are                  |            |  are          |
+| ,            | 7      | PUNCT    | ,        | punct    | punctuation              | are                  |            |  are          |
+| and          | 8      | CCONJ    | CC       | cc       | coordinating conjunction | are                  |            |  are          |
+| the          | 9      | DET      | DT       | det      | determiner               | bird singing are     |            |  bird         |
+| bird         | 10     | NOUN     | NN       | nsubj    | nominal subject          | singing are          | the        |  singing      |
+| is           | 11     | AUX      | VBZ      | aux      | auxiliary                | singing are          |            |  singing      |
+| singing      | 12     | VERB     | VBG      | conj     | conjunct                 | are                  | bird is on . |  are          |
+| on           | 13     | ADP      | IN       | prep     | prepositional modifier   | singing are          | tree       |  singing      |
+| the          | 14     | DET      | DT       | det      | determiner               | tree on singing are  |            |  tree         |
+| tree         | 15     | NOUN     | NN       | pobj     | object of preposition    | on singing are       | the        |  on           |
+| .            | 16     | PUNCT    | .        | punct    | punctuation              | singing are          |            |  singing      |
+
+
+In this sentence, "dog" has a dependency label of "conj" because it is bound to cat via a conjunction "and".
+
+
+
+## Propositions
+
+In linguistics, especially in the study of syntax, a proposition refers to the meaning or semantic content that a sentence conveys. It is the information or message that the speaker is trying to convey through the sentence. A proposition can be thought of as the underlying meaning that is independent of the specific words used or the grammatical structure of the sentence.
+
+Extracting propositions is an important part of NLP and semantic analysis.
+
+
 
 ## Entending SpaCy
 

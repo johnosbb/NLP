@@ -164,7 +164,7 @@ def show_sentence_parts_as_md(doc):
     print(doc)
     print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} | {:<12}".format(
         'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children', 'Token Head'))
-    print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- |")
+    print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- |")
     for token in doc:
         # the term "ancestors" refers to the set of nodes that are higher in the parse tree hierarchy and lead to the current token or span of tokens.
         ancestors = ' '.join([t.text for t in token.ancestors])
@@ -250,7 +250,34 @@ def find_grammatical_person(token):
     else:
         return None
 
-
+# This function is designed to inflect (change the form of) a verb token based on a specified inflection,
+# but it applies some conditions to determine whether the inflection should be applied.
+# It checks if inflect is True.
+# It checks if the part-of-speech (POS) tag of the token is "VERB," indicating that it's a verb.
+# It checks that the token is not preceded by an auxiliary verb.
+# This is done by examining the POS tags of the token's left children (token.lefts)
+# and ensuring that there are no tokens with the POS tag "AUX" in the left children.
+# It checks that the dependency label of the token is not "pcomp."
+# This last check to exclude cases where the token is part of a prepositional complement (pcomp) structure.
+# In English grammar, a prepositional complement is a phrase that follows a preposition and typically provides additional information about the verb.
+# verbs within prepositional complements may not need or should not undergo the same inflection.
+# Changing the form of a verb within a prepositional complement could result in grammatically incorrect or unnatural sentences.
+# By excluding tokens with the dependency label "pcomp," the function is more likely to focus on inflecting main verbs,
+# which are the core verbs that convey the primary action or state of the sentence. These are the verbs that are typically
+# inflected to match the subject and tense of the sentence
+def inflect_token(token, inflect):
+    if (
+        inflect
+        and token.pos_ == "VERB"
+        and "AUX" not in [tt.pos_ for tt in token.lefts]
+        # t is not preceded by an auxiliary verb (e.g. `the birds were ailing`)
+        and token.dep_ != "pcomp"
+    ):  # t `dreamed of becoming a dancer`
+        return str(token._.inflect(inflect))
+    else:
+        return str(token)
+    
+    
 def convert_to_past_tense(nlp, doc):
     new_sentence = []
     nominal_subject = None
@@ -269,7 +296,7 @@ def convert_to_past_tense(nlp, doc):
             new_sentence.append(past_form)
         # this is acting as an auxiliary verb to another verb
         elif token.dep_.upper() == "AUX" and token.head.pos_ == "VERB":
-            past_form = token._.inflect('VBD')
+            past_form = token._.inflect('VBD') # Verb, past tense.
             if(nominal_subject):
                 if(token.text == "are" and find_grammatical_person(nominal_subject) != "FPS"):
                     past_form = "were"
@@ -279,7 +306,7 @@ def convert_to_past_tense(nlp, doc):
             new_sentence.append(token._.inflect('VBD'))
         # VBG is a gerund, if it is a gerund we should leave it in gerund form
         elif(token.pos_.upper() == "VERB" and token.dep_ == "ROOT" and token.tag_ != "VBG"):
-            new_sentence.append(token._.inflect('VBD'))
+            new_sentence.append(token._.inflect('VBD')) # Verb, past tense.
         else:
             new_sentence.append(token.text)
     new_doc = nlp(" ".join(new_sentence))
@@ -397,7 +424,7 @@ def extract_subjects(verb: Span, doc: Doc) -> Span:
         else:
             print(f"The verb [{verb}] has no children")
         # If we cannot find children which are subjects then we recurse up one level in the sentence tree by looking for dependencies that point towards other clauses
-        if (root.dep_ in ["conj", "cc", "advcl", "acl", "ccomp", "auxpass"]
+        if (root.dep_ in ["conj", "cc", "advcl", "acl", "ccomp", "pcomp","auxpass"]
                 and root != root.head):
             print(
                 f"The verb [{verb}] has a dependency [{root.dep_}] that indicates the presence of other clauses.")

@@ -4,6 +4,27 @@ from spacy.matcher import Matcher
 from verbfinder import get_verb_chunks
 import libnlp as lnlp
 
+# ## Credits
+# This is based on a re-implementation by Emmanouil Theofanis Chourdakis of original research work (and also the dictionaries) is attributed to Luciano Del Corro
+# and Rainer Gemulla. If you use it in your code please note that there are slight modifications in the code in order to make it work with the spacy dependency parser, and also cite:
+# ```
+# Del Corro Luciano, and Rainer Gemulla: "Clausie: clause-based open information extraction." 
+# Proceedings of the 22nd international conference on World Wide Web. ACM, 2013.
+# ```
+
+# It would be helpful to also cite this specific implementation if you are using it:
+# ```
+# @InProceedings{chourdakis2018grammar,
+# author = {Chourdakis, E.T and Reiss, J.D.},
+# title = {Grammar Informed Sound Effect Retrieval for Soundscape Generation},
+# booktitle = {DMRN+ 13: Digital Music Research Network One-day Workshop},
+# month = {November},
+# year = {2018},
+# address = {London, UK},
+# pages={9}
+# }
+
+
 
 text_examples = (
     "The author was staring pensively as she wrote."

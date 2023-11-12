@@ -7,6 +7,30 @@ from spacy.tokens import Span, Doc
 from spacy.matcher import Matcher
 import libnlp as lnlp
 
+
+
+# ## Credits
+# This is based on a re-implementation by Emmanouil Theofanis Chourdakis of original research work (and also the dictionaries) is attributed to Luciano Del Corro
+# and Rainer Gemulla. If you use it in your code please note that there are slight modifications in the code in order to make it work with the spacy dependency parser, and also cite:
+# ```
+# Del Corro Luciano, and Rainer Gemulla: "Clausie: clause-based open information extraction." 
+# Proceedings of the 22nd international conference on World Wide Web. ACM, 2013.
+# ```
+
+# It would be helpful to also cite this specific implementation if you are using it:
+# ```
+# @InProceedings{chourdakis2018grammar,
+# author = {Chourdakis, E.T and Reiss, J.D.},
+# title = {Grammar Informed Sound Effect Retrieval for Soundscape Generation},
+# booktitle = {DMRN+ 13: Digital Music Research Network One-day Workshop},
+# month = {November},
+# year = {2018},
+# address = {London, UK},
+# pages={9}
+# }
+
+
+
 # DO NOT SET MANUALLY
 MOD_CONSERVATIVE = False
 
@@ -74,9 +98,10 @@ class Clause:
         self.direct_object = direct_object
         self.complement = complement
         self.adverbials = adverbials
-
-        self.doc = self.subject.doc
-
+        if(self.subject):
+            self.doc = self.subject.doc
+        else:
+            self.doc = None
         self.type = self._get_clause_type()
         
         
@@ -235,7 +260,7 @@ class Clause:
 
                 token_texts = []
                 for token in span:
-                    token_texts.append(inflect_token(token, inflect))
+                    token_texts.append(lnlp.inflect_token(token, inflect))
 
                 span_texts.append(" ".join(token_texts))
             proposition_texts.append(" ".join(span_texts))

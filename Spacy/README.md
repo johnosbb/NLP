@@ -18,7 +18,7 @@ Finally SpaCy provides pre-trained word vectors (word embeddings) that capture s
 
 ## Glossary
 
-[See Here](https://github.com/johnosbb/NLP/blob/main/Spacy/glossary.md)
+[See Here](./glossary.md)
 
 ## Tokens
 

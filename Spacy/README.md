@@ -18,13 +18,7 @@ Finally SpaCy provides pre-trained word vectors (word embeddings) that capture s
 
 ## Glossary
 
-| Term | Meaning |
-| ---- | ---- |
-| Lemma | In linguistics and natural language processing (NLP), a "lemma" refers to the base or dictionary form of a word. It is the canonical or citation form of a word, from which all its inflected forms (such as different verb conjugations or noun declensions) are derived. |
-| Nominal subject | In the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. |
-| Dependency labels |  Dependency labels in SpaCy represent different types of grammatical relationships and structures within sentences. They are all related to how words and phrases are connected and function in the syntax of a sentence.
-| Ditransitive verbs | Also known as double-object verbs, are a subset of transitive verbs that require both a direct object and an indirect object to complete their meaning in a sentence. |
-| Transitive verbs | a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object. |
+[See Here](https://github.com/johnosbb/NLP/blob/main/Spacy/glossary.md)
 
 ## Tokens
 
@@ -648,3 +642,6 @@ Extracting propositions is an important part of NLP and semantic analysis.
 - [Spacy Discussion Forum on GIT](https://github.com/explosion/spaCy/discussions)
 - [Verbix - A resource for verb conjugation](https://api.verbix.com/)
 - [English Clause Classifications](https://en.wikipedia.org/wiki/English_clause_element)
+- [Bracketing Guidelines for Treebank II Style Penn Treebank Pro ject 1](https://www.ldc.upenn.edu/sites/www.ldc.upenn.edu/files/penn-etb-2-style-guidelines.pdf)
+- [Extracting Subject, Predicate, Conditional, Prepositional Clauses with a Spacy Trained Model](https://github.com/explosion/spaCy/discussions/13125)
+- [Constituency Parsing with a Self-Attentive Encoder](https://aclanthology.org/P18-1249.pdf)

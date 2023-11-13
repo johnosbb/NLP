@@ -1,0 +1,13 @@
+# Glossary
+
+| Term | Meaning |
+| ---- | ---- |
+| Dependency labels |  Dependency labels in SpaCy represent different types of grammatical relationships and structures within sentences. They are all related to how words and phrases are connected and function in the syntax of a sentence. |
+| Ditransitive verbs | Also known as double-object verbs, are a subset of transitive verbs that require both a direct object and an indirect object to complete their meaning in a sentence. |
+| Lemma | In linguistics and natural language processing (NLP), a "lemma" refers to the base or dictionary form of a word. It is the canonical or citation form of a word, from which all its inflected forms (such as different verb conjugations or noun declensions) are derived. |
+| LSTM | Long Short-Term Memory (LSTM) is a type of recurrent neural network (RNN) architecture, commonly used for sequential data processing. LSTM networks are designed to address the vanishing gradient problem associated with traditional RNNs, allowing them to capture long-range dependencies in sequential data.  |
+| Nominal subject | In the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. |
+| Predicate | The predicate is the part of the sentence that tells what the subject is doing or what is happening to the subject. It can be simple, consisting only of a verb, or it can include objects, complements, and other modifiers. | 
+| RNN | A Recurrent Neural Network (RNN) is a type of artificial neural network designed for sequential data processing and prediction. Unlike traditional feedforward neural networks, which process inputs in a fixed and unchanging order, RNNs have connections that form directed cycles. This cyclic architecture allows them to maintain a hidden state, which can capture information about previous inputs in the sequence. The key feature of RNNs is their ability to maintain a hidden state that evolves over time as new inputs are processed. This hidden state serves as a kind of memory, enabling the network to capture dependencies and information from earlier parts of the sequence. This makes RNNs particularly well-suited for tasks involving sequential or time-series data. |
+| Subject | The subject is the person, place, thing, or idea that the sentence is about. It is often a noun or pronoun. For example, in the sentence "The cat is sleeping," "The cat" is the subject |
+| Transitive verbs | a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object. |

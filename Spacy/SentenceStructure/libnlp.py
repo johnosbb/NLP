@@ -9,7 +9,8 @@ from svgwrite import Drawing, rgb
 from spacy.tokens.token import Token  # Import the Token type
 import lemminflect
 from typing import Union,List  # Import the Union type
-
+from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve,auc
+import matplotlib.pyplot as plt
 
 
 verb_patterns_for_verb_phrases = [
@@ -18,7 +19,39 @@ verb_patterns_for_verb_phrases = [
     [{"POS": "VERB"}]
 ]
 
+# Assuming y_true and y_score are your PyTorch tensors
+# y_true contains true labels (0 or 1)
+# y_score contains predicted scores or probabilities
+# True Positive Rate: TPR= True Positives/ (False Negatives + True Positives)
+# The True Positive Rate measures the proportion of actual positive instances that are correctly predicted as positive.
+# It is also known as Sensitivity or Recall.
+# False Positive Rate: # FPR = False Positives/ (False Positives + True Negatives)
+# The False Positive Rate measures the proportion of actual negative instances that are incorrectly predicted as positive.
 
+def plot_roc(y_true,y_score):
+    # Convert PyTorch tensors to NumPy arrays if required
+    # y_true_np = y_true.cpu().numpy()
+    # y_score_np = y_score.cpu().numpy()
+
+    # Compute ROC curve and ROC area for each class
+    fpr, tpr, _ = roc_curve(y_true, y_score)
+    roc_auc = auc(fpr, tpr)
+
+    # Plot the ROC curve
+    plt.figure()
+    plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = {:.2f})'.format(roc_auc))
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver Operating Characteristic (ROC) Curve')
+    plt.legend(loc='lower right')
+    #plt.show()
+    plt.savefig('roc_plot.svg', format='svg')
+    
+    
+    
 def contains_root(verb_phrase, root):
     vp_start = verb_phrase.start  # get the start
     vp_end = verb_phrase.end  # and end of the phrase

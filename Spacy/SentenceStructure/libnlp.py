@@ -195,17 +195,29 @@ def show_sentence_parts(doc):
 
 def show_sentence_parts_as_md(doc):
     print(doc)
-    print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} | {:<12}".format(
-        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children', 'Token Head'))
-    print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- |")
+    print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} | {:<12} | {:<12} |".format(
+        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children', 'Token Head' , 'Sub Tree'))
+    print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |")
     for token in doc:
         # the term "ancestors" refers to the set of nodes that are higher in the parse tree hierarchy and lead to the current token or span of tokens.
         ancestors = ' '.join([t.text for t in token.ancestors])
         # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
         children = ' '.join([t.text for t in token.children])
-        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12} |".format(
-            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text))
+        subtree = ' '.join([t.text for t in token.subtree]) 
+        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12} |  {:<12} |".format(
+            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text, subtree))
 
+
+def find_subtree_for_token(target_token: Token,doc: Doc)-> List:
+    subtree= []
+    for token in doc:
+        for element in token.subtree:
+            print(f"subtree function: Token: {token} {element}")
+        if(target_token.is_ancestor(token) or (token == target_token)):
+            subtree.append(token)
+    return subtree        
+            
+            
 # extract_ccs_from_token
 # ccs = Coordinating Conjunctions
 # In linguistic analysis, identifying coordinating conjunctions and understanding their usage is important for parsing and interpreting
@@ -527,6 +539,17 @@ def find_matching_child_span(root: Token, allowed_types: list)-> Span:
         if token.dep_ in allowed_types:
             return find_span_for_token(token)
     return None
+
+def get_prepositional_phrase_objs(doc):
+    prep_spans = []
+    for token in doc:
+        if ("pobj" in token.dep_):
+            # a token's subtree refers to the collection of tokens that are directly or indirectly dependent on that token.
+            subtree = list(token.subtree)
+            start = subtree[0].i
+            end = subtree[-1].i + 1
+            prep_spans.append(doc[start:end])
+    return prep_spans
 
 
 def find_object_as_span_for_token(root: Token) -> Span:

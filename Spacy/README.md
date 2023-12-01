@@ -643,5 +643,7 @@ Extracting propositions is an important part of NLP and semantic analysis.
 - [Verbix - A resource for verb conjugation](https://api.verbix.com/)
 - [English Clause Classifications](https://en.wikipedia.org/wiki/English_clause_element)
 - [Bracketing Guidelines for Treebank II Style Penn Treebank Pro ject 1](https://www.ldc.upenn.edu/sites/www.ldc.upenn.edu/files/penn-etb-2-style-guidelines.pdf)
+- [Stanford typed dependencies manual](https://downloads.cs.stanford.edu/nlp/software/dependencies_manual.pdf)
+- [Universal Dependencies](https://universaldependencies.org/)
 - [Extracting Subject, Predicate, Conditional, Prepositional Clauses with a Spacy Trained Model](https://github.com/explosion/spaCy/discussions/13125)
 - [Constituency Parsing with a Self-Attentive Encoder](https://aclanthology.org/P18-1249.pdf)

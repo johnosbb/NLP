@@ -211,8 +211,8 @@ def show_sentence_parts_as_md(doc):
 def find_subtree_for_token(target_token: Token,doc: Doc)-> List:
     subtree= []
     for token in doc:
-        for element in token.subtree:
-            print(f"subtree function: Token: {token} {element}")
+        # for element in token.subtree:
+        #     print(f"subtree function: Token: {token} {element}")
         if(target_token.is_ancestor(token) or (token == target_token)):
             subtree.append(token)
     return subtree        

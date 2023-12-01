@@ -17,7 +17,8 @@ sample_sentences = [
     " A cat , hearing that the birds in a certain aviary were ailing dressed himself up as a physician , and , taking his cane and a bag of instruments becoming his profession , went to call on them .",
     "I consider Kris a fool",
     "It was a letter that she wrote.",
-    "It was a dog that she killed."
+    "It was a dog that she killed.",
+    "The foul ball hit a car parked outside."
     
     
 ]
@@ -67,7 +68,7 @@ def process_sample_sentences(nlp : Language):
 if __name__ == "__main__":    
     nlp = spacy.load("en_core_web_lg")
     # process_sample_sentences(nlp)
-    sentence = nlp(sample_sentences[10])
+    sentence = nlp(sample_sentences[11])
     print(f"Sentence: {sentence}")
     lnlp.show_sentence_parts_as_md(sentence)
     find_clause(sentence)

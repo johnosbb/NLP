@@ -24,7 +24,7 @@ Finally SpaCy provides pre-trained word vectors (word embeddings) that capture s
 
 A "token" is the smallest unit of text that can be processed and analyzed. Tokens are individual words or characters, or sometimes even subword units, into which a text is divided for various NLP tasks. Tokenization is the process of breaking down a text into these individual tokens.
 
-
+- Clause: A grammatical structure with both a nominal subject and a main verb phrase. If both elements are not present, then it cannot be a clause.
 - Word Tokens: In most NLP applications, tokens are typically words. For example, in the sentence "I love natural language processing," the tokens are "I," "love," "natural," "language," and "processing."
 - Character Tokens: In some cases, especially in character-level NLP tasks or for languages without clear word boundaries, tokens can be individual characters. For example, the tokenization of "abc" would result in three character tokens: "a," "b," and "c."
 - Subword Tokens: In languages with complex morphology or for machine learning models that operate on subword units, tokenization can be done at the subword level. For example, in English, the word "unhappiness" might be tokenized into "un," "happi," and "ness."
@@ -201,6 +201,68 @@ Please note that this is not an exhaustive list, and both libraries may have add
 __Child__: A "child" token is a token that directly depends on or is governed by another token. In a dependency parse tree, it represents a word or phrase that is syntactically subordinate to and dependent on its parent token.
 
 __Ancestor__: An "ancestor" token is a token that governs or controls another token in the parse tree. It is a token higher up in the tree hierarchy that has one or more tokens depending on it, either directly or indirectly.
+
+
+## Clauses
+
+A clause is a grammatical structure with both a nominal subject and a main verb phrase. If both elements are not present, then it cannot be a clause.
+A clause is __not__ a sentence. A sentence can contain one clause, or it can contain many clauses.
+
+### Clause Forms
+
+There are two primary clause forms: independent clauses and dependent clauses. The most common dependent clause forms include subordinate clauses, relative clauses, that-clauses, and interrogative clauses.
+Dependent clauses must perform some function (nominal, adverbial, or adjectival) in the context of a sentence.
+Independent clauses are a group of words that contains a subject and verb and expresses a complete thought. An independent clause is a sentence.
+There are two "other", primarily independent, clauses: interrogatives and imperatives.
+
+### Clause Types
+
+#### Type I – Intransitive
+
+There are only two elements required in Clause Type I, a nominal subject and a main verb phrase [intransitive]. Thought it is not but it is not required , an adverbial will often serve as a complement for this clause.
+
+```txt
+Type I = nominal subject + main verb phrase [intransitive] + (optional adverbial)
+```
+
+
+#### Type II – Linking verb BE requiring adverb of time/place
+
+There are three elements required in Clause Type II, a nominal subject, a main verb phrase [BE], and an adverbial of time or place. BE in this context is the linking verb "to be", for example: am, is, are, was, were. 
+
+```txt
+Type II = nominal subject + main verb phrase [BE] + adverbial of time/place
+```
+
+__Example__: "She is at the park."
+
+
+#### Type III – Linking verb with adjectival subject complement
+
+There are three elements required in Clause Type III, a nominal subject, a main verb phrase [linking], and an adjectival subject complement.
+
+```txt
+Type III = nominal subject + main verb phrase [linking] + adjectival subject complement
+```
+
+#### Type IV – Linking verb with nominal subject complement
+
+There are three elements required in Clause Type IV, a nominal subject, a main verb phrase [linking], and a nominal subject complement (nominal that renames the nominal subject).
+
+```txt
+Type IV = nominal subject + main verb phrase [linking] + nominal subject complement
+```
+
+#### Type V – Transitive
+
+There are three elements required in Clause Type V, a nominal subject, a main verb phrase [transitive], and a direct object (nominal that is different from the nominal subject).
+
+```txt
+Type V = nominal subject + ain verb phrase  [transitive] + nominal direct object
+```
+
+![image](../NLP/tree/main/Resources/../../../../Resources/clause_identification_flowchart.svg)
+
 
 ## Extracting Clauses from a Sentence
 
@@ -534,9 +596,34 @@ In grammar, "objects" refer to specific elements or constituents in a sentence t
 
 #### Direct Object
 
-A direct object is a noun, pronoun, or noun phrase that receives the action of a __transitive verb__ (a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object). In other words, it answers the question "what" or "whom" with regard to the action expressed by the verb. Direct objects are typically found in sentences with transitive verbs.
+A direct object is a noun, pronoun, or noun phrase that receives the action of a __transitive verb__ (a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object). In other words, it answers the question "what" or "whom" with regard to the action expressed by the verb. Direct objects are typically found in sentences with transitive verbs. 
 
-__Example:__ In the sentence "She ate the apple," "the apple" is the direct object because it receives the action of the verb "ate."
+
+__Example:__ In the sentence "She ate the apple." "the apple" is the direct object because it receives the action of the verb "ate"
+
+__Example:__ In the sentence "It was a letter that she wrote." "that" is the direct object of the relative clause "that she wrote" because it receives the action of the verb "wrote".
+
+Not all verbs use a direct object. Some intransitive verbs, like laugh and sit, can’t use direct objects. Some intransitive verbs are followed by a prepositional phrase or adverbial phrase, which are different from direct objects.
+
+__Example:__ "We all laugh at silly things."
+
+In this sentence, "silly things" may seem like the direct object, but the preposition at shows that it is really a prepositional phrase. Because laugh is intransitive, the sentence “We laugh silly things” is incorrect. We need a prepositional phrase to explain whom we are laughing at.
+
+Sometimes a verb can be both transitive and intransitive, depending on the usage. If a verb has more than one meaning, some uses could be transitive while others are intransitive.
+
+__Example:__ "We drove to the city. (intransitive)"
+
+__Example:__ "My father drove us to the city. (transitive)"
+
+A useful strategy is to ask  “what?” or “whom?” after the verb. if you get an answer, then it is transitive, and if you do not then it is intransitive. This is particularly useful for words that can be both transitive and intransitive, like play:
+
+__Example:__ "She played guitar in a rock band."
+
+__Question:__ She played what? She played guitar. Here, “play” is transitive.
+
+__Example:__ "The band played last Friday night."
+
+__Question:__ "The band played what?" Because the sentence does not tell us 'what' the band played, it means that, “play” ,in this context, is intransitive.
 
 #### Indirect Object
 
@@ -647,3 +734,5 @@ Extracting propositions is an important part of NLP and semantic analysis.
 - [Universal Dependencies](https://universaldependencies.org/)
 - [Extracting Subject, Predicate, Conditional, Prepositional Clauses with a Spacy Trained Model](https://github.com/explosion/spaCy/discussions/13125)
 - [Constituency Parsing with a Self-Attentive Encoder](https://aclanthology.org/P18-1249.pdf)
+- [Analysing Grammar in Context](https://nagelhout.faculty.unlv.edu/AGiC/s6a.html#:~:text=A%20CLAUSE%20is%20a%20grammatical,can%20contain%20many%2C%20many%20clauses.)
+- [Clause Types](https://nagelhout.faculty.unlv.edu/AGiC/s6b.html)

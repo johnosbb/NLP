@@ -238,7 +238,7 @@ The skiers arrived before the winter.
 The highlighted section is an adverbial phrase. The main body of the sentence "The skiers arrived." Could still stand alone as a complete sentence. 
 
 ```txt
-The materials for the refurbishment finally arrived __at the site__.
+The materials for the refurbishment finally arrived at the site.
 ```
 
 The highlighted sections are adjectival and/or adverbial modifiers; however, they are not required. They provide additional details, but they are not essential to the essential meaning of the sentence.

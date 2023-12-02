@@ -217,9 +217,7 @@ There are two "other", primarily independent, clauses: interrogatives and impera
 
 ### Clause Types
 
-
 ![image](../NLP/tree/main/Resources/../../../../Resources/ClauseTypes.png)
-
 
 #### Type I – Intransitive
 
@@ -234,13 +232,13 @@ __Examples__: "She arrived." "He walked."  "She swam."
 Sentences are often complicated by sections with adjectival and/or adverbial modifiers. Consider the sentence:
 
 ```txt
-The skiers arrived __before the winter__.
+The skiers arrived before the winter.
 ```
 
 The highlighted section is an adverbial phrase. The main body of the sentence "The skiers arrived." Could still stand alone as a complete sentence. 
 
 ```txt
-The materials __for the refurbishment finally__ arrived __at the site__.
+The materials for the refurbishment finally arrived __at the site__.
 ```
 
 The highlighted sections are adjectival and/or adverbial modifiers; however, they are not required. They provide additional details, but they are not essential to the essential meaning of the sentence.
@@ -368,7 +366,7 @@ If the answer to both these questions is no then we are dealing with an object c
 For the second sentence:
 
 ```txt
-"It made __life__ _difficult_."
+"It made life difficult."
 ```
 
  We can see that "difficult" is an adjective that modifies "life". Thus, we can determine that easy acts in the capacity of an object complement.
@@ -388,8 +386,9 @@ Agaiin, it can be difficult to distinguish between a direct object,indirect obje
 For the first sentence:
 
 ```txt
-"He hopes __something__."  "He hopes __to see his father__."
+"He hopes something."  "He hopes to see his father."
 ```
+
 ![image](../NLP/tree/main/Resources/../../../../Resources/clause_identification_flowchart.svg)
 
 

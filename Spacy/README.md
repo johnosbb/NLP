@@ -217,6 +217,10 @@ There are two "other", primarily independent, clauses: interrogatives and impera
 
 ### Clause Types
 
+
+![image](../NLP/tree/main/Resources/../../../../Resources/ClauseTypes.png)
+
+
 #### Type I – Intransitive
 
 There are only two elements required in Clause Type I, a nominal subject and a main verb phrase [intransitive]. Thought it is not required , an adverbial will often serve as a complement for this clause. A intransitive verb does not require a complement to follow it, like a nominal or an adjectival phrase.
@@ -313,7 +317,7 @@ In example two the compliment "to end in tragedy." reframes the subject "The day
 
 In the third example the "result" and its compliment "success" refer to the same thing.
 
-#### Type V – Transitive
+#### Type V – Transitive with Direct Object
 
 There are three elements required in Clause Type V, a nominal subject, a main verb phrase [transitive], and a direct object (nominal that is different from the nominal subject). Transitive verbs - unlike intransitive verbs - require a direct object - or a second nominal that completes the action of the verb. The nominal complement (the direct object) in a Type V clause __does not__ refer back to the subject. We can think of the direct object as answering the what or whom of the action.
 
@@ -345,11 +349,11 @@ The direct object has been outlined in bold in the examples above.
 
 We can typically determine the indirect object by asking “to whom”. The indirect object will typically immediately precede the direct object. If we have two nominals in a row following a transitive verb, we can suspect that one of these is an indirect object.
 
-##### Type V Variation with Object Compliments
+##### Type V Variation with Object Complements
 
-We may also find a Type V variant clause with object compliments.
+We may also find a Type V variant clause with object complements.
 
-__Examples of Type V Variation Clauses with Object Compliments__: "He considers __himself__ _an authority_."  "It made __life__ _difficult_."
+__Examples of Type V Variation Clauses with Object Complements__: "He considers __himself__ _an authority_."  "It made __life__ _difficult_."
 
 
 The direct object has been outlined in bold and the object compliment in italics in the examples above.
@@ -386,8 +390,6 @@ For the first sentence:
 ```txt
 "He hopes __something__."  "He hopes __to see his father__."
 ```
-
-
 ![image](../NLP/tree/main/Resources/../../../../Resources/clause_identification_flowchart.svg)
 
 

@@ -24,6 +24,7 @@ Finally SpaCy provides pre-trained word vectors (word embeddings) that capture s
 
 A "token" is the smallest unit of text that can be processed and analyzed. Tokens are individual words or characters, or sometimes even subword units, into which a text is divided for various NLP tasks. Tokenization is the process of breaking down a text into these individual tokens.
 
+- Intransitive verbs: An intransitive verb is a verb that does not require a direct object to complete its meaning in a sentence. In other words, an intransitive verb conveys its action without the need for an object to receive that action. The action of the verb is self-contained within the subject. Although an intransitive verb never takes an object, some intransitive verbs are followed by a prepositional phrase or adverbial phrase, which are different from direct objects.
 - Clause: A grammatical structure with both a nominal subject and a main verb phrase. If both elements are not present, then it cannot be a clause.
 - Word Tokens: In most NLP applications, tokens are typically words. For example, in the sentence "I love natural language processing," the tokens are "I," "love," "natural," "language," and "processing."
 - Character Tokens: In some cases, especially in character-level NLP tasks or for languages without clear word boundaries, tokens can be individual characters. For example, the tokenization of "abc" would result in three character tokens: "a," "b," and "c."
@@ -33,7 +34,8 @@ A "token" is the smallest unit of text that can be processed and analyzed. Token
 - Token Objects: In NLP libraries like spaCy, tokens are often represented as objects that include not only the text of the token but also various attributes, such as part-of-speech tags, lemma forms, and more. These attributes are useful for linguistic analysis and other NLP tasks.
 - Tokenization Challenges: Tokenization can be challenging for certain languages, especially those with agglutinative or morphologically rich features, as well as for handling contractions, compound words, and other linguistic phenomena.
 - Tokenization is a fundamental step in many NLP pipelines, as it serves as the basis for tasks such as part-of-speech tagging, named entity recognition, syntactic parsing, and text classification. Accurate tokenization is crucial for ensuring that NLP models can understand and process text effectively.
-
+- Transitive Verbs: A transitive verb is a type of verb that requires one or more objects to complete its meaning in a sentence. In other words, a transitive verb is an action verb that acts on something or someone. 
+ 
 ## Spans
 
 In spaCy, a "span" refers to a continuous sequence of tokens within a Doc object. A span can represent a portion of the text in a document, which can include one or more adjacent tokens. Spans are often used to extract or manipulate specific segments of text within a larger document.
@@ -766,6 +768,10 @@ Everyone wants to eat later.
 
 An indirect object is a noun, pronoun, or noun phrase that indicates the recipient or beneficiary of an action in a sentence. It answers the question "to whom" or "for whom" the action is performed. Indirect objects are commonly found in sentences with __ditransitive verbs__ (ditransitive verbs, also known as double-object verbs, are a subset of transitive verbs that require both a direct object and an indirect object to complete their meaning in a sentence), which are verbs that take both a direct and an indirect object.
 
+While direct objects answer the questions “what?” or “whom?” about the action of the verb, indirect objects answer questions like “to whom?” or “for what?”
+
+As with direct objects, indirect objects are only used with transitive verbs. (Intransitive verbs never take an object, either direct or indirect.) While direct objects are necessary for transitive verbs, indirect objects are optional.
+
 __Example:__ In the sentence "She gave John a book," "John" is the indirect object because he receives the book, which is the direct object.
 
 ## Identifying Complements
@@ -873,3 +879,4 @@ Extracting propositions is an important part of NLP and semantic analysis.
 - [Constituency Parsing with a Self-Attentive Encoder](https://aclanthology.org/P18-1249.pdf)
 - [Analysing Grammar in Context](https://nagelhout.faculty.unlv.edu/AGiC/s6a.html#:~:text=A%20CLAUSE%20is%20a%20grammatical,can%20contain%20many%2C%20many%20clauses.)
 - [Clause Types](https://nagelhout.faculty.unlv.edu/AGiC/s6b.html)
+- [Direct Objects](https://www.grammarly.com/blog/direct-object/#:~:text=You%20can%20sometimes%20use%20the,to%20in%20a%20prepositional%20phrase.)

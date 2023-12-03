@@ -728,7 +728,6 @@ In grammar, "objects" refer to specific elements or constituents in a sentence t
 
 A direct object is a noun, pronoun, or noun phrase that receives the action of a __transitive verb__ (a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object). In other words, it answers the question "what" or "whom" with regard to the action expressed by the verb. Direct objects are typically found in sentences with transitive verbs.
 
-
 __Example 1 :__ In the sentence "She ate the apple." "the apple" is the direct object because it receives the action of the verb "ate"
 
 | Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
@@ -762,31 +761,91 @@ Not all verbs use a direct object. Some intransitive verbs, like laugh and sit, 
 
 __Example:__ "We all laugh at silly things."
 
-In this sentence, "silly things" may seem like the direct object, but the preposition at shows that it is really a prepositional phrase. Because laugh is intransitive, for example, the sentence “We laugh silly things” is obviously incorrect. We need a prepositional phrase to explain whom we are laughing at.
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| We           | 0      | PRON     | PRP      | nsubj    | nominal subject          | laugh                | all        |  laugh        |  We all       |
+| all          | 1      | PRON     | DT       | appos    | appositional modifier    | We laugh             |            |  We           |  all          |
+| laugh        | 2      | VERB     | VBP      | ROOT     | root                     |                      | We at .    |  laugh        |  We all laugh at silly things . |
+| at           | 3      | ADP      | IN       | prep     | prepositional modifier   | laugh                | things     |  laugh        |  at silly things |
+| silly        | 4      | ADJ      | JJ       | amod     | adjectival modifier      | things at laugh      |            |  things       |  silly        |
+| things       | 5      | NOUN     | NNS      | pobj     | object of preposition    | at laugh             | silly      |  at           |  silly things |
+| .            | 6      | PUNCT    | .        | punct    | punctuation              | laugh                |            |  laugh        |  .            |
+
+In this sentence, "silly things" may seem like the direct object, but the preposition "at" shows that it is really a prepositional phrase. Because "laugh" is intransitive, for example, the sentence “We laugh silly things” is obviously incorrect. We need a prepositional phrase to explain __whom or what__ we are laughing at.
 
 Sometimes a verb can be both transitive and intransitive, depending on the usage. If a verb has more than one meaning, some uses could be transitive while others are intransitive.
 
 __Example:__ "We drove to the city. (intransitive)"
 
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| We           | 0      | PRON     | PRP      | nsubj    | nominal subject          | drove                |            |  drove        |  We           |
+| drove        | 1      | VERB     | VBD      | ROOT     | root                     |                      | We to .    |  drove        |  We drove to the city . |
+| to           | 2      | ADP      | IN       | prep     | prepositional modifier   | drove                | city       |  drove        |  to the city  |
+| the          | 3      | DET      | DT       | det      | determiner               | city to drove        |            |  city         |  the          |
+| city         | 4      | NOUN     | NN       | pobj     | object of preposition    | to drove             | the        |  to           |  the city     |
+| .            | 5      | PUNCT    | .        | punct    | punctuation              | drove                |            |  drove        |  .            |
+
+
 __Example:__ "My father drove us to the city. (transitive)"
 
-A useful strategy is to ask  “what?” or “whom?” after the verb. if you get an answer, then it is transitive, and if you do not then it is intransitive. This is particularly useful for words that can be both transitive and intransitive, like play:
+
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| My           | 0      | PRON     | PRP$     | poss     | possession modifier      | father drove         |            |  father       |  My           |
+| father       | 1      | NOUN     | NN       | nsubj    | nominal subject          | drove                | My         |  drove        |  My father    |
+| drove        | 2      | VERB     | VBD      | ROOT     | root                     |                      | father us to . |  drove        |  My father drove us to the city . |
+| __us__          | 3      | PRON     | PRP      | __dobj__     | direct object            | drove                |            |  drove        |  us           |
+| to           | 4      | ADP      | IN       | prep     | prepositional modifier   | drove                | city       |  drove        |  to the city  |
+| the          | 5      | DET      | DT       | det      | determiner               | city to drove        |            |  city         |  the          |
+| city         | 6      | NOUN     | NN       | pobj     | object of preposition    | to drove             | the        |  to           |  the city     |
+| .            | 7      | PUNCT    | .        | punct    | punctuation              | drove                |            |  drove        |  .            |
+
+A useful strategy is to ask  “what?” or “whom?” after the verb. if you get an answer, then it is transitive, and if you do not then it is intransitive. This is particularly useful for verbs that can be both transitive and intransitive, like play:
 
 __Example:__ "She played guitar in a rock band."
 
 __Question:__ She played what? She played guitar. Here, “play” is transitive.
 
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| She          | 0      | PRON     | PRP      | nsubj    | nominal subject          | played               |            |  played       |  She          |
+| played       | 1      | VERB     | VBD      | ROOT     | root                     |                      | She guitar in . |  played       |  She played guitar in a rock band . |
+| guitar       | 2      | NOUN     | NN       | dobj     | direct object            | played               |            |  played       |  guitar       |
+| in           | 3      | ADP      | IN       | prep     | prepositional modifier   | played               | band       |  played       |  in a rock band |
+| a            | 4      | DET      | DT       | det      | determiner               | band in played       |            |  band         |  a            |
+| rock         | 5      | NOUN     | NN       | compound | compound                 | band in played       |            |  band         |  rock         |
+| band         | 6      | NOUN     | NN       | pobj     | object of preposition    | in played            | a rock     |  in           |  a rock band  |
+| .            | 7      | PUNCT    | .        | punct    | punctuation              | played               |            |  played       |  .            |
+
+
 __Example:__ "The band played last Friday night."
 
 __Question:__ "The band played what?" Because the sentence does not tell us 'what' the band played, it means that, “play” ,in this context, is intransitive.
 
-YOne can sometimes use the infinitive form of verbs as a direct object, as in the following construction:
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| The          | 0      | DET      | DT       | det      | determiner               | band played          |            |  band         |  The          |
+| band         | 1      | NOUN     | NN       | nsubj    | nominal subject          | played               | The        |  played       |  The band     |
+| played       | 2      | VERB     | VBD      | ROOT     | root                     |                      | band night . |  played       |  The band played last Friday night . |
+| last         | 3      | ADJ      | JJ       | amod     | adjectival modifier      | night played         |            |  night        |  last         |
+| Friday       | 4      | PROPN    | NNP      | compound | compound                 | night played         |            |  night        |  Friday       |
+| night        | 5      | NOUN     | NN       | npadvmod | noun phrase as adverbial modifier | played               | last Friday |  played       |  last Friday night |
+| .
+
+One can sometimes use the infinitive form of verbs as a direct object (or open clausal complement), as in the following construction:
 
 ```txt
-"Everyone wants to talk later."
+"Everyone wants to talk later." "I want to dance." "She likes to sing in the shower"
 ```
 
-Everyone wants to eat later.
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| I            | 0      | PRON     | PRP      | nsubj    | nominal subject          | want                 |            |  want         |  I            |
+| want         | 1      | VERB     | VBP      | ROOT     | root                     |                      | I dance .  |  want         |  I want to dance . |
+| to           | 2      | PART     | TO       | aux      | auxiliary                | dance want           |            |  dance        |  to           |
+| dance        | 3      | VERB     | VB       | xcomp    | open clausal complement  | want                 | to         |  want         |  to dance     |
+| .            | 4      | PUNCT    | .        | punct    | punctuation              | want                 |            |  want         |  .            |
 
 
 #### Indirect Object

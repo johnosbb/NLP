@@ -66,11 +66,13 @@ text = (
 
 if __name__ == "__main__":
     nlp = spacy.load("en_core_web_sm")
-    doc = nlp(text)
-    lnlp.show_sentence_parts(doc)
-    print(f"Finding the subjects for the sentence: {text}")
+    nlp = spacy.load("en_core_web_sm")
+    sentence = input("Please enter a sentence:\n")
+    doc = nlp(sentence)
+    lnlp.show_sentence_parts_as_md(doc)
+    print(f"Finding the subjects for the sentence: {sentence }")
     verb_spans = lnlp.get_verb_spans(doc)
-    for verb in verb_spans:
-        print(f"Finding the subjects for the verb: {verb}")
-        subject = lnlp.extract_subjects(verb, doc)
-        print(f"Verb: {verb}  Subject: {subject}")
+    for verb_span in verb_spans:
+        print(f"Finding the subjects for the verb span: {sentence }")
+        subject = lnlp.extract_subjects(verb_span, doc)
+        print(f"Verb: {verb_span}  Subject: {subject}")

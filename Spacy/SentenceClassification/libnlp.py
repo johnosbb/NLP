@@ -203,8 +203,9 @@ def show_sentence_parts_as_md(doc):
         ancestors = ' '.join([t.text for t in token.ancestors])
         # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
         children = ' '.join([t.text for t in token.children])
+        tag = f"{token.tag_} {spacy.explain(token.tag_)}"
         print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12} |".format(
-            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text))
+            token.text, token.i, token.pos_, tag, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text))
 
 # extract_ccs_from_token
 # ccs = Coordinating Conjunctions

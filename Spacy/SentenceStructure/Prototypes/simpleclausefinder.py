@@ -15,14 +15,16 @@ sentences = [
     "While I was reading, the phone rang.",
     "The man walked to work while his wife cycled to the university at the eastern end of the town."
 ]
-for sentence in sentences:
-    doc = nlp(sentence)
-    # show_sentence_structure(doc)
-    lnlp.show_sentence_parts(doc)
-    clauses = lnlp.get_clauses(doc)
-    print("Clauses")
-    for clause in clauses:
-        print(f"clause: {clause}")
+
+def EvaluateExamples():
+    for sentence in sentences:
+        doc = nlp(sentence)
+        # show_sentence_structure(doc)
+        lnlp.show_sentence_parts(doc)
+        clauses = lnlp.get_clauses(doc)
+        print("Clauses")
+        for clause in clauses:
+            print(f"clause: {clause}")
 
 
 # Ancestors and dependencies
@@ -43,3 +45,15 @@ for sentence in sentences:
 # If we look at the token "apple", its ancestors are the tokens "eats" and "John"
 # because they are higher in the syntactic tree structure. In other words, "apple" is directly governed
 # by "eats" and "eats" is directly governed by "John".
+
+
+if __name__ == "__main__":
+    #import spacy
+    nlp = spacy.load("en_core_web_sm")
+    sentence = input("Please enter a sentence:\n")
+    doc = nlp(sentence)
+    lnlp.show_sentence_parts_as_md(doc,True)
+    clauses = lnlp.get_clauses(doc)
+    print("Clauses")
+    for clause in clauses:
+        print(f"clause: {clause}")

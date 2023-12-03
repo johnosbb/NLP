@@ -58,12 +58,11 @@ text = (
 if __name__ == "__main__":
     #import spacy
     nlp = spacy.load("en_core_web_sm")
-    doc = nlp(text)
+    sentence = input("Please enter a sentence:\n")
+    doc = nlp(sentence)
     lnlp.show_sentence_parts_as_md(doc)
-    print(f"Finding the objects for the sentence: {text}")
+    print(f"Finding the objects for the sentence: {sentence}")
     verb_spans = lnlp.get_verb_spans(doc)
-    subtree = lnlp.find_subtree_for_token(doc[4],doc)
-    print(f"subtree = {subtree}")
     for verb_span in verb_spans:
         print(f"Finding the objects for the verb: {verb_span}")
         indirect_object_span = lnlp.find_matching_child_span(verb_span.root, ["dative"]) # the term "dative" typically refers to a grammatical case or construction that marks the recipient or indirect object of an action.

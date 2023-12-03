@@ -23,7 +23,7 @@ sample_sentences = [
     
 ]
 
-def find_clause(sentence: Doc):
+def find_clauses(sentence: Doc):
     clauses = []
     # verb_matches = lnlp.get_verb_matches_for_span(sentence)
     unique_verb_spans = lnlp.get_unique_verb_spans(sentence)
@@ -63,15 +63,17 @@ def process_sample_sentences(nlp : Language):
         sentence = nlp(
             sample_sentence)
         print(f"Sentence: {sample_sentence}")
-        find_clause(sentence)
+        find_clauses(sentence)
         
 if __name__ == "__main__":    
     nlp = spacy.load("en_core_web_lg")
-    # process_sample_sentences(nlp)
-    sentence = nlp(sample_sentences[11])
+    sentence = input("Please enter a sentence:\n")
+    doc = nlp(sentence)
+    #process_sample_sentences(nlp)
+    #sentence = nlp(sample_sentences[11])
     print(f"Sentence: {sentence}")
-    lnlp.show_sentence_parts_as_md(sentence)
-    find_clause(sentence)
+    lnlp.show_sentence_parts_as_md(doc)
+    find_clauses(doc)
 
         
 

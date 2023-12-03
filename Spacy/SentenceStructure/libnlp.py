@@ -193,7 +193,7 @@ def show_sentence_parts(doc):
         print("--------------------------------------------------------------------------------------------------------------------------------")
 
 
-def show_sentence_parts_as_md(doc):
+def show_sentence_parts_as_md(doc, verbose=False):
     print(doc)
     print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} | {:<12} | {:<12} |".format(
         'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children', 'Token Head' , 'Sub Tree'))
@@ -204,8 +204,15 @@ def show_sentence_parts_as_md(doc):
         # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
         children = ' '.join([t.text for t in token.children])
         subtree = ' '.join([t.text for t in token.subtree]) 
+        if(verbose):
+            tag = f"{token.tag_}: {spacy.explain(token.tag_)}"
+            pos = f"{token.pos_}: {spacy.explain(token.pos_)}"
+        else:
+            tag = f"{token.tag_}"  
+            pos = f"{token.pos_}"  
+
         print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12} |  {:<12} |".format(
-            token.text, token.i, token.pos_, token.tag_, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text, subtree))
+            token.text, token.i, pos, tag, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text, subtree))
 
 
 def find_subtree_for_token(target_token: Token,doc: Doc)-> List:
@@ -719,7 +726,7 @@ def get_prepositional_phrase_objs(doc):
 
 # A clause is a grammatical unit that contains a subject and a predicate.
 # It is a group of words that expresses a complete thought and can function as a sentence or as part of a sentence.
-
+# This is an early attempt and cannot cope with complex sentence structures
 
 def get_clauses(doc):
 

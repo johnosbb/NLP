@@ -48,6 +48,8 @@ text_examples = (
     "Bell, a telecommunication company, which is based in Los Angeles, makes and distributes electronic, computer and building products."
     "The book that he recommended is on the shelf."
     "The cake, which was baked by my sister, was delicious."
+    "She is a doctor."
+    "She is a talented musician."
     "A cat, hearing that the birds in a certain aviary were ailing dressed himself up as a physician, and, taking his cane and a bag of instruments becoming his profession, went to call on them."
 )
 

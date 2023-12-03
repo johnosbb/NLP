@@ -1,6 +1,6 @@
 # SpaCy
 
-SpaCy is an open-source natural language processing (NLP) library released under the MIT license. It was created by Explosion AI, a software company founded by Ines Montani and Matthew Honnibal. Ines Montani and Matthew Honnibal are well-known figures in the NLP community. Their goal was to create a fast and efficient NLP library that could be used for various NLP tasks. 
+SpaCy is an open-source natural language processing (NLP) library released under the MIT license. It was created by Explosion AI, a software company founded by Ines Montani and Matthew Honnibal. Ines Montani and Matthew Honnibal are well-known figures in the NLP community. Their goal was to create a fast and efficient NLP library that could be used for various NLP tasks.
 
 The SpaCy framework is widely used for various text processing and language understanding tasks. In a world where vast amounts of textual information are generated every day, understanding and extracting insights from text has become a critical skill.  SpaCy seeks to simplify the complex task of processing and analyzing text data, enabling developers, data scientists, and researchers to harness the power of language in their applications and projects.
 
@@ -327,7 +327,7 @@ Type V = nominal subject + main verb phrase [transitive] + nominal direct object
 
 __Examples of Type V Clauses__: "I reported the burglary."  "She emptied her purse." "She helped the old lady cross the road." "She speaks French"
 
-We can think of the direct object as answering the what or whom of the action.
+We can think of the direct object as answering the "what" or "whom" of the action.
 
 ```txt
 "I reported what?" "I reported the burglary."
@@ -726,18 +726,43 @@ In grammar, "objects" refer to specific elements or constituents in a sentence t
 
 #### Direct Object
 
-A direct object is a noun, pronoun, or noun phrase that receives the action of a __transitive verb__ (a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object). In other words, it answers the question "what" or "whom" with regard to the action expressed by the verb. Direct objects are typically found in sentences with transitive verbs. 
+A direct object is a noun, pronoun, or noun phrase that receives the action of a __transitive verb__ (a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object). In other words, it answers the question "what" or "whom" with regard to the action expressed by the verb. Direct objects are typically found in sentences with transitive verbs.
 
 
-__Example:__ In the sentence "She ate the apple." "the apple" is the direct object because it receives the action of the verb "ate"
+__Example 1 :__ In the sentence "She ate the apple." "the apple" is the direct object because it receives the action of the verb "ate"
 
-__Example:__ In the sentence "It was a letter that she wrote." "that" is the direct object of the relative clause "that she wrote" because it receives the action of the verb "wrote".
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| She          | 0      | PRON     | PRP      | nsubj    | nominal subject          | ate                  |            |  ate          |  She          |
+| ate          | 1      | VERB     | VBD      | ROOT     | root                     |                      | She apple . |  ate          |  She ate the apple . |
+| the          | 2      | DET      | DT       | det      | determiner               | apple ate            |            |  apple        |  the          |
+| apple        | 3      | NOUN     | NN       | dobj     | direct object            | ate                  | the        |  ate          |  the apple    |
+| .            | 4      | PUNCT    | .        | punct    | punctuation              | ate                  |            |  ate          |  .            |
 
-Not all verbs use a direct object. Some intransitive verbs, like laugh and sit, can’t use direct objects. Some intransitive verbs are followed by a prepositional phrase or adverbial phrase, which are different from direct objects.
+The process of finding the subjects starts by identifying the main verbs are their associated verb spans. For this sentence we have a root verb "ate" in the past tense. We can iterate through the children of this verb, which in this case are [She, apple,.], and we identify the tokens which have a dependency of "dobj" (direct object). The word "apple" matches so we can conclude it is the object of the verb "ate".
+
+The direct object of a sentence is not always so obvious as the next example shows:
+
+__Example 2:__  "It was a letter that she wrote."
+
+In this sentence "that" is the direct object of the relative clause "that she wrote" because it receives the action of the verb "wrote". "that" is ultimately referring back to the letter introduced in the main clause.
+
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| It           | 0      | PRON     | PRP      | nsubj    | nominal subject          | was                  |            |  was          |  It           |
+| was          | 1      | AUX      | VBD      | ROOT     | root                     |                      | It letter . |  was          |  It was a letter that she wrote . |
+| a            | 2      | DET      | DT       | det      | determiner               | letter was           |            |  letter       |  a            |
+| letter       | 3      | NOUN     | NN       | attr     | attribute                | was                  | a wrote    |  was          |  a letter that she wrote |
+| that         | 4      | PRON     | WDT      | dobj     | direct object            | wrote letter was     |            |  wrote        |  that         |
+| she          | 5      | PRON     | PRP      | nsubj    | nominal subject          | wrote letter was     |            |  wrote        |  she          |
+| wrote        | 6      | VERB     | VBD      | relcl    | relative clause modifier | letter was           | that she   |  letter       |  that she wrote |
+| .            | 7      | PUNCT    | .        | punct    | punctuation              | was                  |            |  was          |  .            |
+
+Not all verbs use a direct object. Some intransitive verbs, like laugh and sit, can’t use direct objects. Some intransitive verbs are followed by a prepositional phrase or adverbial phrase, these phrases are different from direct objects.
 
 __Example:__ "We all laugh at silly things."
 
-In this sentence, "silly things" may seem like the direct object, but the preposition at shows that it is really a prepositional phrase. Because laugh is intransitive, the sentence “We laugh silly things” is incorrect. We need a prepositional phrase to explain whom we are laughing at.
+In this sentence, "silly things" may seem like the direct object, but the preposition at shows that it is really a prepositional phrase. Because laugh is intransitive, for example, the sentence “We laugh silly things” is obviously incorrect. We need a prepositional phrase to explain whom we are laughing at.
 
 Sometimes a verb can be both transitive and intransitive, depending on the usage. If a verb has more than one meaning, some uses could be transitive while others are intransitive.
 

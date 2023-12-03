@@ -738,7 +738,7 @@ __Example 1 :__ In the sentence "She ate the apple." "the apple" is the direct o
 | apple        | 3      | NOUN     | NN       | dobj     | direct object            | ate                  | the        |  ate          |  the apple    |
 | .            | 4      | PUNCT    | .        | punct    | punctuation              | ate                  |            |  ate          |  .            |
 
-The process of finding the subjects starts by identifying the main verbs are their associated verb spans. For this sentence we have a root verb "ate" in the past tense. We can iterate through the children of this verb, which in this case are [She, apple,.], and we identify the tokens which have a dependency of "dobj" (direct object). The word "apple" matches so we can conclude it is the object of the verb "ate".
+The process of finding the objects in a sentence starts by identifying the main verbs are their associated verb spans [See sample code](./SentenceStructure/objectsfinder.py). For this sentence we have a root verb "ate" in the past tense. We can iterate through the children of this verb, which in this case are [She, apple,.], and we identify the tokens which have a dependency of "dobj" (direct object). The word "apple" matches so we can conclude it is the object of the verb "ate".
 
 The direct object of a sentence is not always so obvious as the next example shows:
 

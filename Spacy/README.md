@@ -803,15 +803,15 @@ __Example:__ "My father drove us to the city. (transitive)"
 
 A useful strategy is to ask  “what?” or “whom?” after the verb. if you get an answer, then it is transitive, and if you do not then it is intransitive. This is particularly useful for verbs that can be both transitive and intransitive, like play:
 
-__Example:__ "She played guitar in a rock band."
+__Example:__ "She played __guitar__ in a rock band."
 
-__Question:__ She played what? She played guitar. Here, “play” is transitive.
+__Question:__ She played __what__? She played __guitar__. Here, “play” is transitive.
 
 | Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
 | ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
 | She          | 0      | PRON     | PRP      | nsubj    | nominal subject          | played               |            |  played       |  She          |
 | played       | 1      | VERB     | VBD      | ROOT     | root                     |                      | She guitar in . |  played       |  She played guitar in a rock band . |
-| guitar       | 2      | NOUN     | NN       | dobj     | direct object            | played               |            |  played       |  guitar       |
+| __guitar__       | 2      | NOUN     | NN       | __dobj__     | direct object            | played               |            |  played       |  guitar       |
 | in           | 3      | ADP      | IN       | prep     | prepositional modifier   | played               | band       |  played       |  in a rock band |
 | a            | 4      | DET      | DT       | det      | determiner               | band in played       |            |  band         |  a            |
 | rock         | 5      | NOUN     | NN       | compound | compound                 | band in played       |            |  band         |  rock         |
@@ -821,7 +821,7 @@ __Question:__ She played what? She played guitar. Here, “play” is transitive
 
 __Example:__ "The band played last Friday night."
 
-__Question:__ "The band played what?" Because the sentence does not tell us 'what' the band played, it means that, “play” ,in this context, is intransitive.
+__Question:__ "The band played what?" Because the sentence does not tell us 'what' the band played, it means that, “play” ,in this context, is intransitive and the phrase "last Saturday night" is an adjectival clause.
 
 | Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
 | ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
@@ -833,11 +833,11 @@ __Question:__ "The band played what?" Because the sentence does not tell us 'wha
 | night        | 5      | NOUN     | NN       | npadvmod | noun phrase as adverbial modifier | played               | last Friday |  played       |  last Friday night |
 | .
 
-One can sometimes use the infinitive form of verbs as a direct object (or open clausal complement), as in the following construction:
+One can sometimes use the infinitive form of verbs as a direct object (or open clausal complement), as in the following constructions:
 
-```txt
-"Everyone wants to talk later." "I want to dance." "She likes to sing in the shower"
-```
+
+__Examples:__ "Everyone wants __to talk__ later.", "I want __to dance__." and "She likes __to sing__ in the shower"
+
 
 | Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
 | ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |

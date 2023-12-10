@@ -18,7 +18,19 @@ sample_sentences = [
     "I consider Kris a fool",
     "It was a letter that she wrote.",
     "It was a dog that she killed.",
-    "The foul ball hit a car parked outside."
+    "The foul ball hit a car parked outside.",
+    "I waited for hours last night with this dreadful headache, but eventually gave up and left.",
+    "But even a tough old tree will eventually die",
+    "The trail of digital data you leave (both online and offline) is what makes you especially valuable.",
+    "This happens because onions release an irritating chemical that makes your eyes sting.",
+    "We know that the earth has had at least five major ice ages.",
+    "Hoaxes, similar to disinformation, are created to persuade people that things that are unsupported by facts are true",
+    "I wonder what time the movie starts.",
+    "The teacher asked who had finished their homework.",
+    "Can you tell me where the nearest coffee shop is?",
+    "I don't know when the train will arrive.",
+    "The woman asked the man why he was so sad.",
+    "I'm not sure how to solve this equation."
     
     
 ]
@@ -72,7 +84,7 @@ if __name__ == "__main__":
     #process_sample_sentences(nlp)
     #sentence = nlp(sample_sentences[11])
     print(f"Sentence: {sentence}")
-    lnlp.show_sentence_parts_as_md(doc)
+    lnlp.show_sentence_parts_as_md(doc,True)
     find_clauses(doc)
 
         

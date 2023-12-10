@@ -210,7 +210,6 @@ def show_sentence_parts_as_md(doc, verbose=False):
         else:
             tag = f"{token.tag_}"  
             pos = f"{token.pos_}"  
-
         print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12} |  {:<12} |".format(
             token.text, token.i, pos, tag, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text, subtree))
 

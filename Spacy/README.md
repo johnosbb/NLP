@@ -305,7 +305,7 @@ You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 
 
 
-### wh-clauses
+### Wh-Clauses
 
 A wh-clause is a subordinate clause that introduces a question or clause that modifies the meaning of the main clause. It typically starts with a wh-word, such as "what," "who," "where," "when," "why," or "how." Wh-clauses are used to elicit information or provide additional context to the main clause.
 
@@ -317,7 +317,7 @@ A wh-clause is a subordinate clause that introduces a question or clause that mo
 - I'm not sure __how__ to solve this equation.
 
 
-### th-clauses
+### Th-Clauses
 
 A th-clause is a subordinate clause that introduces a question or clause that modifies the meaning of the main clause. It typically starts with a th-word, such as "that," "who," "where," "when," "why," or "how." Wh-clauses are used to elicit information or provide additional context to the main clause.
 
@@ -326,7 +326,7 @@ A th-clause is a subordinate clause that introduces a question or clause that mo
 
 
 
-### Infinitive Clauses
+### Infinitive-Clauses
 
 An infinitive clause is a type of subordinate (dependent) clause that starts with an infinitive verb form, which is the base form of a verb preceded by the word "to." Infinitive clauses can serve various functions within a sentence and often act as nouns, adjectives, or adverbs.
 
@@ -336,7 +336,7 @@ An infinitive clause is a type of subordinate (dependent) clause that starts wit
 - She woke up early __to catch the first train__.
 
 
-### Ing Clauses
+### Ing-Clauses
 
 An "-ing clause" is a type of clause that starts with a verb ending in "-ing," known as a gerund. A gerund is the -ing form of a verb that functions as a noun in a sentence. These clauses are also referred to as gerund clauses or present participle clauses.
 

@@ -34,8 +34,15 @@ import libnlp as lnlp
 # DO NOT SET MANUALLY
 MOD_CONSERVATIVE = False
 
-# "non_ext_copular" - This category contains words that are typically used as non-extended copular verbs. In English, copular verbs are often used to link the subject of a sentence with a subject complement (e.g., "She is happy"). The words in this list, like "die" and "walk," are often not used in this way and are not extended copular verbs.
-# "ext_copular" - This category contains words that can function as extended copular verbs. Extended copular verbs are used to link the subject of a sentence with a subject complement. They include common verbs like "be," "become," and "seem." These words are often used in sentences like "She became a doctor."
+# "non_ext_copular" - This category contains words that are typically used as non-extended copular verbs.
+# In English, copular verbs are often used to link the subject of a sentence with a subject complement 
+# (e.g., "She is happy"). The words in this list, 
+# like "die" and "walk," are often not used in this way and are not extended copular verbs.
+# "ext_copular" - This category contains words that can function as extended copular verbs.
+# Extended copular verbs are used to link the subject of a sentence with a subject complement.
+# They include common verbs like "be," "become," and "seem." 
+# These words are often used in sentences like "She became a doctor."
+# A complex transitive verb is a type of verb that requires both a direct object and an object complement. 
 dictionary = {
     "non_ext_copular": ["die", "walk"],
     "ext_copular": [
@@ -54,6 +61,71 @@ dictionary = {
         "hardly", "barely", "scarcely", "seldom", "rarely"
     ]
 }
+
+prepositional_verbs = {
+    'account for': None,
+    'add up to': None,
+    'believe in': None,
+    'call off': None,
+    'deal with': None,
+    'fall for': None,
+    'get across': None,
+    'hold on to': None,
+    'invite to': None,
+    'look into': None,
+    'make up for': None,
+    'opt for': None,
+    'put up with': None,
+    'run out of': None,
+    'stick to': None,
+    'take care of': None,
+    'wait for': None,
+    'shut down': None,
+    'turn away': None,
+    'warm up': None,
+    'cut off': None,
+    'put down': None,
+    'wipe out': None,
+    'plug in': None,
+    'try on': None,
+    'face up to': None,
+    'dig in': None,
+    'bank on': None,
+    'come through': None,
+    'drift off': None,
+    'check in': None,
+    'lean on': None,
+    'break into': None,
+    'chime in': None,
+    'pick up on': None,
+    'figure out': None,
+    'spin off': None,
+    'strike out': None,
+    'tap into': None,
+    'wean off': None,
+    'get on with': None,
+    'peck at': None,
+    'cave in': None,
+    'buzz off': None,
+    'flare up': None,
+    'fly off': None,
+    'gear up': None,
+    'sail through': None,
+    'bankroll': None,
+    'chime in': None,
+    'bail out': None,
+    'count on': None,
+    'dial in': None,
+    'ease up': None,
+    'flare up': None,
+    'gear up': None,
+    'hammer out': None,
+    'keel over': None,
+    'settle down': None,
+    'tune up': None,
+}
+
+# You can continue to extend this list with more verbs and provide meanings, example sentences, etc.
 
 
 class Clause:

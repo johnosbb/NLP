@@ -30,7 +30,10 @@ sample_sentences = [
     "Can you tell me where the nearest coffee shop is?",
     "I don't know when the train will arrive.",
     "The woman asked the man why he was so sad.",
-    "I'm not sure how to solve this equation."
+    "I'm not sure how to solve this equation.",
+    "The answer to this question lies in how our brains are hardwired to think.",
+    "The first ice age happened about two billion years ago and lasted about 300 million years.",
+    "She drove the team crazy."
     
     
 ]

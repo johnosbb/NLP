@@ -294,12 +294,12 @@ You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 | SVA      | Subject-Verb-Adverbial | This type of clause includes a subject, a copular verb, and an __obligatory__ adverbial phrase that provides additional information about the action. | "The reason for this lies __in how our attention seeks out novelty__."  "John sat __up__" | This type of clause includes a subject, verb and an __obligatory adverbial__. |
 | SVdO       | Subject-Verb-Direct Object | This type of clause contains a subject, a monotransitive verb, and a direct object. It represents an action performed by the subject on the direct object.  | "She eats an apple." "This will need surgery." "The sun can create skin damage." | This type of clause is often designated as SVO. |
 | SVsP        | Subject-Verb-Subject Predicative | This type of clause consists of a subject and a copular (linking) verb, such as "be," "seem," "appear," etc and a subject predicative. It typically doesn't have a direct object. | "She is a doctor." The water is calm."  "The child __is__ happy." "I __am__ tall" "Mary, a nurse for 20 years, __became__ a doctor." "Agoraphobia __is__ a fear of being in situations where escape might be difficult or that help wouldn't be available if things go wrong." "The battle __was__ difficult." | The Subject Predictive may be an adjective, a noun phrase, an adjective phrase, or an ing-clause. It references the subject or provides additional information about the subject. |
-| SVpO       | Subject-Verb-Prepositional Object | This type of clause contains a subject, a prepositional verb, and a a prepositional object.   | "One study __looked at__ _200 deaths_." "Mothers __care for__ _their babies_." | Many prepositional verbs can be replaced by a single lexical verb. Example "come across" -> "discover" |
+| SVpO       | Subject-Verb-Prepositional Object | This type of clause contains a subject, a prepositional verb, and a prepositional object.   | "One study __looked at__ _200 deaths_." "Mothers __care for__ _their babies_." | Many prepositional verbs can be replaced by a single lexical verb. Example "come across" -> "discover" |
 | SVdOA      | Subject-Verb-Direct Object-Adverbial | This clause combines a subject, a transitive verb, a direct object, and an obligatory adverbial phrase. | "Imagine you put a glass bowl __on a hot surface__."  "This causes you to squirm without having __touched it__." | This type of clause consists of a subject, a monotransitive verb, a direct object and an __obligatory__ adverbial. |
 | SViOdO       | Subject-Verb-Indirect Object-Direct Object| This type of clause includes a subject, a transitive verb, and both a direct object and an indirect object. The direct object answers the question "what?" while the indirect object answers the question "who?" | "She gives __the book__ to __him__." "The school sent __all parents__ an __important email message__." "The school sent __an important email message__ to __all parents__." | There are two main types: 1. subject verb indirect object direct object. 2. subject verb direct object preposition indirect object. The most common prepositions are "to" and "for". This type of clause is often designated as SVOO.|
-| SVdOoP      | Subject-Verb-Object-Object Predicative | In this clause, the subject performs an action (verb) on the direct object, and there's a complement int the form of an object predicative that provides additional information about the object. | "She painted the room blue." The cat called the mouse a coward." "She made John angry" "The child found the book interesting." "We helped make it __what it is today__. "Most respondents considered it __good or very good__." | The complimenting object predicative provides additional information about the object and may be a __noun-phrase__,a __adjective-phrase__ or  (less frequently) a __wh-clause__.  The object predicative is usually directly follows the direct object. |
+| SVdOoP      | Subject-Verb-Object-Object Predicative | In this clause, the subject performs an action (verb) on the direct object, and there's a complement in the form of an object predicative that provides additional information about the object. | "She painted the room __blue__." The cat called the mouse __a coward__." "She made John __angry__" "The child found the book __interesting__." "We helped make it __what it is today__. "Most respondents considered it __good or very good__." | The complimenting object predicative provides additional information about the object and may be a __noun-phrase__,a __adjective-phrase__ or  (less frequently) a __wh-clause__.  The object predicative is usually directly follows the direct object. |
 | SVdOpO      | Subject-Verb-Direct Object-Prepositional Object | In this clause, the subject performs an action (verb) on the direct object, and a prepositional object provides additional information about the prepositional verb. | "She warned the students about misinformation." He asked her for a second chance."  | The clause consists of a subject, a complex transitive verb, or a complex prepositional verb, a direct object and a prepositional object. |
-| SVC         | Subject-Verb-Compliment | This type of clause consists of a subject and a monotransitive ( taking one object) copular (linking) verb, such as "be," "seem," "appear," etc, and a complement clause. It typically doesn't have a direct object. |  "We know __that__ we can escape." "No one one knows _who__ he is." "No one one knows _how__ he escaped." "She was asked __to recite__ the verse." "Eventually the soup starts __boiling__."| The clause may be a __that-clause__, a __wh-clause__, an __infinitive clause__ or an __ing-clause__. (__Note__: "how" is included in wh-clauses") |
+| SVC         | Subject-Verb-Compliment | This type of clause consists of a subject and a monotransitive ( taking one object) copular (linking) verb, such as "be," "seem," "appear," etc, and a complement clause. It typically doesn't have a direct object. |  "We know __that__ we can escape." "No one one knows __who__ he is." "No one one knows __how__ he escaped." "She was asked __to recite__ the verse." "Eventually the soup starts __boiling__."| The compliment clause may be a __that-clause__, a __wh-clause__, an __infinitive clause__ or an __ing-clause__. (__Note__: "how" is included in wh-clauses") |
 | SVdOC      | Subject-Verb-Direct Object-Complement | In this clause, the subject performs an action (verb) on the direct object, and there's a complement clause that provides additional information about the direct object. |  "We can see life __evolving__ all around us." "Animals show us __that__ there are many places to make a home." "The mix of colors in beach sand tells us __what__ kind of rocks produced it."| The compliment clause may be a __noun-clause__,a __that-clause__, a __wh-clause__, an __infinitive clause__ or an __ing-clause__. |
 
 
@@ -315,6 +315,34 @@ A wh-clause is a subordinate clause that introduces a question or clause that mo
 - I don't know __when__ the train will arrive.
 - The woman asked the man __why__ he was so sad.
 - I'm not sure __how__ to solve this equation.
+
+
+### th-clauses
+
+A th-clause is a subordinate clause that introduces a question or clause that modifies the meaning of the main clause. It typically starts with a th-word, such as "that," "who," "where," "when," "why," or "how." Wh-clauses are used to elicit information or provide additional context to the main clause.
+
+- We know __that__ he likes to run..
+- I can see __that__ you are upset..
+
+
+
+### Infinitive Clauses
+
+An infinitive clause is a type of subordinate (dependent) clause that starts with an infinitive verb form, which is the base form of a verb preceded by the word "to." Infinitive clauses can serve various functions within a sentence and often act as nouns, adjectives, or adverbs.
+
+- He knows __to learn__ a new language is very important for his development.
+- She decided __to take__ a vacation after a busy month.
+- I encouraged my friend __to pursue__ his dreams.
+- She woke up early __to catch the first train__.
+
+
+### Ing Clauses
+
+An "-ing clause" is a type of clause that starts with a verb ending in "-ing," known as a gerund. A gerund is the -ing form of a verb that functions as a noun in a sentence. These clauses are also referred to as gerund clauses or present participle clauses.
+
+- __Running__ every morning is good for your health.
+- She enjoys __dancing at parties__.
+- The movie __starring famous actors__ was a blockbuster.
 
 ### Spacy Clause Dependencies
 

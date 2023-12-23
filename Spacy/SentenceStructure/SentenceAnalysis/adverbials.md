@@ -22,4 +22,4 @@ __Sentence__: "Whatever you do, I will always be there for you."
 
 ## Dependency Diagram
 
-![image](SVGs/Whatever-you-do-I-will-always-be-there-for-you.svg)
+![image](PNGs/whatever_you_do.png)

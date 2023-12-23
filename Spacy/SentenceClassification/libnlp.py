@@ -410,7 +410,7 @@ def find_subject_in_passive_construction(verb_span : Span, doc : Doc) -> Span:
     number_of_parts = len(verb_span)
     if number_of_parts > 1:
         for part in verb_span:
-            print(f"verb part {part.text}")
+            #print(f"verb part: {part.text}")
             if(part.tag_ == "VBN"): # : It checks if the current part of the verb is a past participle verb form (typically used in passive constructions).
                 parent = find_parent_token_for_child(part, doc) #  find the parent token of the verb part in the dependency tree. This parent token is often related to the subject of the passive construction.
                 if(parent):

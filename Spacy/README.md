@@ -302,9 +302,6 @@ You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 | SVC         | Subject-Verb-Compliment | This type of clause consists of a subject and a monotransitive ( taking one object) copular (linking) verb, such as "be," "seem," "appear," etc, and a complement clause. It typically doesn't have a direct object. |  "We know __that__ we can escape." "No one one knows __who__ he is." "No one one knows __how__ he escaped." "She was asked __to recite__ the verse." "Eventually the soup starts __boiling__."| The compliment clause may be a __that-clause__, a __wh-clause__, an __infinitive clause__ or an __ing-clause__. (__Note__: "how" is included in wh-clauses") |
 | SVdOC      | Subject-Verb-Direct Object-Complement | In this clause, the subject performs an action (verb) on the direct object, and there's a complement clause that provides additional information about the direct object. |  "We can see life __evolving__ all around us." "Animals show us __that__ there are many places to make a home." "The mix of colors in beach sand tells us __what__ kind of rocks produced it."| The compliment clause may be a __noun-clause__,a __that-clause__, a __wh-clause__, an __infinitive clause__ or an __ing-clause__. |
 
-
-
-
 ### Wh-Clauses
 
 A wh-clause is a subordinate clause that introduces a question or clause that modifies the meaning of the main clause. It typically starts with a wh-word, such as "what," "who," "where," "when," "why," or "how." Wh-clauses are used to elicit information or provide additional context to the main clause.
@@ -316,15 +313,12 @@ A wh-clause is a subordinate clause that introduces a question or clause that mo
 - The woman asked the man __why__ he was so sad.
 - I'm not sure __how__ to solve this equation.
 
-
 ### Th-Clauses
 
 A th-clause is a subordinate clause that introduces a question or clause that modifies the meaning of the main clause. It typically starts with a th-word, such as "that," "who," "where," "when," "why," or "how." Wh-clauses are used to elicit information or provide additional context to the main clause.
 
 - We know __that__ he likes to run..
 - I can see __that__ you are upset..
-
-
 
 ### Infinitive-Clauses
 
@@ -485,12 +479,12 @@ To find the subjects of a verb we must first find its children. We can initially
 
 | Identifier  | Type | Description                                    | Comments          | Example |
 |-------------|------ | ----------------------------------------------------| ------ | ------ |
-| nsubj        | Nominal Subject | This label is used for nominal subjects in active voice sentences. It represents the noun or noun phrase that serves as the subject of the sentence. |  | "The cat [nsubj] chased the mouse." |
-| nsubjpass        | Nominal Subject in Passive Voice |   | This label is used for nominal subjects in passive voice sentences. It represents the noun or noun phrase that serves as the subject in a passive construction. |    | "The mouse [nsubjpass] was chased by the cat."  |
-| csubj        | Clausal Subject | This label is used to represent clausal subjects. It indicates that the subject of the sentence is a subordinate (dependent) clause. |   | "What he said [csubj] surprised everyone."  |
+| nsubj        | Nominal Subject | This label is used for nominal subjects in active voice sentences. It represents the noun or noun phrase that serves as the subject of the sentence. |  | "The __cat__ [nsubj] chased the mouse." |
+| nsubjpass        | Nominal Subject in Passive Voice |   | This label is used for nominal subjects in passive voice sentences. It represents the noun or noun phrase that serves as the subject in a passive construction. |    | "The __mouse__ [nsubjpass] was chased by the cat."  |
+| csubj        | Clausal Subject | This label is used to represent clausal subjects. It indicates that the subject of the sentence is a subordinate (dependent) clause. |   | "__What he said__ [csubj] surprised everyone."  |
 | csubjpass        | Clausal Subject in Passive Voice | Similar to "csubj," this label is used for clausal subjects in passive voice sentences. |   | "What was said [csubjpass] remains a mystery." |
 | expl        | Expletive Subject | The "expl" label is used for expletive subjects, which are words like "there" or "it" that serve as a placeholder subject in sentences. They do not carry specific meaning. |   | "There [expl] is a book on the table." |
-| nsubj:pass         | Passive Nominal Subject | This label is used for nominal subjects in passive constructions, particularly when the sentence structure allows for more detailed analysis. | There is no single dependency for this. If you need to work with specific subject variations like "nsubj:pass" you may need to implement custom logic in your code to recognize and handle these cases based on the broader dependency labels provided by spaCy and additional context.   | "There [expl] is a book on the table." |
+| nsubj:pass         | Passive Nominal Subject | This label is used for nominal subjects in passive constructions, particularly when the sentence structure allows for more detailed analysis. | There is no single dependency for this. If you need to work with specific subject variations like "nsubj:pass" you may need to implement custom logic in your code to recognize and handle these cases based on the broader dependency labels provided by spaCy and additional context.   | "The championship was won by the team." |
 | nsubj:poss         | Possessive Nominal Subject | This label is used for nominal subjects that are possessive in nature. It indicates the subject of a possessive construction. |  There is no single dependency for this. If you need to work with specific subject variations like "nsubj:poss," you may need to implement custom logic in your code to recognize and handle these cases based on the broader dependency labels provided by spaCy and additional context.  | "John's [nsubj:poss] car is red." |
 
 #### Nominal Subjects

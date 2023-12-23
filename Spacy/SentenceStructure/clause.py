@@ -63,8 +63,80 @@ dictionary = {
 }
 
 prepositional_verbs = {
+    'abstain from' : None,
+    'accuse [someone] of [something]' : None,
+    'adapt to' : None,
     'account for': None,
+    'add to' : None,
+    'agree on' : None,
+    'agree with' : None,
+    'apologize for' : None,
+    'apologize to' : None,
     'add up to': None,
+    'apply to': None,
+    'approve of': None,
+    'argue about': None,
+    'arrest for': None,
+    'arrive at': None,
+    'arrive in': None,
+    'ask about': None,
+    'ask for': None,
+    'attend to': None,
+    'believe in': None,
+    'belong to': None,
+    'care about': None,
+    'care for': None,
+    'charge with': None,
+    'complain about': None,
+    'concentrate on': None,
+    'confide in': None,
+    'connect to': None,
+    'consent to': None,
+    'consist of': None,
+    'contribute to': None,
+    'count on': None,
+    'come from': None,
+    'convert to': None,
+    'deal with': None,
+    'dedicate to': None,
+    'depend on': None,
+    'disagree with': None,
+    'discuss with': None,
+    'dream about': None,
+    'dream of': None,
+    'elaborate on': None,
+    'excel at': None,
+    'fear for': None,
+    'focus on': None,
+    'forget about': None,
+    'forgive for': None,
+    'get sick with': None,
+    'get tired of': None,
+    'go to': None,
+    'graduate from': None,
+    'happen to': None,
+    'hear about': None,
+    'hear of': None,
+    'help with': None,
+    'hint at': None,
+    'hope for': None,
+    'insist on': None,
+    'interfere with': None,
+    'laugh at': None,
+    'laugh about': None,
+    'lead to': None,
+    'look at': None,
+    'listen to': None,
+    'look for': None,
+    'object to': None,
+    'pay for': None,
+    'point at': None,
+    'pray for': None,
+    'prepare for': None,
+    'prevent from': None,
+    'prohibit from': None,
+    'react to': None,
+    'recover from': None,
     'believe in': None,
     'call off': None,
     'deal with': None,
@@ -122,7 +194,26 @@ prepositional_verbs = {
     'hammer out': None,
     'keel over': None,
     'settle down': None,
-    'tune up': None,
+    'tune up': None,  
+    'refer to': None,
+    'rely on': None,
+    'remind of': None,
+    'reply to': None,
+    'respond to': None,
+    'resign from': None,
+    'smile at': None,
+    'specialize in': None,
+    'stare at': None,
+    'stem from': None,
+    'subscribe to': None,
+    'suffer from': None,
+    'talk about': None,
+    'talk to': None,
+    'tell about': None,
+    'thank for': None,
+    'think about': None,
+    'think of': None,
+    
 }
 
 # You can continue to extend this list with more verbs and provide meanings, example sentences, etc.
@@ -136,7 +227,7 @@ class Clause:
         indirect_object: typing.Optional[Span] = None,
         direct_object: typing.Optional[Span] = None,
         complement: typing.Optional[Span] = None,
-        adverbials: typing.List[Span] = None,
+        adverbials: typing.List[Span] = None
     ):
         """
 
@@ -163,7 +254,7 @@ class Clause:
         """
         if adverbials is None:
             adverbials = []
-
+        self.summary = ""
         self.subject = subject
         self.verb = verb
         self.indirect_object = indirect_object
@@ -237,7 +328,7 @@ class Clause:
         return clause_type
 
     def __repr__(self):
-        return "<{}, {}, {}, {}, {}, {}, {}>".format(
+        return "< {}, {}, {}, {}, {}, {}, {} >".format(
             self.type,
             self.subject,
             self.verb,
@@ -279,7 +370,10 @@ class Clause:
                 if self.type in ["SV", "SVA"]:
                     if self.adverbials:
                         for a in self.adverbials:
+                            # if(a.pos_ == "SCONJ"):
                             propositions.append(tuple(prop + [a]))
+                            # else:
+                            #propositions.append(tuple([a] + prop))
                         propositions.append(tuple(prop + self.adverbials))
                     else:
                         propositions.append(tuple(prop))
@@ -321,7 +415,6 @@ class Clause:
             return self.convert_clauses_to_text(
                 propositions, inflect=inflect, capitalize=capitalize
             )
-
         return propositions
 
     def convert_clauses_to_text(self, propositions, inflect, capitalize):

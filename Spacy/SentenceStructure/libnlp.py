@@ -427,7 +427,7 @@ def find_subject_in_passive_construction(verb_span : Span, doc : Doc) -> Span:
     number_of_parts = len(verb_span)
     if number_of_parts > 1:
         for part in verb_span:
-            print(f"verb part {part.text}")
+            #print(f"verb part: {part.text}")
             if(part.tag_ == "VBN"): # : It checks if the current part of the verb is a past participle verb form (typically used in passive constructions).
                 parent = find_parent_token_for_child(part, doc) #  find the parent token of the verb part in the dependency tree. This parent token is often related to the subject of the passive construction.
                 if(parent):
@@ -456,9 +456,9 @@ def extract_subjects(verb: Span, doc: Doc) -> Span:
                 # csubj (Clausal Subject): This label is used to identify clausal subjects, which are entire clauses that function as the subject of the main clause.
                 # expl (Expletive Subject): This label is used for expletive subjects, which are placeholders like "it" or "there" that don't have a clear referent.
                 # csubjpass (Clausal Subject in Passive): Similar to "csubj," this label is used to identify entire clauses that function as the subject in passive voice sentences.
-                if child.dep_ in ["nsubj", "nsubjpass"]:
+                if child.dep_ in ["nsubj", "nsubjpass", "expl"]: # An expletive can act as a dummy subject as in the existential there "There is a book"
                     subject = find_span_for_token(child)
-                    if(child.dep_ == "nsubj"):
+                    if(child.dep_ in ["nsubj","expl"]):
                         print(
                             f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject: [{subject}].")
                     else:

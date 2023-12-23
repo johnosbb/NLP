@@ -2,6 +2,7 @@
 
 | Term | Meaning |
 | ---- | ---- |
+| Attribute | In linguistic analysis, "attribute" typically refers to a word or phrase that provides additional information about a noun. |
 | Clause |A grammatical structure with both a nominal subject and a main verb phrase. If both elements are not present, then it cannot be a clause. Clauses express complete thoughts (independent clauses) or incomplete thoughts that rely on other parts of the sentence (dependent clauses). |
 | Copular Verb | A verb that links a subject to a complement. "To be" is the main copular verb, but others include: seem, appear, keep, remain, grow, turn out, end up, smell, taste.
 | Complex Transitive Verb| A complex transitive verb is a type of verb that requires both a direct object and an object complement. It needs these two specific things to complete its meaning. The "object complement" is additional information about the direct object and can take the form of a noun phrase (a group of words centered around a noun) or an adjective (a word that describes a noun). 
@@ -12,6 +13,7 @@
 | Prepositional Object | A prepositional object is a noun phrase or nominal clause that is normally placed after a prepositional verb.  Example:  "We know ivory comes from __elephants__." |
 | Prepositional Verb | A prepositional verb is a combination of a verb and a preposition that has a specific idiomatic meaning. Unlike phrasal verbs, which can have both idiomatic and literal meanings, prepositional verbs typically have a more fixed meaning and are not as common as phrasal verbs. Example:  The plane __took off__ on time.|
 | Ergative verbs | A verb that can be both transitive and intransitive. |
+| Expletive | In the context of linguistics and grammar, an expletive is a word or a phrase that serves a syntactic role but contributes little or no semantic meaning to the overall message of a sentence. |
 | LSTM | Long Short-Term Memory (LSTM) is a type of recurrent neural network (RNN) architecture, commonly used for sequential data processing. LSTM networks are designed to address the vanishing gradient problem associated with traditional RNNs, allowing them to capture long-range dependencies in sequential data.  |
 | Nominal subject | In the context of linguistics and grammar, is a type of subject in a sentence that is realized as a noun or noun phrase. |
 | Phrase | A phrase is a group of related words that functions as a single unit within a sentence. It does not have a subject and a predicate (verb) working together. Phrases function as units within a sentence, often serving a specific role (e.g., noun phrase, prepositional phrase) but do not express a complete thought on their own. Example: "Under the table" |

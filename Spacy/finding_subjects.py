@@ -93,7 +93,7 @@ def find_subject_in_passive_construction(verb_span, doc):
     number_of_parts = len(verb_span)
     if number_of_parts > 1:
         for verb_part in verb_span:
-            print(f"verb part {verb_part.text}")
+            print(f"verb part: {verb_part.text}")
             if(verb_part.tag_ == "VBN"):
                 parent = find_parent_token_for_child(verb_part, doc)
                 if(parent):

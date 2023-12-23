@@ -33,21 +33,28 @@ sample_sentences = [
     "I'm not sure how to solve this equation.",
     "The answer to this question lies in how our brains are hardwired to think.",
     "The first ice age happened about two billion years ago and lasted about 300 million years.",
-    "She drove the team crazy."
+    "She drove the team crazy.",
+    "There is a book on the table",
+    "John's book is on the table.",
+    "That she won the award is surprising.",
+    "When they arrive is uncertain.",
+    "Wherever you go, I will follow"
     
     
 ]
 
 def find_clauses(sentence: Doc):
     clauses = []
-    # verb_matches = lnlp.get_verb_matches_for_span(sentence)
     unique_verb_spans = lnlp.get_unique_verb_spans(sentence)
+    print(f"Sentence: {sentence.text}")
     for verb_span in unique_verb_spans:            
+        print(f"\nVerb: {verb_span}")
         subject_span = lnlp.extract_subjects(verb_span, sentence)
         # Check if there are phrases of the form, "AE, a scientist of ..."
         # If so, add a new clause of the form:
         # <AE, is, a scientist>
         if (subject_span):
+            print(f"\tSubject of verb {verb_span}: {subject_span}")
             for c in subject_span.root.children:
                 if c.dep_ == "appos":  # In spaCy, the dependency label "appos" stands for "appositional modifier." An appositional modifier is a grammatical construction in which two noun phrases, often called noun "apposites," are placed next to each other, and one provides additional information or clarification about the other.
                     # this creates a span based on the tokens subtree
@@ -55,21 +62,37 @@ def find_clauses(sentence: Doc):
                     clause = Clause(subject_span,complement)
                     clauses.append(clause)
         compliment_span = lnlp.find_compliment_as_span_for_token(verb_span.root)
+        if(compliment_span):
+            print(f"\tCompliment for {verb_span}: {compliment_span}")
         indirect_object_span = lnlp.find_matching_child_span(verb_span.root, ["dative"]) # the term "dative" typically refers to a grammatical case or construction that marks the recipient or indirect object of an action.
+        if(indirect_object_span):
+            print(f"\tIndirect object for {verb_span}: {indirect_object_span}")
         direct_object_span = lnlp.find_matching_child_span(verb_span.root, ["dobj"]) 
-        adverbial_spans = [
-            lnlp.find_span_for_token(c)
-            for c in verb_span.root.children
-            if c.dep_ in ("prep", "advmod", "agent")
-        ]
+        if(direct_object_span):
+            print(f"\tDirect object for {verb_span}: {direct_object_span}")
+        adverbial_spans = []
+        for c in verb_span.root.children:
+            if c.dep_ in ("prep", "advmod", "agent"):
+                adverbial_spans.append(lnlp.find_span_for_token(c)) 
+        if(adverbial_spans):
+            print(f"There {'is' if len(adverbial_spans) == 1 else 'are'} {len(adverbial_spans)} adverbial{'s:' if len(adverbial_spans) != 1 else ':'}")
+            for adverbial_span in adverbial_spans:
+                print(f"\t{adverbial_span}")        
+        if(direct_object_span):
+                print(f"\tDirect object for {verb_span}: {direct_object_span}")      
         if(subject_span): # A clause must have a subject
             clause = Clause(subject_span, verb_span,indirect_object_span,direct_object_span,compliment_span, adverbial_spans)
             clauses.append(clause)
     clause_number = 1    
-    for clause in clauses:
-        print(f"\tClause {clause_number}: {clause} Type : {clause.type}")
-        print(f"\t\t{clause.to_propositions(as_text=True,inflect=None,capitalize=True)}") 
-        clause_number = clause_number + 1   
+    if(clauses):
+        print(f"There {'is' if len(clauses) == 1 else 'are'} {len(clauses)} clause{'s:' if len(clauses) != 1 else ':'}")
+        for clause in clauses:
+            print(f"\t{clause_number}: {clause} Type : {clause.type}")
+            print(f"\t\tProposition: {clause.to_propositions(as_text=True,inflect=None,capitalize=True)}") 
+            clause_number = clause_number + 1 
+
+            
+  
 
 
 def process_sample_sentences(nlp : Language):
@@ -87,7 +110,7 @@ if __name__ == "__main__":
     #process_sample_sentences(nlp)
     #sentence = nlp(sample_sentences[11])
     print(f"Sentence: {sentence}")
-    lnlp.show_sentence_parts_as_md(doc,True)
+    lnlp.show_sentence_parts_as_md(doc,False)
     find_clauses(doc)
 
         

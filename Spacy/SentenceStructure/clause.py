@@ -369,12 +369,14 @@ class Clause:
                 prop = [subj, verb]
                 if self.type in ["SV", "SVA"]:
                     if self.adverbials:
-                        for a in self.adverbials:
-                            # if(a.pos_ == "SCONJ"):
-                            propositions.append(tuple(prop + [a]))
-                            # else:
-                            #propositions.append(tuple([a] + prop))
-                        propositions.append(tuple(prop + self.adverbials))
+                        for a in self.adverbials: # remember each "a" is a span
+                            main_verb = lnlp.find_verb_in_ancestors(a.root)
+                            if(main_verb and main_verb.dep_ == "advcl"):
+                                propositions.append(tuple([a] + prop))
+                            else:
+                                propositions.append(tuple(prop + [a]))
+                        if lnlp.are_word_tuples_equal(tuple([a] + prop),tuple(prop + self.adverbials)) == False:      
+                            propositions.append(tuple(prop + self.adverbials))
                     else:
                         propositions.append(tuple(prop))
 
@@ -410,6 +412,8 @@ class Clause:
 
         # Remove doubles
         propositions = list(set(propositions))
+        #propositions = lnlp.remove_duplicate_tuples(propositions)
+
 
         if as_text:
             return self.convert_clauses_to_text(

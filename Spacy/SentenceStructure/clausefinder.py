@@ -38,7 +38,10 @@ sample_sentences = [
     "John's book is on the table.",
     "That she won the award is surprising.",
     "When they arrive is uncertain.",
-    "Wherever you go, I will follow"
+    "Wherever you go, I will follow.",
+    "Wherever you go, whatever you do, I will follow.",
+    "Whatever you do, I will always be there for you.",
+    "Wherever you go, I will always be there for you."
     
     
 ]
@@ -73,7 +76,7 @@ def find_clauses(sentence: Doc):
         adverbial_spans = []
         for c in verb_span.root.children:
             if c.dep_ in ("prep", "advmod", "agent"):
-                adverbial_spans.append(lnlp.find_span_for_token(c)) 
+                adverbial_spans.append(lnlp.find_span_for_token(c))   
         if(adverbial_spans):
             print(f"There {'is' if len(adverbial_spans) == 1 else 'are'} {len(adverbial_spans)} adverbial{'s:' if len(adverbial_spans) != 1 else ':'}")
             for adverbial_span in adverbial_spans:

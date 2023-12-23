@@ -8,7 +8,7 @@ import re
 from svgwrite import Drawing, rgb
 from spacy.tokens.token import Token  # Import the Token type
 import lemminflect
-from typing import Union,List  # Import the Union type
+from typing import Union,List, Tuple  # Import the Union type
 from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve,auc
 import matplotlib.pyplot as plt
 
@@ -631,6 +631,30 @@ def get_clause_token_span_for_verb(verb, doc, all_verbs):
                 last_token_index = child.i
     return(first_token_index, last_token_index)
 
+def find_verb_in_ancestors(token : Token) -> Token:
+    main_verb = None
+    for descendant in token.ancestors:
+        if "VERB" in descendant.pos_:
+            main_verb = descendant
+            break
+    return main_verb    
+
+
+def are_word_tuples_equal(tuple1: Tuple[str, ...], tuple2: Tuple[str, ...]) -> bool:
+    # Convert tuples to sets for unordered comparison
+    set1 = set(tuple1)
+    set2 = set(tuple2)
+    # Check if the sets are equal
+    return set1 == set2
+
+def remove_duplicate_tuples(lst: List[Tuple[str, ...]]) -> List[Tuple[str, ...]]:
+    # Convert each tuple to a frozenset for hashing
+    hashable_tuples = [frozenset(t) for t in lst]
+    # Create a set to remove duplicates
+    unique_frozensets = set(hashable_tuples)
+    # Convert frozensets back to tuples
+    unique_tuples = [tuple(fs) for fs in unique_frozensets]
+    return unique_tuples
 
 
 # The verb with a dependency of ROOT. The top of the syntactic tree

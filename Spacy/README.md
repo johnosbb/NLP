@@ -794,7 +794,9 @@ In linguistics, especially in the study of syntax, a proposition refers to the m
 
 Extracting propositions is an important part of NLP and semantic analysis.
 
+## Additional Sentence Examples
 
+Addition example sentences analysed in SpaCy are [here](./SentenceStructure/SentenceAnalysis/adverbials.md)
 
 ## Entending SpaCy
 

@@ -48,3 +48,7 @@ __Sentence__: "Wherever you go, I will always be there for you."
 | for          | 9      | ADP      | IN       | prep     | prepositional modifier   | be                   | you        |  be           |  for you      |
 | you          | 10     | PRON     | PRP      | pobj     | object of preposition    | for be               |            |  for          |  you          |
 | .            | 11     | PUNCT    | .        | punct    | punctuation              | be                   |            |  be           |  .            |
+
+### Dependency Diagram
+
+![image](PNGs/wherever_you_go.png)

@@ -65,4 +65,4 @@ She likes to swim.
 
 ### Dependency Diagram
 
-![image](PNGs/She-likes-to-swim.svg)
+![image](PNGs/She-likes-to-swim.png)

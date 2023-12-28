@@ -722,23 +722,57 @@ __Example:__ In the sentence "She gave John a book," "John" is the indirect obje
 
 ## Identifying Complements
 
-A complement is a grammatical element that completes the meaning of a verb, adjective, or noun. Complements provide additional information that is necessary to fully understand the intended meaning of the sentence. SpaCy uses a number of classifications that help in identifying complements. These are presented in the table below.
+A complement is a grammatical element that completes the meaning of a verb, adjective, or noun. Complements provide additional information that is necessary to fully understand the intended meaning of the sentence. 
+
+### Subject Complements
+
+A subject complement (also known as a subject predicative) is a word or phrase that follows a linking verb (such as "is," "am," "are," "was," "were," "seem," "become," etc.) and provides additional information about the subject of the sentence. The subject complement, together with the linking verb, describes or identifies the subject. Subject complements can take the form of adjectives, nouns, or pronouns. It is identified in SpaCy by the "attr" dependency tag.
+
+- The cake is __delicious__.
+- The movie was __exciting__.
+- The book is __full of suspense__.
+- The news is __that he won the award__.
+- The flowers are __beautiful__.
+  
+### Object Complement
+
+An object complement (or object predicative) is the complement which is linked to the object in a sentence. It is usually a noun phrase or an adjective phrase that follows and modifies a direct object in a sentence. It is identified in SpaCy by the "ccomp" dependency tag.
+
+- She found the house __painted__.
+- He considered the idea __unrealistic__.
+- We elected her __president__.
+- They declared the project __a huge success__.
+
+### Adjective Complement
+
+An adjective complement is a word or phrase that follows an adjective to provide more information about the quality or characteristic expressed by that adjective. Adjective complements can include nouns, pronouns, prepositional phrases, or clauses. These complements serve to complete the meaning of the adjective and add further detail. There are four types of adjective complements. It is identified in SpaCy by the "acomp" dependency tag.
+
+- 1. A __prepositional__ Phrase.
+- 2. An __infinitive__ Phrase.
+- 3. A __that__ clause.
+- 4. An __ing__ clause.
+
+SpaCy uses a number of classifications that help in identifying complements. These are presented in the table below.
 
 | Identifier (Dependency) | Type | Description                                              | Example |
 |-------------|------ | ----------------------------------------------------| ------ |
-| ccomp       | Clausal Complement | The "ccomp" label is used to indicate that a clause serves as the complement of a verb. In other words, it represents a subordinate clause that functions as an object of the main verb. | "She believes __that he is honest__." In this sentence, "that he is honest" is a clausal complement of the verb "believes." |
-| acomp        | Adjectival Complement | The "acomp" label is used to indicate that an adjective serves as the complement of a verb. It represents an adjective that modifies the subject of the clause. | "The flowers smell __fragrant__." In this sentence, "fragant" is an adjectival complement of the verb "smell."  |
+| ccomp       | Clausal Complement | The "ccomp" label is used to indicate that a clause serves as the object complement of a verb. In other words, it represents a subordinate clause that functions as an object of the main verb. | "She believes __that he is honest__." In this sentence, "that he is honest" is a clausal complement of the verb "believes." |
+| acomp        | Adjectival Complement | The "acomp" label is used to indicate that an adjective serves as the complement of a verb. It represents an adjective that modifies the subject of the clause. | "The flowers smell __fragrant__." In this sentence, "fragrant" is an adjectival complement of the verb "smell."  |
 | xcomp        | Open Clausal Complement | The "xcomp" label is used to indicate an open clausal complement, which typically involves verbs that take infinitive clauses as complements. It represents an infinitive or gerund clause that serves as the complement of a verb. | "She likes __to swim__." In this sentence, "to swim" is an open clausal complement of the verb "likes."  |
-| attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun. | "The man is a skilled __artist__." "artist" is the subject complement and serves as the attribute of the subject. |
+| attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun or subject. | "The man is a skilled __artist__." "artist" is the subject complement and serves as the attribute of the subject. |
 
 - [Examples of sentences with compliments](./SentenceAnalysis/compliments.md)
 
 
+We can identify compliments in a sentence by first finding the verbs and then examining the dependency identifies of the children of the verb. If any of the children have a dependency of ccomp, acomp, xcomp or attr then we find the span associated with that child. We can find the span by examining the child's subtree (this includes the token itself and all the tokens that are dependent on it) and then arranging any dependent tokens in ascending order of their positions in the document. The first and last token in this list allow us to determine the span.
 
+![image](../NLP/tree/main/Resources/../../../../Resources/finding_compliments.png)
 
 ## Identifying Conjunctions
 
 A conjunction is a part of speech in grammar that serves as a connecting word or a link between words, phrases, clauses, or sentences. Conjunctions are used to establish relationships, connections, or logical links between different elements in a sentence or between multiple sentences. They help convey the flow of information and the relationships between various parts of a text.
+
+
 
 ### Grammatical Classifications
 

@@ -446,7 +446,7 @@ def find_subject_in_passive_construction(verb_span : Span, doc : Doc) -> Span:
 
 
 # Given a document and a verb span, find the associated spans that represents the subject
-def extract_subjects(verb: Span, doc: Doc) -> Span:
+def extract_subjects(verb: Span, doc: Doc, report: bool= False) -> Span:
     root = verb.root
     while root:
         if(root.children):
@@ -459,25 +459,30 @@ def extract_subjects(verb: Span, doc: Doc) -> Span:
                 if child.dep_ in ["nsubj", "nsubjpass", "expl"]: # An expletive can act as a dummy subject as in the existential there "There is a book"
                     subject = find_span_for_token(child)
                     if(child.dep_ in ["nsubj","expl"]):
-                        print(
-                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject: [{subject}].")
+                        if report:
+                            print(
+                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject or expletive: [{subject}].")
                     else:
                         subject_in_passive_voice_construction = find_subject_in_passive_construction(
                             verb, doc)
                         if(subject_in_passive_voice_construction):
-                            print(
+                            if report:
+                                print(
                                 f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a subject in passive voice construction: [{subject}].")
                             return subject_in_passive_voice_construction
                         else:
-                            print(
+                            if report:
+                                print(
                                 f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
                     return subject
         else:
-            print(f"The verb [{verb}] has no children")
+            if report:
+                print(f"The verb [{verb}] has no children")
         # If we cannot find children which are subjects then we recurse up one level in the sentence tree by looking for dependencies that point towards other clauses
         if (root.dep_ in ["conj", "cc", "advcl", "acl", "ccomp", "pcomp","auxpass"]
                 and root != root.head):
-            print(
+            if report:
+                print(
                 f"The verb [{verb}] has a dependency [{root.dep_}] that indicates the presence of other clauses.")
             root = root.head
         else:  # we have a verb with no children or one whose children do not have a nominal or passive nominal subject and which does not appear to have other clauses
@@ -564,7 +569,7 @@ def find_object_as_span_for_token(root: Token) -> Span:
     
 def find_compliment_as_span_for_token(root: Token) -> Span:
     complement = find_matching_child_span(
-    root, ["ccomp", "acomp", "xcomp", "attr"]    )
+    root, ["ccomp", "acomp", "xcomp", "attr"]    ) # clausal complement, adjectival complement,open clausal complement or attribute
     return complement
 
 def check_if_span_is_subspan(span_to_check, existing_spans):
@@ -658,6 +663,7 @@ def remove_duplicate_tuples(lst: List[Tuple[str, ...]]) -> List[Tuple[str, ...]]
 
 
 # The verb with a dependency of ROOT. The top of the syntactic tree
+
 
 def find_root_of_sentence(doc):
     root_token = None

@@ -1,8 +1,8 @@
 import spacy
 import lemminflect
 import logging
+from typing import Union,List, Tuple  # Import the Union type
 import typing
-
 from spacy.tokens import Span, Doc
 from spacy.matcher import Matcher
 import libnlp as lnlp
@@ -261,6 +261,7 @@ class Clause:
         self.direct_object = direct_object
         self.complement = complement
         self.adverbials = adverbials
+        self.subordinating_type = None
         if(self.subject):
             self.doc = self.subject.doc
         else:
@@ -328,16 +329,40 @@ class Clause:
         return clause_type
 
     def __repr__(self):
-        return "< {}, {}, {}, {}, {}, {}, {} >".format(
+        return "< {}, {}, {}, {}, {}, {}, {}, {} > ".format(
             self.type,
+            self.subordinating_type,
             self.subject,
             self.verb,
             self.indirect_object,
             self.direct_object,
             self.complement,
-            self.adverbials,
+            self.adverbials
         )
 
+    def arrange_adverbials(self,propositions: List,prop : List):
+        if self.adverbials:
+            for a in self.adverbials: # remember each "a" is a span
+                main_verb = lnlp.find_verb_in_ancestors(a.root)
+                if(main_verb and main_verb.dep_ == "advcl"):
+                    propositions.append(tuple([a] + prop))
+                else:
+                    propositions.append(tuple(prop + [a]))
+            if lnlp.are_word_tuples_equal(tuple([a] + prop),tuple(prop + self.adverbials)) == False:      
+                propositions.append(tuple(prop + self.adverbials))
+        else:
+            propositions.append(tuple(prop))   
+        
+    def identify_compliment_clause(self):   
+        if(self.adverbials): 
+            for a in self.adverbials:
+                for token in a:
+                    if(token.pos_ == "SCONJ"):
+                        if(token.text.lower() in ["why","who","where","when","how","whether","whatever","whichever","which","what"]):
+                            self.subordinating_type="wh-clause"
+                        elif(token.text.lower() in ["that"]):
+                            self.subordinating_type="th-clause"
+        
     def to_propositions(
         self, as_text: bool = False, inflect: str or None = "VBD", capitalize: bool = False
     ):
@@ -368,27 +393,21 @@ class Clause:
             for verb in verbs:
                 prop = [subj, verb]
                 if self.type in ["SV", "SVA"]:
-                    if self.adverbials:
-                        for a in self.adverbials: # remember each "a" is a span
-                            main_verb = lnlp.find_verb_in_ancestors(a.root)
-                            if(main_verb and main_verb.dep_ == "advcl"):
-                                propositions.append(tuple([a] + prop))
-                            else:
-                                propositions.append(tuple(prop + [a]))
-                        if lnlp.are_word_tuples_equal(tuple([a] + prop),tuple(prop + self.adverbials)) == False:      
-                            propositions.append(tuple(prop + self.adverbials))
-                    else:
-                        propositions.append(tuple(prop))
-
+                    self.arrange_adverbials(propositions,prop)
                 elif self.type == "SVOO":
                     for iobj in indirect_objects:
                         for dobj in direct_objects:
                             propositions.append((subj, verb, iobj, dobj))
-                elif self.type == "SVO":
-                    for obj in direct_objects + indirect_objects:
-                        propositions.append((subj, verb, obj))
+                elif self.type == "SVO":                    
+                    for obj in direct_objects + indirect_objects: # obj is a span
+                        if(obj.root.tag_ == "WDT"):
+                            proposition = (obj, subj, verb)
+                        else:    
+                            proposition = (subj, verb, obj)
+                        propositions.append(proposition)
                         for a in self.adverbials:
-                            propositions.append((subj, verb, obj, a))
+                            proposition = proposition + (a,)
+                            propositions.append(proposition)
                 elif self.type == "SVOA":
                     for obj in direct_objects:
                         if self.adverbials:
@@ -407,7 +426,11 @@ class Clause:
                 elif self.type == "SVC":
                     if complements:
                         for c in complements:
-                            propositions.append(tuple(prop + [c]))
+                            if self.adverbials and (self.subordinating_type == "th-clause" or self.subordinating_type == "wh-clause"):
+                                for a in self.adverbials:
+                                    propositions.append(tuple([a] + prop + [c]))
+                            else:        
+                                propositions.append(tuple(prop + [c]))
                         propositions.append(tuple(prop + complements))
 
         # Remove doubles

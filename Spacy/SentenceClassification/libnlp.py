@@ -8,7 +8,7 @@ import re
 from svgwrite import Drawing, rgb
 from spacy.tokens.token import Token  # Import the Token type
 import lemminflect
-from typing import Union,List  # Import the Union type
+from typing import Union,List, Tuple  # Import the Union type
 from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve,auc
 import matplotlib.pyplot as plt
 
@@ -193,20 +193,37 @@ def show_sentence_parts(doc):
         print("--------------------------------------------------------------------------------------------------------------------------------")
 
 
-def show_sentence_parts_as_md(doc):
+def show_sentence_parts_as_md(doc, verbose=False):
     print(doc)
-    print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} | {:<12}".format(
-        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children', 'Token Head'))
-    print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- |")
+    print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} | {:<12} | {:<12} |".format(
+        'Text', 'Index', 'POS', "Tag", 'Dep', 'Dep Detail', 'Ancestors', 'Children', 'Token Head' , 'Sub Tree'))
+    print("| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |")
     for token in doc:
         # the term "ancestors" refers to the set of nodes that are higher in the parse tree hierarchy and lead to the current token or span of tokens.
         ancestors = ' '.join([t.text for t in token.ancestors])
         # "children" refer to the nodes that are directly dependent on the current token or span of tokens in the parse tree. Children can be thought of as the "child" nodes that are connected to the current node.
         children = ' '.join([t.text for t in token.children])
-        tag = f"{token.tag_} {spacy.explain(token.tag_)}"
-        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12} |".format(
-            token.text, token.i, token.pos_, tag, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text))
+        subtree = ' '.join([t.text for t in token.subtree]) 
+        if(verbose):
+            tag = f"{token.tag_}: {spacy.explain(token.tag_)}"
+            pos = f"{token.pos_}: {spacy.explain(token.pos_)}"
+        else:
+            tag = f"{token.tag_}"  
+            pos = f"{token.pos_}"  
+        print("| {:<12} | {:<6} | {:<8} | {:<8} | {:<8} | {:<24} | {:<20} | {:<10} |  {:<12} |  {:<12} |".format(
+            token.text, token.i, pos, tag, token.dep_, spacy.explain(token.dep_), ancestors, children, token.head.text, subtree))
 
+
+def find_subtree_for_token(target_token: Token,doc: Doc)-> List:
+    subtree= []
+    for token in doc:
+        # for element in token.subtree:
+        #     print(f"subtree function: Token: {token} {element}")
+        if(target_token.is_ancestor(token) or (token == target_token)):
+            subtree.append(token)
+    return subtree        
+            
+            
 # extract_ccs_from_token
 # ccs = Coordinating Conjunctions
 # In linguistic analysis, identifying coordinating conjunctions and understanding their usage is important for parsing and interpreting
@@ -429,7 +446,7 @@ def find_subject_in_passive_construction(verb_span : Span, doc : Doc) -> Span:
 
 
 # Given a document and a verb span, find the associated spans that represents the subject
-def extract_subjects(verb: Span, doc: Doc) -> Span:
+def extract_subjects(verb: Span, doc: Doc, report: bool= False) -> Span:
     root = verb.root
     while root:
         if(root.children):
@@ -439,28 +456,33 @@ def extract_subjects(verb: Span, doc: Doc) -> Span:
                 # csubj (Clausal Subject): This label is used to identify clausal subjects, which are entire clauses that function as the subject of the main clause.
                 # expl (Expletive Subject): This label is used for expletive subjects, which are placeholders like "it" or "there" that don't have a clear referent.
                 # csubjpass (Clausal Subject in Passive): Similar to "csubj," this label is used to identify entire clauses that function as the subject in passive voice sentences.
-                if child.dep_ in ["nsubj", "nsubjpass"]:
+                if child.dep_ in ["nsubj", "nsubjpass", "expl"]: # An expletive can act as a dummy subject as in the existential there "There is a book"
                     subject = find_span_for_token(child)
-                    if(child.dep_ == "nsubj"):
-                        print(
-                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject: [{subject}].")
+                    if(child.dep_ in ["nsubj","expl"]):
+                        if report:
+                            print(
+                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject or expletive: [{subject}].")
                     else:
                         subject_in_passive_voice_construction = find_subject_in_passive_construction(
                             verb, doc)
                         if(subject_in_passive_voice_construction):
-                            print(
+                            if report:
+                                print(
                                 f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a subject in passive voice construction: [{subject}].")
                             return subject_in_passive_voice_construction
                         else:
-                            print(
+                            if report:
+                                print(
                                 f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
                     return subject
         else:
-            print(f"The verb [{verb}] has no children")
+            if report:
+                print(f"The verb [{verb}] has no children")
         # If we cannot find children which are subjects then we recurse up one level in the sentence tree by looking for dependencies that point towards other clauses
         if (root.dep_ in ["conj", "cc", "advcl", "acl", "ccomp", "pcomp","auxpass"]
                 and root != root.head):
-            print(
+            if report:
+                print(
                 f"The verb [{verb}] has a dependency [{root.dep_}] that indicates the presence of other clauses.")
             root = root.head
         else:  # we have a verb with no children or one whose children do not have a nominal or passive nominal subject and which does not appear to have other clauses
@@ -528,6 +550,17 @@ def find_matching_child_span(root: Token, allowed_types: list)-> Span:
         if token.dep_ in allowed_types:
             return find_span_for_token(token)
     return None
+
+def get_prepositional_phrase_objs(doc):
+    prep_spans = []
+    for token in doc:
+        if ("pobj" in token.dep_):
+            # a token's subtree refers to the collection of tokens that are directly or indirectly dependent on that token.
+            subtree = list(token.subtree)
+            start = subtree[0].i
+            end = subtree[-1].i + 1
+            prep_spans.append(doc[start:end])
+    return prep_spans
 
 
 def find_object_as_span_for_token(root: Token) -> Span:
@@ -603,6 +636,30 @@ def get_clause_token_span_for_verb(verb, doc, all_verbs):
                 last_token_index = child.i
     return(first_token_index, last_token_index)
 
+def find_verb_in_ancestors(token : Token) -> Token:
+    main_verb = None
+    for descendant in token.ancestors:
+        if "VERB" in descendant.pos_:
+            main_verb = descendant
+            break
+    return main_verb    
+
+
+def are_word_tuples_equal(tuple1: Tuple[str, ...], tuple2: Tuple[str, ...]) -> bool:
+    # Convert tuples to sets for unordered comparison
+    set1 = set(tuple1)
+    set2 = set(tuple2)
+    # Check if the sets are equal
+    return set1 == set2
+
+def remove_duplicate_tuples(lst: List[Tuple[str, ...]]) -> List[Tuple[str, ...]]:
+    # Convert each tuple to a frozenset for hashing
+    hashable_tuples = [frozenset(t) for t in lst]
+    # Create a set to remove duplicates
+    unique_frozensets = set(hashable_tuples)
+    # Convert frozensets back to tuples
+    unique_tuples = [tuple(fs) for fs in unique_frozensets]
+    return unique_tuples
 
 
 # The verb with a dependency of ROOT. The top of the syntactic tree
@@ -698,7 +755,7 @@ def get_prepositional_phrase_objs(doc):
 
 # A clause is a grammatical unit that contains a subject and a predicate.
 # It is a group of words that expresses a complete thought and can function as a sentence or as part of a sentence.
-
+# This is an early attempt and cannot cope with complex sentence structures
 
 def get_clauses(doc):
 

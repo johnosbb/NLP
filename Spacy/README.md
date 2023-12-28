@@ -315,7 +315,7 @@ A wh-clause is a subordinate clause that introduces a question or clause that mo
 
 ### Th-Clauses
 
-A th-clause is a subordinate clause that introduces a question or clause that modifies the meaning of the main clause. It typically starts with a th-word, such as "that," "who," "where," "when," "why," or "how." Wh-clauses are used to elicit information or provide additional context to the main clause.
+A th-clause is a subordinate clause that introduces a question or clause that modifies the meaning of the main clause. It typically starts with a th-word, such as "that, th-clauses are used to elicit information or provide additional context to the main clause.
 
 - We know __that__ he likes to run..
 - I can see __that__ you are upset..
@@ -722,14 +722,19 @@ __Example:__ In the sentence "She gave John a book," "John" is the indirect obje
 
 ## Identifying Complements
 
-A complement is a grammatical element that completes the meaning of a verb, adjective, or noun. Complements provide additional information that is necessary to fully understand the intended meaning of the sentence.
+A complement is a grammatical element that completes the meaning of a verb, adjective, or noun. Complements provide additional information that is necessary to fully understand the intended meaning of the sentence. SpaCy uses a number of classifications that help in identifying complements. These are presented in the table below.
 
-| Identifier  | Type | Description                                              | Example |
+| Identifier (Dependency) | Type | Description                                              | Example |
 |-------------|------ | ----------------------------------------------------| ------ |
 | ccomp       | Clausal Complement | The "ccomp" label is used to indicate that a clause serves as the complement of a verb. In other words, it represents a subordinate clause that functions as an object of the main verb. | "She believes that he is honest." In this sentence, "that he is honest" is a clausal complement of the verb "believes." |
-| acomp        | Adjectival Complement | The "acomp" label is used to indicate that an adjective serves as the complement of a verb. It represents an adjective that modifies the subject of the clause. | "She seems happy." In this sentence, "happy" is an adjectival complement of the verb "seems."  |
+| acomp        | Adjectival Complement | The "acomp" label is used to indicate that an adjective serves as the complement of a verb. It represents an adjective that modifies the subject of the clause. | "The flowers smell __fragrant__." In this sentence, "fragant" is an adjectival complement of the verb "smell."  |
 | xcomp        | Open Clausal Complement | The "xcomp" label is used to indicate an open clausal complement, which typically involves verbs that take infinitive clauses as complements. It represents an infinitive or gerund clause that serves as the complement of a verb. | "She likes to swim." In this sentence, "to swim" is an open clausal complement of the verb "likes."  |
-| attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun. | "The big house is beautiful." In this sentence, "big" is an attribute of the noun "house." |
+| attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun. | "The man is a skilled artist." "artist" is the subject complement and serves as the attribute of the subject. |
+
+- [Examples of sentences with compliments](./SentenceAnalysis/compliments.md)
+
+
+
 
 ## Identifying Conjunctions
 

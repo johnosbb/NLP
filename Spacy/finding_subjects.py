@@ -110,7 +110,7 @@ def find_subject_in_passive_construction(verb_span, doc):
     return None
 
 
-def extract_subjects(verb, doc):
+def extract_subjects(verb: Span, doc: Doc,report: bool= False)-> Span:
     root = verb.root
     while root:
         if(root.children):
@@ -120,13 +120,15 @@ def extract_subjects(verb, doc):
                 # csubj (Clausal Subject): This label is used to identify clausal subjects, which are entire clauses that function as the subject of the main clause.
                 # expl (Expletive Subject): This label is used for expletive subjects, which are placeholders like "it" or "there" that don't have a clear referent.
                 # csubjpass (Clausal Subject in Passive): Similar to "csubj," this label is used to identify entire clauses that function as the subject in passive voice sentences.
-                if child.dep_ in ["nsubj", "nsubjpass"]:
+                if child.dep_ in ["nsubj", "nsubjpass", "expl"]: # An expletive can act as a dummy subject as in the existential there "There is a book"
                     subject = extract_span_from_entity(child)
-                    if(child.dep_ == "nsubj"):
-                        print(
-                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject: [{subject}].")
+                    if(child.dep_ in ["nsubj","expl"]):
+                        if(report):
+                            print(
+                            f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Nominal Subject or expletive: [{subject}].")
                     else:
-                        print(
+                        if(report):
+                            print(
                             f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
                         subject_as_active_voice_construction = find_subject_in_passive_construction(
                             verb, doc)
@@ -134,11 +136,13 @@ def extract_subjects(verb, doc):
                             return subject_as_active_voice_construction
                     return subject
         else:
-            print(f"The verb [{verb}] has no children")
+            if(report):
+                print(f"The verb [{verb}] has no children")
         # If we cannot find children which are subjects then we recurse up one level in the sentence tree by looking for dependencies that point towards other clauses
         if (root.dep_ in ["conj", "cc", "advcl", "acl", "ccomp", "auxpass"]
                 and root != root.head):
-            print(
+            if(report):
+                print(
                 f"The verb [{verb}] has a dependency [{root.dep_}] that indicates the presence of other clauses.")
             root = root.head
         else:  # we have a verb with no children or one whose children do not have a nominal or passive nominal subject and which does not appear to have other clauses
@@ -156,5 +160,5 @@ if __name__ == "__main__":
     verb_chunks = get_verb_chunks(doc)
     for verb in verb_chunks:
         print(f"Finding the subjects for the verb: {verb}")
-        subject = extract_subjects(verb, doc)
+        subject = extract_subjects(verb, doc,True)
         print(f"Verb: {verb}  Subject: {subject}")

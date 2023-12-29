@@ -761,10 +761,10 @@ SpaCy uses a number of classifications that help in identifying complements. The
 | xcomp        | Open Clausal Complement | The "xcomp" label is used to indicate an open clausal complement, which typically involves verbs that take infinitive clauses as complements. It represents an infinitive or gerund clause that serves as the complement of a verb. | "She likes __to swim__." In this sentence, "to swim" is an open clausal complement of the verb "likes."  |
 | attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun or subject. | "The man is a skilled __artist__." "artist" is the subject complement and serves as the attribute of the subject. |
 
-- [Examples of sentences with compliments](./SentenceClassification/SentenceAnalysis/complements.md)
+- [Examples of sentences with compliments](./SentenceStructure/SentenceAnalysis/complements.md)
 
 
-We can identify compliments in a sentence by first finding the verbs and then examining the dependency identifies of the children of the verb. If any of the children have a dependency of ccomp, acomp, xcomp or attr then we find the span associated with that child. We can find the span by examining the child's subtree (this includes the token itself and all the tokens that are dependent on it) and then arranging any dependent tokens in ascending order of their positions in the document. The first and last token in this list allow us to determine the span.
+We can identify complements in a sentence by first finding the verbs and then examining the dependency identifiers of the children of the verb. If any of the children have a dependency of ccomp, acomp, xcomp or attr then we find the span associated with that child. We can find the span by examining the child's sub-tree (this includes the token itself and all the tokens that are dependent on it) and then arranging any dependent tokens in ascending order of their positions in the document. The first and last token in this list allow us to determine the span.
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/finding_compliments.png)
 

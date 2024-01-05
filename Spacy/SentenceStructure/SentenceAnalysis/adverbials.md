@@ -88,3 +88,7 @@ The book is __on the shelf__.
 | the          | 4      | DET      | DT       | det      | determiner               | shelf on is          |            |  shelf        |  the          |
 | shelf        | 5      | NOUN     | NN       | pobj     | object of preposition    | on is                | the        |  on           |  the shelf    |
 | .            | 6      | PUNCT    | .        | punct    | punctuation              | is                   |            |  is           |  .            |
+
+### Dependency Diagram
+
+![image](PNGs/The-book-is-on-the-shelve.png

@@ -128,11 +128,11 @@ TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
 ## Tokens
 
-A "token" is the smallest unit of text that can be processed and analyzed. Tokens are individual words or characters, or sometimes even subword units, into which a text is divided for various NLP tasks. Tokenization is the process of breaking down a text into these individual tokens.
+A "token" is the smallest unit of text that can be processed and analyzed. Tokens are individual words or characters, or sometimes even sub-word units, into which a text is divided for various NLP tasks. Tokenization is the process of breaking down a text into these individual tokens.
 
 - Word Tokens: In most NLP applications, tokens are typically words. For example, in the sentence "I love natural language processing," the tokens are "I," "love," "natural," "language," and "processing."
 - Character Tokens: In some cases, especially in character-level NLP tasks or for languages without clear word boundaries, tokens can be individual characters. For example, the tokenization of "abc" would result in three character tokens: "a," "b," and "c."
-- Subword Tokens: In languages with complex morphology or for machine learning models that operate on subword units, tokenization can be done at the subword level. For example, in English, the word "unhappiness" might be tokenized into "un," "happi," and "ness."
+- Sub-word Tokens: In languages with complex morphology or for machine learning models that operate on sub-word units, tokenization can be done at the sub-word level. For example, in English, the word "unhappiness" might be tokenized into "un," "happi," and "ness."
 - Whitespace and Punctuation: Tokenization often involves splitting text based on whitespace (spaces, tabs, line breaks) and punctuation marks (e.g., periods, commas, hyphens).
 - Tokenization Rules: Tokenization can be language-specific, and the rules for splitting text into tokens may vary based on the language and the specific task.
 - Token Objects: In NLP libraries like spaCy, tokens are often represented as objects that include not only the text of the token but also various attributes, such as part-of-speech tags, lemma forms, and more. These attributes are useful for linguistic analysis and other NLP tasks.
@@ -161,15 +161,15 @@ So, when you refer to the span [3:4], we are specifying a span that includes onl
 
 ## Sentences
 
-A "sentence" is a linguistic unit that represents a complete and independent thought or statement within a text. SpaCy provides tools for sentence segmentation, which is the process of identifying and separating text into individual sentences. Each sentence is composed of one or more tokens (words or subword units) that form a grammatical and semantic unit.
+A "sentence" is a linguistic unit that represents a complete and independent thought or statement within a text. SpaCy provides tools for sentence segmentation, which is the process of identifying and separating text into individual sentences. Each sentence is composed of one or more tokens (words or sub-word units) that form a grammatical and semantic unit.
 
-- Sentence Objects: SpaCy represents sentences as individual objects within a Doc object. A Doc object is created by processing a text using a spaCy language model. You can access sentences within a Doc using the sents attribute.
+- Sentence Objects: SpaCy represents sentences as individual objects within a Doc object. A Doc object is created by processing a text using a spaCy language model. You can access sentences within a Doc using the 'sents' attribute.
 - Sentence Tokenization: SpaCy performs sentence tokenization by identifying sentence boundaries based on punctuation marks (such as periods, exclamation marks, and question marks) and other language-specific rules. It aims to accurately identify where one sentence ends and the next begins.
 - Sentence-Level Attributes: You can access various attributes at the sentence level, such as the text of the sentence, the start and end token indices, and the sentence's root token.
 
 ## Understand Ancestors and Children
 
-In spaCy, the concepts of "ancestors" and "children" refer to the relationships between tokens in a parsed document. These relationships are part of the syntactic structure of the text and are useful for analyzing and manipulating the text data. 
+In spaCy, the concepts of "ancestors" and "children" refer to the relationships between tokens in a parsed document. These relationships are part of the syntactic structure of the text and are useful for analyzing and manipulating the text data.
 
 ### Ancestors
 

@@ -92,3 +92,25 @@ The book is __on the shelf__.
 ### Dependency Diagram
 
 ![image](PNGs/The-book-is-on-the-shelve.png)
+
+
+## Example 5
+
+The meal is cooked __by__ the chef.
+
+### Spacy Analysis
+
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| The          | 0      | DET      | DT       | det      | determiner               | meal cooked          |            |  meal         |  The          |
+| meal         | 1      | NOUN     | NN       | nsubjpass | nominal subject (passive) | cooked               | The        |  cooked       |  The meal     |
+| is           | 2      | AUX      | VBZ      | auxpass  | auxiliary (passive)      | cooked               |            |  cooked       |  is           |
+| cooked       | 3      | VERB     | VBN      | ROOT     | root                     |                      | meal is by . |  cooked       |  The meal is cooked by the chef . |
+| __by__           | 4      | ADP      | IN       | __agent__    | agent                    | cooked               | chef       |  cooked       |  by the chef  |
+| the          | 5      | DET      | DT       | det      | determiner               | chef by cooked       |            |  chef         |  the          |
+| chef         | 6      | NOUN     | NN       | pobj     | object of preposition    | by cooked            | the        |  by           |  the chef     |
+| .            | 7      | PUNCT    | .        | punct    | punctuation              | cooked               |            |  cooked       |  .            |
+
+### Dependency Diagram
+
+![image](PNGs/The-meal-is-cooked-by-the-chef.png)

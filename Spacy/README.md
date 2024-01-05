@@ -16,6 +16,112 @@ SpaCy also seamlessly integrates with machine learning algorithms and models pro
 
 Finally SpaCy provides pre-trained word vectors (word embeddings) that capture semantic information about words, making it easier to work with semantics in text by understanding the relationships between words.
 
+
+
+<!-- @import "[- [SpaCy](#spacy)
+  - [Glossary](#glossary)
+  - [Tokens](#tokens)
+  - [Spans](#spans)
+    - [Example of a Span](#example-of-a-span)
+  - [Sentences](#sentences)
+  - [Understand Ancestors and Children](#understand-ancestors-and-children)
+    - [Ancestors](#ancestors)
+    - [Children](#children)
+    - [Example](#example)
+  - [Syntax Tree](#syntax-tree)
+    - [Representing a sentence as a Syntax Tree](#representing-a-sentence-as-a-syntax-tree)
+    - [NLTK Tags](#nltk-tags)
+    - [Children and Ancestors](#children-and-ancestors)
+  - [Clauses](#clauses)
+    - [Clause Forms](#clause-forms)
+  - [Extracting Clauses from a Sentence](#extracting-clauses-from-a-sentence)
+  - [Clause Types](#clause-types)
+    - [Wh-Clauses](#wh-clauses)
+    - [Th-Clauses](#th-clauses)
+    - [Infinitive-Clauses](#infinitive-clauses)
+    - [Ing-Clauses](#ing-clauses)
+    - [Spacy Clause Dependencies](#spacy-clause-dependencies)
+  - [Finding the Verbs in the Sentence](#finding-the-verbs-in-the-sentence)
+    - [Find the Subject of a Verb](#find-the-subject-of-a-verb)
+      - [SpaCy Subject Dependencies](#spacy-subject-dependencies)
+      - [Nominal Subjects](#nominal-subjects)
+      - [Passive Nominal Subject (Passive Voice):](#passive-nominal-subject-passive-voice)
+      - [A More Complex Example](#a-more-complex-example)
+    - [Finding the Objects of a Sentence](#finding-the-objects-of-a-sentence)
+      - [Direct Object](#direct-object)
+      - [Indirect Object](#indirect-object)
+  - [Identifying Complements](#identifying-complements)
+    - [Subject Complements](#subject-complements)
+    - [Object Complement](#object-complement)
+    - [Adjective Complement](#adjective-complement)
+  - [Identifying Conjunctions](#identifying-conjunctions)
+    - [Grammatical Classifications](#grammatical-classifications)
+    - [SpaCy Dependencies for conjunctions](#spacy-dependencies-for-conjunctions)
+    - [Conjuncts in Spacy](#conjuncts-in-spacy)
+  - [Propositions](#propositions)
+  - [Additional Sentence Examples](#additional-sentence-examples)
+  - [Entending SpaCy](#entending-spacy)
+  - [References](#references)
+TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [SpaCy](#spacy)
+  - [Glossary](#glossary)
+  - [Tokens](#tokens)
+  - [Spans](#spans)
+    - [Example of a Span](#example-of-a-span)
+  - [Sentences](#sentences)
+  - [Understand Ancestors and Children](#understand-ancestors-and-children)
+    - [Ancestors](#ancestors)
+    - [Children](#children)
+    - [Example](#example)
+  - [Syntax Tree](#syntax-tree)
+    - [Representing a sentence as a Syntax Tree](#representing-a-sentence-as-a-syntax-tree)
+    - [NLTK Tags](#nltk-tags)
+    - [Children and Ancestors](#children-and-ancestors)
+  - [Clauses](#clauses)
+    - [Clause Forms](#clause-forms)
+  - [Extracting Clauses from a Sentence](#extracting-clauses-from-a-sentence)
+  - [Clause Types](#clause-types)
+    - [Wh-Clauses](#wh-clauses)
+    - [Th-Clauses](#th-clauses)
+    - [Infinitive-Clauses](#infinitive-clauses)
+    - [Ing-Clauses](#ing-clauses)
+    - [Spacy Clause Dependencies](#spacy-clause-dependencies)
+  - [Finding the Verbs in the Sentence](#finding-the-verbs-in-the-sentence)
+    - [Find the Subject of a Verb](#find-the-subject-of-a-verb)
+      - [SpaCy Subject Dependencies](#spacy-subject-dependencies)
+      - [Nominal Subjects](#nominal-subjects)
+      - [Passive Nominal Subject (Passive Voice):](#passive-nominal-subject-passive-voice)
+      - [A More Complex Example](#a-more-complex-example)
+  - [Finding the Objects of a Sentence](#finding-the-objects-of-a-sentence)
+    - [Direct Object](#direct-object)
+    - [Indirect Object](#indirect-object)
+  - [Identifying Adverbials](#identifying-adverbials)
+    - [Adverb Phrases](#adverb-phrases)
+    - [Adverb Clauses](#adverb-clauses)
+    - [Single Adverbs](#single-adverbs)
+    - [Prep (Preposition)](#prep-preposition)
+    - [Advmod (Adverbial Modifier)](#advmod-adverbial-modifier)
+    - [Agent](#agent)
+  - [Identifying Complements](#identifying-complements)
+    - [Subject Complements](#subject-complements)
+    - [Object Complement](#object-complement)
+    - [Adjective Complement](#adjective-complement)
+  - [Identifying Conjunctions](#identifying-conjunctions)
+    - [Grammatical Classifications](#grammatical-classifications)
+    - [SpaCy Dependencies for conjunctions](#spacy-dependencies-for-conjunctions)
+    - [Conjuncts in Spacy](#conjuncts-in-spacy)
+  - [Propositions](#propositions)
+  - [Additional Sentence Examples](#additional-sentence-examples)
+  - [Entending SpaCy](#entending-spacy)
+  - [References](#references)
+
+<!-- /code_chunk_output -->
+
+
+
 ## Glossary
 
 [See Here](./glossary.md)
@@ -582,11 +688,11 @@ We can also use this process to derive:
 The cake was delicious.
 ```
 
-### Finding the Objects of a Sentence
+## Finding the Objects of a Sentence
 
 In grammar, "objects" refer to specific elements or constituents in a sentence that are typically associated with the action of a verb. Objects play a crucial role in the structure of a sentence and help convey additional information about the action or the relationships between different elements. There are two main types of objects in English grammar: direct objects and indirect objects.
 
-#### Direct Object
+### Direct Object
 
 A direct object is a noun, pronoun, or noun phrase that receives the action of a __transitive verb__ (a transitive verb is an action verb that acts upon or affects a noun or pronoun, known as the direct object). In other words, it answers the question "what" or "whom" with regard to the action expressed by the verb. Direct objects are typically found in sentences with transitive verbs.
 
@@ -710,7 +816,7 @@ __Examples:__ "Everyone wants __to talk__ later.", "I want __to dance__." and "S
 | .            | 4      | PUNCT    | .        | punct    | punctuation              | want                 |            |  want         |  .            |
 
 
-#### Indirect Object
+### Indirect Object
 
 An indirect object is a noun, pronoun, or noun phrase that indicates the recipient or beneficiary of an action in a sentence. It answers the question "to whom" or "for whom" the action is performed. Indirect objects are commonly found in sentences with __ditransitive verbs__ (ditransitive verbs, also known as double-object verbs, are a subset of transitive verbs that require both a direct object and an indirect object to complete their meaning in a sentence), which are verbs that take both a direct and an indirect object.
 
@@ -719,6 +825,58 @@ While direct objects answer the questions “what?” or “whom?” about the a
 As with direct objects, indirect objects are only used with transitive verbs. (Intransitive verbs never take an object, either direct or indirect.) While direct objects are necessary for transitive verbs, indirect objects are optional.
 
 __Example:__ In the sentence "She gave John a book," "John" is the indirect object because he receives the book, which is the direct object.
+
+## Identifying Adverbials
+
+Adverbials are words, phrases, or clauses that modify or provide additional information about verbs, adjectives, or other adverbs. They function as adverbs and play a crucial role in specifying details about the manner, place, time, frequency, or degree of an action or state expressed in a sentence.
+
+Adverbials can take various forms:
+
+### Adverb Phrases
+
+A group of words acting as an adverb, such as "in the morning," "with great care," or "quite suddenly."
+
+- Example: She sang __with passion__.
+
+### Adverb Clauses
+
+An adverbial clause is a group of words containing a subject and a verb that functions as an adverb. Adverb clauses often answer questions like how, when, where, why, or to what extent.
+
+- Example: __Because he was tired__, he decided to take a nap.
+
+### Single Adverbs
+
+Single words that function as adverbs and modify verbs, adjectives, or other adverbs.
+
+- Example: She spoke __loudly__.
+
+Adverbs are often classified in terms of their purpose. The most common catagorisations are:
+
+- Manner: Describing how an action is performed. Example: He ran __quickly__.
+- Place: Indicating the location of the action. Example: The cat sat __on the windowsill__.
+- Time: Providing information about when an action takes place. 
+- Example: She arrives at work __every morning__.
+- Frequency: Expressing how often an action occurs. Example: They go to the gym __twice a week__.
+- Purpose: Describing the reason or purpose behind an action. Example: She studied hard __to pass the exam__.
+
+SpaCy uses a number of dependency labels to identify adverbials.
+
+### Prep (Preposition)
+
+In spaCy, "prep" typically refers to a preposition. Prepositions are words that express relationships between other words in a sentence, often indicating location, direction, time, or manner.
+Examples of prepositions include: in, on, under, over, through, etc.
+In the context of spaCy dependency parsing, a "prep" dependency usually indicates a prepositional phrase, where the preposition connects to a nominal head (noun or pronoun).
+
+### Advmod (Adverbial Modifier)
+
+"Advmod" stands for adverbial modifier in spaCy's dependency parsing. This is the primary indicator of an adverbial phrase. In spaCy's dependency tree, an "advmod" dependency signifies a relationship where the adverbial modifier is connected to the word it modifies.
+
+### Agent
+
+In spaCy, "agent" refers to the syntactic role played by the entity that performs an action in a sentence. It is often associated with the subject of a sentence when the sentence describes an action.
+
+In the dependency parsing, the "agent" dependency is used to link the verb of a sentence to the entity carrying out the action. This is common in sentences with an active voice.
+For example, in the sentence "The __cat__ chased the mouse," "cat" is the agent, as it is the one performing the action of chasing.
 
 ## Identifying Complements
 

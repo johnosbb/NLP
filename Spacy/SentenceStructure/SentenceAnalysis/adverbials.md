@@ -91,4 +91,4 @@ The book is __on the shelf__.
 
 ### Dependency Diagram
 
-![image](PNGs/The-book-is-on-the-shelve.png
+![image](PNGs/The-book-is-on-the-shelve.png)

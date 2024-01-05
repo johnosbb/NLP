@@ -867,12 +867,11 @@ In spaCy, "prep" typically refers to a preposition. Prepositions are words that 
 
 Examples of prepositions include: in, on, under, over, through, etc.
 
-
 ### Advmod (Adverbial Modifier)
 
 "Advmod" stands for adverbial modifier in spaCy's dependency parsing. An adverb modifier of a word is a (non-clausal) adverb or adverb-headed phrase that serves to modify the meaning of the word.
 
-Example: "__Genetically__ modified food" 
+Example: "__Genetically__ modified food."
 
 ### Agent
 

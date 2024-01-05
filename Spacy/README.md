@@ -863,26 +863,32 @@ SpaCy uses a number of dependency labels to identify adverbials.
 
 ### Prep (Preposition)
 
-In spaCy, "prep" typically refers to a preposition. Prepositions are words that express relationships between other words in a sentence, often indicating location, direction, time, or manner.
+In spaCy, "prep" typically refers to a preposition. Prepositions are words that express relationships between other words in a sentence, often indicating location, direction, time, or manner. For SpaCy the dependency label 'prep' specifically refers to prepositional modifiers of a verb, adjective, or noun,  or even another preposition.
+
 Examples of prepositions include: in, on, under, over, through, etc.
-In the context of spaCy dependency parsing, a "prep" dependency usually indicates a prepositional phrase, where the preposition connects to a nominal head (noun or pronoun).
+
 
 ### Advmod (Adverbial Modifier)
 
-"Advmod" stands for adverbial modifier in spaCy's dependency parsing. This is the primary indicator of an adverbial phrase. In spaCy's dependency tree, an "advmod" dependency signifies a relationship where the adverbial modifier is connected to the word it modifies.
+"Advmod" stands for adverbial modifier in spaCy's dependency parsing. An adverb modifier of a word is a (non-clausal) adverb or adverb-headed phrase that serves to modify the meaning of the word.
+
+Example: "__Genetically__ modified food" 
 
 ### Agent
 
-In spaCy, "agent" refers to the syntactic role played by the entity that performs an action in a sentence. It is often associated with the subject of a sentence when the sentence describes an action.
+In contemporary English grammar, the agent is the noun phrase or pronoun that identifies the person or thing which initiates or performs an action in a sentence. Agents generally have the endings “-er” or “-or.” These suffixes, when added to a root word, mean someone who does something, for example: paint -> painter, sing -> singer.
 
-In the dependency parsing, the "agent" dependency is used to link the verb of a sentence to the entity carrying out the action. This is common in sentences with an active voice.
-For example, in the sentence "The __cat__ chased the mouse," "cat" is the agent, as it is the one performing the action of chasing.
+In spaCy, "agent" refers to the syntactic role played by the entity that performs an action in a sentence when that agent is the complement of a passive verb.  SpaCy's use of the term agent is based on the [Standford Dependencies Manual](https://downloads.cs.stanford.edu/nlp/software/dependencies_manual.pdf) definition.
 
-Addition example sentences analysed in SpaCy are [here](./SentenceStructure/SentenceAnalysis/adverbials.md)
+In the dependency parsing of active constructs, the "agent" will often be the nominal subject. In such instances SpaCy will label the agent (in the grammatical sense) as the nominal subject (nsubj). Spacy reserves the dependency identifier "agent" for cases where an adverbial phrase is introduced in a passive construct using a word like "by".
+
+For example, in the sentence "The mean is cooked __by__ the chef." "by" is the agent, as it is the one performing the action of cooking the meal.
+
+Additional example sentences analysed in SpaCy are [here](./SentenceStructure/SentenceAnalysis/adverbials.md)
 
 ## Identifying Complements
 
-A complement is a grammatical element that completes the meaning of a verb, adjective, or noun. Complements provide additional information that is necessary to fully understand the intended meaning of the sentence. 
+A complement is a grammatical element that completes the meaning of a verb, adjective, or noun. Complements provide additional information that is necessary to fully understand the intended meaning of the sentence.
 
 ### Subject Complements
 
@@ -922,7 +928,6 @@ SpaCy uses a number of classifications that help in identifying complements. The
 | attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun or subject. | "The man is a skilled __artist__." "artist" is the subject complement and serves as the attribute of the subject. |
 
 - [Examples of sentences with complements](./SentenceStructure/SentenceAnalysis/complements.md)
-
 
 We can identify complements in a sentence by first finding the verbs and then examining the dependency identifiers of the children of the verb. If any of the children have a dependency of ccomp, acomp, xcomp or attr then we find the span associated with that child. We can find the span by examining the child's sub-tree (this includes the token itself and all the tokens that are dependent on it) and then arranging any dependent tokens in ascending order of their positions in the document. The first and last token in this list allow us to determine the span.
 
@@ -996,7 +1001,7 @@ Extracting propositions is an important part of NLP and semantic analysis.
 
 ## Additional Sentence Examples
 
-Addition example sentences analysed in SpaCy are [here](./SentenceStructure/SentenceAnalysis/adverbials.md)
+Additional example sentences analysed in SpaCy are [here](./SentenceStructure/SentenceAnalysis/adverbials.md)
 
 ## Entending SpaCy
 
@@ -1030,3 +1035,5 @@ Addition example sentences analysed in SpaCy are [here](./SentenceStructure/Sent
 - [Direct Objects](https://www.grammarly.com/blog/direct-object/#:~:text=You%20can%20sometimes%20use%20the,to%20in%20a%20prepositional%20phrase.)
 - [Clause Patterns](https://www.writing.support/clausePatternSVOCC.htm)
 - [SVOO and SVOC clauses](https://mrksgrammarplanet.com/wp-content/uploads/2019/09/15-SVOO-Clauses.pdf)
+- [Discussion on POS and DEP meanings](https://stackoverflow.com/questions/40288323/what-do-spacys-part-of-speech-and-dependency-tags-mean)
+- [Clear Dependency Parsing](https://web.archive.org/web/20170809024928/http://www.mathcs.emory.edu/~choi/doc/clear-dependency-2012.pdf)

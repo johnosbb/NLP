@@ -52,3 +52,17 @@ __Sentence__: "Wherever you go, I will always be there for you."
 ### Dependency Diagram
 
 ![image](PNGs/wherever_you_go.png)
+
+## Example 3
+
+__Sentence__:The cat __quickly__ climbed the tree.
+
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| The          | 0      | DET      | DT       | det      | determiner               | cat climbed          |            |  cat          |  The          |
+| cat          | 1      | NOUN     | NN       | nsubj    | nominal subject          | climbed              | The        |  climbed      |  The cat      |
+| quickly      | 2      | ADV      | RB       | advmod   | adverbial modifier       | climbed              |            |  climbed      |  quickly      |
+| climbed      | 3      | VERB     | VBD      | ROOT     | root                     |                      | cat quickly tree . |  climbed      |  The cat quickly climbed the tree . |
+| the          | 4      | DET      | DT       | det      | determiner               | tree climbed         |            |  tree         |  the          |
+| tree         | 5      | NOUN     | NN       | dobj     | direct object            | climbed              | the        |  climbed      |  the tree     |
+| .            | 6      | PUNCT    | .        | punct    | punctuation              | climbed              |            |  climbed      |  .            |

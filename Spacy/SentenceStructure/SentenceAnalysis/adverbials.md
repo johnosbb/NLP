@@ -55,14 +55,36 @@ __Sentence__: "Wherever you go, I will always be there for you."
 
 ## Example 3
 
+### Spacy Analysis
+
 __Sentence__:The cat __quickly__ climbed the tree.
 
 | Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
 | ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
 | The          | 0      | DET      | DT       | det      | determiner               | cat climbed          |            |  cat          |  The          |
 | cat          | 1      | NOUN     | NN       | nsubj    | nominal subject          | climbed              | The        |  climbed      |  The cat      |
-| quickly      | 2      | ADV      | RB       | advmod   | adverbial modifier       | climbed              |            |  climbed      |  quickly      |
+| __quickly__      | 2      | ADV      | RB       | __advmod__  | adverbial modifier       | climbed              |            |  climbed      |  quickly      |
 | climbed      | 3      | VERB     | VBD      | ROOT     | root                     |                      | cat quickly tree . |  climbed      |  The cat quickly climbed the tree . |
 | the          | 4      | DET      | DT       | det      | determiner               | tree climbed         |            |  tree         |  the          |
 | tree         | 5      | NOUN     | NN       | dobj     | direct object            | climbed              | the        |  climbed      |  the tree     |
 | .            | 6      | PUNCT    | .        | punct    | punctuation              | climbed              |            |  climbed      |  .            |
+
+### Dependency Diagram
+
+![image](PNGs/The-cat-quickly-climed-the-tree.png)
+
+## Example 4
+
+The book is __on the shelf__.
+
+### Spacy Analysis
+
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| The          | 0      | DET      | DT       | det      | determiner               | book is              |            |  book         |  The          |
+| book         | 1      | NOUN     | NN       | nsubj    | nominal subject          | is                   | The        |  is           |  The book     |
+| is           | 2      | AUX      | VBZ      | ROOT     | root                     |                      | book on .  |  is           |  The book is on the shelf . |
+| __on__           | 3      | ADP      | IN       | __prep__    | prepositional modifier   | is                   | shelf      |  is           |  on the shelf |
+| the          | 4      | DET      | DT       | det      | determiner               | shelf on is          |            |  shelf        |  the          |
+| shelf        | 5      | NOUN     | NN       | pobj     | object of preposition    | on is                | the        |  on           |  the shelf    |
+| .            | 6      | PUNCT    | .        | punct    | punctuation              | is                   |            |  is           |  .            |

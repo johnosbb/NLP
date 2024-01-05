@@ -884,6 +884,10 @@ In the dependency parsing of active constructs, the "agent" will often be the no
 
 For example, in the sentence "The mean is cooked __by__ the chef." "by" is the agent, as it is the one performing the action of cooking the meal.
 
+We can identify adverbials in a sentence by first finding the verbs and then examining the dependency identifiers of the children of the verb. If any of the children have a dependency of agent, prep, advmod or attr then we find the span associated with that child. We can find the span by examining the child's sub-tree (this includes the token itself and all the tokens that are dependent on it) and then arranging any dependent tokens in ascending order of their positions in the document. The first and last token in this list allow us to determine the span.
+
+![image](../NLP/tree/main/Resources/../../../../Resources/finding_adverbial_span.png)
+
 Additional example sentences analysed in SpaCy are [here](./SentenceStructure/SentenceAnalysis/adverbials.md)
 
 ## Identifying Complements
@@ -937,8 +941,6 @@ We can identify complements in a sentence by first finding the verbs and then ex
 
 A conjunction is a part of speech in grammar that serves as a connecting word or a link between words, phrases, clauses, or sentences. Conjunctions are used to establish relationships, connections, or logical links between different elements in a sentence or between multiple sentences. They help convey the flow of information and the relationships between various parts of a text.
 
-
-
 ### Grammatical Classifications
 
 | Type  | Description                                              | Associated Spacy identifier |
@@ -988,10 +990,7 @@ The cat and the dog are playful, and the bird is singing on the tree.
 | tree         | 15     | NOUN     | NN       | pobj     | object of preposition    | on singing are       | the        |  on           |
 | .            | 16     | PUNCT    | .        | punct    | punctuation              | singing are          |            |  singing      |
 
-
 In this sentence, "dog" has a dependency label of "conj" because it is bound to cat via a conjunction "and".
-
-
 
 ## Propositions
 

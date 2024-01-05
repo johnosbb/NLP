@@ -878,6 +878,8 @@ In spaCy, "agent" refers to the syntactic role played by the entity that perform
 In the dependency parsing, the "agent" dependency is used to link the verb of a sentence to the entity carrying out the action. This is common in sentences with an active voice.
 For example, in the sentence "The __cat__ chased the mouse," "cat" is the agent, as it is the one performing the action of chasing.
 
+Addition example sentences analysed in SpaCy are [here](./SentenceStructure/SentenceAnalysis/adverbials.md)
+
 ## Identifying Complements
 
 A complement is a grammatical element that completes the meaning of a verb, adjective, or noun. Complements provide additional information that is necessary to fully understand the intended meaning of the sentence. 

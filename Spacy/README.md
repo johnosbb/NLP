@@ -882,7 +882,7 @@ In spaCy, "agent" refers to the syntactic role played by the entity that perform
 
 In the dependency parsing of active constructs, the "agent" will often be the nominal subject. In such instances SpaCy will label the agent (in the grammatical sense) as the nominal subject (nsubj). Spacy reserves the dependency identifier "agent" for cases where an adverbial phrase is introduced in a passive construct using a word like "by".
 
-For example, in the sentence "The mean is cooked __by__ the chef." "by" is the agent, as it is the one performing the action of cooking the meal.
+For example, in the sentence "The mean is cooked __by__ the chef." "by" is designated as an agent, as it is the mechanism that helps us identify the one performing the action of cooking the meal.
 
 We can identify adverbials in a sentence by first finding the verbs and then examining the dependency identifiers of the children of the verb. If any of the children have a dependency of agent, prep, advmod or attr then we find the span associated with that child. We can find the span by examining the child's sub-tree (this includes the token itself and all the tokens that are dependent on it) and then arranging any dependent tokens in ascending order of their positions in the document. The first and last token in this list allow us to determine the span.
 

@@ -886,7 +886,7 @@ For example, in the sentence "The mean is cooked __by__ the chef." "by" is the a
 
 We can identify adverbials in a sentence by first finding the verbs and then examining the dependency identifiers of the children of the verb. If any of the children have a dependency of agent, prep, advmod or attr then we find the span associated with that child. We can find the span by examining the child's sub-tree (this includes the token itself and all the tokens that are dependent on it) and then arranging any dependent tokens in ascending order of their positions in the document. The first and last token in this list allow us to determine the span.
 
-![image](../NLP/tree/main/Resources/../../../../Resources/finding_adverbial_span.png)
+![image](../NLP/tree/main/Resources/../../../../Resources/finding_adverbial_spans.png)
 
 Additional example sentences analysed in SpaCy are [here](./SentenceStructure/SentenceAnalysis/adverbials.md)
 

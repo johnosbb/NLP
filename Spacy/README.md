@@ -802,6 +802,7 @@ Consider the sentence:
 ```txt
 The cat and the dog are playful, and the bird is singing on the tree.
 ```
+
 | Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head  
 | ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- |
 | The          | 0      | DET      | DT       | det      | determiner               | cat are              |            |  cat          |

@@ -1,0 +1,25 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Clause Finder Profile",
+      "type": "python",
+      "request": "launch",
+      "program": "Spacy/SentenceStructure/clausefinder.py",
+      "console": "integratedTerminal",
+      "args": ["profile"],
+      "justMyCode": false
+    },
+    {
+      "name": "Python: Clause Finder input",
+      "type": "python",
+      "request": "launch",
+      "program": "Spacy/SentenceStructure/clausefinder.py",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    }
+  ]
+}

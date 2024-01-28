@@ -448,6 +448,7 @@ def find_subject_in_passive_construction(verb_span : Span, doc : Doc) -> Span:
 # Given a document and a verb span, find the associated spans that represents the subject
 def extract_subjects(verb: Span, doc: Doc, report: bool= False) -> Span:
     root = verb.root
+    same_level=True # indicates if the subject was found on this level or if we had to recurse up the tree.
     while root:
         if(root.children):
             # Can we find subject at current level by looking for Nominal Subjects or a Passive Nominal Subjects?
@@ -469,12 +470,12 @@ def extract_subjects(verb: Span, doc: Doc, report: bool= False) -> Span:
                             if report:
                                 print(
                                 f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a subject in passive voice construction: [{subject}].")
-                            return subject_in_passive_voice_construction
+                            return subject_in_passive_voice_construction,same_level
                         else:
                             if report:
                                 print(
                                 f"The verb phrase that contains [{verb}] has a child dependency [{child.dep_}] that points to a Passive Nominal Subject: [{subject}].")
-                    return subject
+                    return subject,same_level
         else:
             if report:
                 print(f"The verb [{verb}] has no children")
@@ -484,11 +485,12 @@ def extract_subjects(verb: Span, doc: Doc, report: bool= False) -> Span:
             if report:
                 print(
                 f"The verb [{verb}] has a dependency [{root.dep_}] that indicates the presence of other clauses.")
+            same_level=False   
             root = root.head
         else:  # we have a verb with no children or one whose children do not have a nominal or passive nominal subject and which does not appear to have other clauses
             root = None
 
-    return None
+    return None,None
 
 
 
@@ -562,10 +564,18 @@ def get_prepositional_phrase_objs(doc):
             prep_spans.append(doc[start:end])
     return prep_spans
 
-
+def is_part_of_clausal_subject(target: Token, verb_span: Span):
+    for verb in verb_span:
+        if ((target in verb.children) and (verb.dep_ == "csubj")):
+            return True
+        else:
+            return False
+    
+    
 def find_object_as_span_for_token(root: Token) -> Span:
     return find_matching_child_span(root, ["dobj", "dative"])
     
+  
     
 def find_compliment_as_span_for_token(root: Token) -> Span:
     complement = find_matching_child_span(
@@ -753,6 +763,32 @@ def get_prepositional_phrase_objs(doc):
             prep_spans.append(doc[start:end])
     return prep_spans
 
+
+
+def token_as_span(doc: Doc, target_token: Token)-> Span:
+    token_index = find_token_index(doc,target_token)
+    if token_index is not None:
+        return doc[token_index : token_index + 1]
+    else:
+        return None
+
+
+def find_token_index(doc: Doc, target_token: Token)-> int:
+    """
+    Find the index of the first occurrence of a token with the given token in a spaCy Doc.
+
+    Parameters:
+    - doc (spacy.tokens.Doc): The spaCy Doc object.
+    - target_token (Token): The target token.
+
+    Returns:
+    - int or None: The index of the first occurrence of the target token, or None if not found.
+    """
+    for i, token in enumerate(doc):
+        if token == target_token:
+            return i
+    return None
+    
 # A clause is a grammatical unit that contains a subject and a predicate.
 # It is a group of words that expresses a complete thought and can function as a sentence or as part of a sentence.
 # This is an early attempt and cannot cope with complex sentence structures

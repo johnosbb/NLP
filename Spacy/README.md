@@ -83,11 +83,17 @@ TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
   - [Clauses](#clauses)
     - [Clause Forms](#clause-forms)
   - [Extracting Clauses from a Sentence](#extracting-clauses-from-a-sentence)
-  - [Clause Types](#clause-types)
+  - [Clause Structures and Types](#clause-structures-and-types)
     - [Wh-Clauses](#wh-clauses)
     - [Th-Clauses](#th-clauses)
+    - [Noun Clauses](#noun-clauses)
     - [Infinitive-Clauses](#infinitive-clauses)
     - [Ing-Clauses](#ing-clauses)
+    - [Causal Clauses](#causal-clauses)
+    - [Concessive Clauses](#concessive-clauses)
+    - [Conditional Clauses](#conditional-clauses)
+    - [Relative Clauses](#relative-clauses)
+    - [Adverbial Clauses](#adverbial-clauses)
     - [Spacy Clause Dependencies](#spacy-clause-dependencies)
   - [Finding the Verbs in the Sentence](#finding-the-verbs-in-the-sentence)
     - [Find the Subject of a Verb](#find-the-subject-of-a-verb)
@@ -392,7 +398,7 @@ We can also view this sentence as a Syntax Tree
 
 You can generate Syntax Trees [here](https://dprebyl.github.io/syntree/#).
 
-## Clause Types
+## Clause Structures and Types
 
 | Identifier  | Type | Description                                              | Example | Additional Details |
 |-------------|------ | ----------------------------------------------------| ------ | ------ |
@@ -426,6 +432,11 @@ A th-clause is a subordinate clause that introduces a question or clause that mo
 - We know __that__ he likes to run..
 - I can see __that__ you are upset..
 
+
+### Noun Clauses
+
+A dependent clause that functions as a noun in a sentence. It can act as a subject, object, or complement.For example, "__What she said__ surprised me." Noun clauses are often introduced by words like :"What, who, whom, whose, which, whoever, whomever, whichever, whatever, how, why"
+
 ### Infinitive-Clauses
 
 An infinitive clause is a type of subordinate (dependent) clause that starts with an infinitive verb form, which is the base form of a verb preceded by the word "to." Infinitive clauses can serve various functions within a sentence and often act as nouns, adjectives, or adverbs.
@@ -443,6 +454,26 @@ An "-ing clause" is a type of clause that starts with a verb ending in "-ing," k
 - __Running__ every morning is good for your health.
 - She enjoys __dancing at parties__.
 - The movie __starring famous actors__ was a blockbuster.
+
+### Causal Clauses
+
+A causal clause, also known as a cause-and-effect clause, expresses the reason or cause behind an action or event. It typically indicates a cause-and-effect relationship between the information in the main clause and the information in the dependent (subordinate) clause. Causal clauses are introduced by subordinating conjunctions that indicate cause or reason, such as "because," "since," "as," or "for." For example, "He couldn't attend the meeting because he was feeling unwell".
+
+### Concessive Clauses
+
+A concessive clause is a subordinate clause which refers to a situation that contrasts with the one described in the main clause. For example, in the sentence '__Although__ he was tired, he couldn't get to sleep', the first clause is a concessive clause. Concession clauses are often introduced with words like: "Although, though, even though, while, whereas, despite, in spite of, regardless of."
+
+### Conditional Clauses
+
+A type of adverbial clause that expresses a condition. It often begins with words like "if," "unless," or "provided that." For example, "__If__ it rains, we will stay indoors." Conditional clauses are often introduced by words like: "If, unless, even if, whether, provided that, in case".
+
+### Relative Clauses
+
+A type of dependent clause that usually begins with a relative pronoun (such as who, whom, whose, which, or that) and provides additional information about a noun in the main clause. For example: "The book __that I borrowed from the library__ was interesting."
+
+### Adverbial Clauses
+
+A dependent clause that functions as an adverb, providing information about the time, place, manner, or condition of the action in the main clause. For example, "__After she finished her homework__, she went to bed." Adverbials are normally introduced by words like: "When, where, while, before, after, since, as, as if, as though, although, because, if, unless, until, so that, in order that, whenever, wherever"
 
 ### Spacy Clause Dependencies
 
@@ -881,9 +912,9 @@ In spaCy, "agent" refers to the syntactic role played by the entity that perform
 
 In the dependency parsing of active constructs, the "agent" will often be the nominal subject. In such instances SpaCy will label the agent (in the grammatical sense) as the nominal subject (nsubj). Spacy reserves the dependency identifier "agent" for cases where an adverbial phrase is introduced in a passive construct using a word like "by".
 
-For example, in the sentence "The mean is cooked __by__ the chef." "by" is designated as an agent, as it is the mechanism that helps us identify the one performing the action of cooking the meal.
+For example, in the sentence "The meal is cooked __by__ the chef." "by" is designated as an agent, as it is the mechanism that helps us identify the one performing the action of cooking the meal.
 
-We can identify adverbials in a sentence by first finding the verbs and then examining the dependency identifiers of the children of the verb. If any of the children have a dependency of agent, prep, advmod or attr then we find the span associated with that child. We can find the span by examining the child's sub-tree (this includes the token itself and all the tokens that are dependent on it) and then arranging any dependent tokens in ascending order of their positions in the document. The first and last token in this list allow us to determine the span.
+We can identify adverbials in a sentence by first finding the verbs and then examining the dependency identifiers of the children of the verb. If any of the children have a dependency of _agent_, _prep_, or _advmod_ then we find the span associated with that child. We can find the span by examining the child's sub-tree (this includes the token itself and all the tokens that are dependent on it) and then arranging any dependent tokens in ascending order of their positions in the document. The first and last token in this list allow us to determine the span.
 
 ![image](../NLP/tree/main/Resources/../../../../Resources/finding_adverbial_spans.png)
 
@@ -905,7 +936,7 @@ A subject complement (also known as a subject predicative) is a word or phrase t
   
 ### Object Complement
 
-An object complement (or object predicative) is the complement which is linked to the object in a sentence. It is usually a noun phrase or an adjective phrase that follows and modifies a direct object in a sentence. It is identified in SpaCy by the "ccomp" dependency tag.
+An object complement (or object predicative) is the complement which is linked to the object in a sentence. It is usually a noun phrase or an adjective phrase that follows and modifies a direct object in a sentence. It is identified in SpaCy by the _"ccomp"_ dependency tag.
 
 - She found the house __painted__.
 - He considered the idea __unrealistic__.
@@ -914,7 +945,7 @@ An object complement (or object predicative) is the complement which is linked t
 
 ### Adjective Complement
 
-An adjective complement is a word or phrase that follows an adjective to provide more information about the quality or characteristic expressed by that adjective. Adjective complements can include nouns, pronouns, prepositional phrases, or clauses. These complements serve to complete the meaning of the adjective and add further detail. There are four types of adjective complements. It is identified in SpaCy by the "acomp" dependency tag.
+An adjective complement is a word or phrase that follows an adjective to provide more information about the quality or characteristic expressed by that adjective. Adjective complements can include nouns, pronouns, prepositional phrases, or clauses. These complements serve to complete the meaning of the adjective and add further detail. There are four types of adjective complements. It is identified in SpaCy by the _"acomp"_ dependency tag.
 
 - 1. A __prepositional__ Phrase.
 - 2. An __infinitive__ Phrase.
@@ -925,9 +956,9 @@ SpaCy uses a number of classifications that help in identifying complements. The
 
 | Identifier (Dependency) | Type | Description                                              | Example |
 |-------------|------ | ----------------------------------------------------| ------ |
-| ccomp       | Clausal Complement | The "ccomp" label is used to indicate that a clause serves as the object complement of a verb. In other words, it represents a subordinate clause that functions as an object of the main verb. | "She believes __that he is honest__." In this sentence, "that he is honest" is a clausal complement of the verb "believes." |
-| acomp        | Adjectival Complement | The "acomp" label is used to indicate that an adjective serves as the complement of a verb. It represents an adjective that modifies the subject of the clause. | "The flowers smell __fragrant__." In this sentence, "fragrant" is an adjectival complement of the verb "smell."  |
-| xcomp        | Open Clausal Complement | The "xcomp" label is used to indicate an open clausal complement, which typically involves verbs that take infinitive clauses as complements. It represents an infinitive or gerund clause that serves as the complement of a verb. | "She likes __to swim__." In this sentence, "to swim" is an open clausal complement of the verb "likes."  |
+| ccomp       | Clausal Complement | The _"ccomp"_ label is used to indicate that a clause serves as the object complement of a verb. In other words, it represents a subordinate clause that functions as an object of the main verb. | "She believes __that he is honest__." In this sentence, "that he is honest" is a clausal complement of the verb "believes." |
+| acomp        | Adjectival Complement | The _"acomp"_ label is used to indicate that an adjective serves as the complement of a verb. It represents an adjective that modifies the subject of the clause. | "The flowers smell __fragrant__." In this sentence, "fragrant" is an adjectival complement of the verb "smell."  |
+| xcomp        | Open Clausal Complement | The _"xcomp"_ label is used to indicate an open clausal complement, which typically involves verbs that take infinitive clauses as complements. It represents an infinitive or gerund clause that serves as the complement of a verb. | "She likes __to swim__." In this sentence, __"to swim"__ is an open clausal complement of the verb "likes."  |
 | attr        | Attribute | The "attr" label is used to indicate that a word or phrase serves as an attribute of a noun. It typically represents an adjective or a noun phrase that provides additional information about the noun or subject. | "The man is a skilled __artist__." "artist" is the subject complement and serves as the attribute of the subject. |
 
 - [Examples of sentences with complements](./SentenceStructure/SentenceAnalysis/complements.md)

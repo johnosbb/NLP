@@ -227,7 +227,10 @@ class Clause:
         indirect_object: typing.Optional[Span] = None,
         direct_object: typing.Optional[Span] = None,
         complement: typing.Optional[Span] = None,
-        adverbials: typing.List[Span] = None
+        adverbials: typing.List[Span] = None,
+        subordinator: typing.Optional[Span] = None,
+        sentence: typing.Optional[Doc] = None,
+        subject_on_same_level: typing.Optional[bool]=None
     ):
         """
 
@@ -246,7 +249,8 @@ class Clause:
             Complement. The default is None.
         adverbials : list, optional
             List of adverbials. The default is [].
-
+        subordinator : Span, optional
+            Subordinator. The default is None.
         Returns
         -------
         None.
@@ -261,12 +265,15 @@ class Clause:
         self.direct_object = direct_object
         self.complement = complement
         self.adverbials = adverbials
-        self.subordinating_type = None
+        self.subordinator = subordinator
+        self.sentence = sentence
+        self.subject_on_same_level = subject_on_same_level
+        self.type = None
         if(self.subject):
             self.doc = self.subject.doc
         else:
             self.doc = None
-        self.type = self._get_clause_type()
+        self.classification = self._get_clause_type()
         
         
 # """
@@ -280,7 +287,11 @@ class Clause:
 # | SVOA      | Subject-Verb-Object-Adverbial | This clause combines a subject, a transitive verb, a direct object, and an adverbial phrase. | "She eats an apple slowly."  |
 # | SV      | Subject-Verb | clause type represents a simple sentence structure that contains a subject and a verb but does not have a direct object.  | "She sings."  |
 # """
-
+    def __str__(self):
+        clause_text = f"Subject: {self.subject}, Subject on same level: {self.subject_on_same_level}, Verb: {self.verb}, Direct Object: {self.direct_object}, Indirect Object: {self.indirect_object}, Complements: {self.complement}, Adverbials: {self.adverbials}, Subordinator: {self.subordinator}"
+        return clause_text
+    
+    
     def _get_clause_type(self):
         has_verb = self.verb is not None
         has_complement = self.complement is not None
@@ -329,15 +340,16 @@ class Clause:
         return clause_type
 
     def __repr__(self):
-        return "< {}, {}, {}, {}, {}, {}, {}, {} > ".format(
+        return "< {}, {}, {}, {}, {}, {}, {}, {}, {}> ".format(
+            self.classification,
             self.type,
-            self.subordinating_type,
             self.subject,
             self.verb,
             self.indirect_object,
             self.direct_object,
             self.complement,
-            self.adverbials
+            self.adverbials,
+            self.subordinator,
         )
 
     def arrange_adverbials(self,propositions: List,prop : List):
@@ -352,6 +364,39 @@ class Clause:
                 propositions.append(tuple(prop + self.adverbials))
         else:
             propositions.append(tuple(prop))   
+            
+    def identify_type(self):
+        for token in self.verb.root.children:
+            if(token.pos_ == "SCONJ"): # This is a subordinating conjunction
+                self.subordinator = lnlp.token_as_span(self.sentence,token)
+                if(token.text.lower() in ["why","who","where","when","how","whether","whatever","whichever","which","what"]):
+                    self.type="dependent wh-clause"                
+                elif(token.text.lower() in ["that"]):
+                    # We need to check here to see if that is part of clausal subject construction
+                    # Find the verbs and check there children for evidence of a clausal subject
+                    if lnlp.is_part_of_clausal_subject(token, self.verb) == False:
+                        self.type="dependent th-clause"
+                elif(token.text.lower() in ["because","since","as"]):
+                    self.type="dependent causal-clause"  
+                elif(token.text.lower() in ["if","unless","even if","whether","provided that","in case"]):
+                    self.type="dependent conditional-clause"               
+                elif(token.text.lower() in ['although', 'though', 'even though', 'while', 'whereas', 'despite', 'in spite of', 'regardless of']):
+                    self.type="dependent concession-clause"
+                elif(token.text.lower() in ['when', 'where', 'while', 'before', 'after', 'since', 'as', 'as if', 'as though', 'although',
+                    'because', 'if', 'unless', 'until', 'so that', 'in order that', 'whenever', 'wherever']):
+                        self.type="dependent adverbial-clause"
+                elif(token.text.lower() in ['who', 'whom', 'whose', 'which', 'that']):
+                        self.type="dependent relative-clause"  
+            elif((token.pos_ == "PRON")):                
+                if(token.tag_ == "WP"):
+                    if(token.text.lower() in ["what," "who," "whom," "whose," "which,"  "that."]):
+                        self.type="dependent noun-clause"
+                        self.subordinator =  lnlp.token_as_span(self.sentence,token)
+            else:
+                if(self.type == None):
+                    self.type="independent clause"            
+                    
+
         
     def identify_compliment_clause(self):   
         if(self.adverbials): 
@@ -359,9 +404,11 @@ class Clause:
                 for token in a:
                     if(token.pos_ == "SCONJ"):
                         if(token.text.lower() in ["why","who","where","when","how","whether","whatever","whichever","which","what"]):
-                            self.subordinating_type="wh-clause"
+                            self.type="wh-clause"
                         elif(token.text.lower() in ["that"]):
-                            self.subordinating_type="th-clause"
+                            self.type="th-clause"
+                        elif(token.text.lower() in ["because","since","as"]):
+                                self.type="causal-clause"
         
     def to_propositions(
         self, as_text: bool = False, inflect: str or None = "VBD", capitalize: bool = False
@@ -392,13 +439,13 @@ class Clause:
 
             for verb in verbs:
                 prop = [subj, verb]
-                if self.type in ["SV", "SVA"]:
+                if self.classification in ["SV", "SVA"]:
                     self.arrange_adverbials(propositions,prop)
-                elif self.type == "SVOO":
+                elif self.classification == "SVOO":
                     for iobj in indirect_objects:
                         for dobj in direct_objects:
                             propositions.append((subj, verb, iobj, dobj))
-                elif self.type == "SVO":                    
+                elif self.classification == "SVO":                    
                     for obj in direct_objects + indirect_objects: # obj is a span
                         if(obj.root.tag_ == "WDT"):
                             proposition = (obj, subj, verb)
@@ -408,7 +455,7 @@ class Clause:
                         for a in self.adverbials:
                             proposition = proposition + (a,)
                             propositions.append(proposition)
-                elif self.type == "SVOA":
+                elif self.classification == "SVOA":
                     for obj in direct_objects:
                         if self.adverbials:
                             for a in self.adverbials:
@@ -416,22 +463,25 @@ class Clause:
                             propositions.append(
                                 tuple(prop + [obj] + self.adverbials))
 
-                elif self.type == "SVOC":
+                elif self.classification == "SVOC":
                     for obj in indirect_objects + direct_objects:
                         if complements:
                             for c in complements:
                                 propositions.append(tuple(prop + [obj, c]))
                             propositions.append(
                                 tuple(prop + [obj] + complements))
-                elif self.type == "SVC":
+                elif self.classification == "SVC":
                     if complements:
                         for c in complements:
-                            if self.adverbials and (self.subordinating_type == "th-clause" or self.subordinating_type == "wh-clause"):
+                            if self.adverbials and (self.type == "th-clause" or self.type == "wh-clause"):
                                 for a in self.adverbials:
                                     propositions.append(tuple([a] + prop + [c]))
-                            else:        
+                            else:      
                                 propositions.append(tuple(prop + [c]))
-                        propositions.append(tuple(prop + complements))
+                        if(self.subordinator) :      
+                            propositions.append(tuple([self.subordinator] + prop + complements))
+                        else:
+                            propositions.append(tuple(prop + complements))
 
         # Remove doubles
         propositions = list(set(propositions))

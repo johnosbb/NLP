@@ -90,9 +90,9 @@ def find_clauses(sentence: Doc, validate: bool=False):
                     complement = lnlp.find_span_for_token(c)
                     clause = Clause(subject_span,complement,sentence=sentence,subject_on_same_level=subject_on_same_level)
                     clauses.append(clause)
-        compliment_span = lnlp.find_compliment_as_span_for_token(verb_span.root) # we look for clausal complement, adjectival complement,open clausal complement or attribute
-        if(compliment_span):
-            report(f"\tCompliment for {verb_span}: {compliment_span}")
+        complement_span = lnlp.find_complement_as_span_for_token(verb_span.root) # we look for clausal complement, adjectival complement,open clausal complement or attribute
+        if(complement_span):
+            report(f"\tcomplement for {verb_span}: {complement_span}")
         indirect_object_span = lnlp.find_matching_child_span(verb_span.root, ["dative"]) # the term "dative" typically refers to a grammatical case or construction that marks the recipient or indirect object of an action.
         if(indirect_object_span):
             report(f"\tIndirect object for {verb_span}: {indirect_object_span}")
@@ -108,8 +108,8 @@ def find_clauses(sentence: Doc, validate: bool=False):
             for adverbial_span in adverbial_spans:
                 report(f"\t{adverbial_span}")             
         if(subject_span): # A clause must have a subject            
-            clause = Clause(subject_span, verb_span,indirect_object_span,direct_object_span,compliment_span, adverbial_spans,sentence=sentence,subject_on_same_level=subject_on_same_level)
-            clause.identify_compliment_clause()
+            clause = Clause(subject_span, verb_span,indirect_object_span,direct_object_span,complement_span, adverbial_spans,sentence=sentence,subject_on_same_level=subject_on_same_level)
+            clause.identify_complement_clause()
             clauses.append(clause)
     clause_number = 1    
     if(len(clauses) > 0):

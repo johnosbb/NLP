@@ -64,7 +64,7 @@ There are three elements required in Clause Type III, a nominal subject, a main 
 Type III = nominal subject + main verb phrase [linking] + adjectival subject complement
 ```
 
-In the type III of clause an adjectival subject compliment follows the linking verb and modifies or describes the subject.
+In the type III of clause an adjectival subject complement follows the linking verb and modifies or describes the subject.
 
 __Examples__: "The policemen were __cautious__ in their investigation."  "He looks __as if he could go on forever__." "They are __in fine form__."
 
@@ -76,7 +76,7 @@ __Examples__: "The policemen were __cautious__ in their investigation."  "He loo
 
 ## Type IV – Linking verb with nominal subject complement
 
-There are three elements required in Clause Type IV, a nominal subject, a main verb phrase [linking], and a nominal subject complement (nominal that renames the nominal subject). In the Type IV clause the subject complement is always a nominal or something that is acting as a nominal. The nominal subject complement always refers to the same person or thing as the subject. In this clause type the subject compliment is mandatory; in its absence the sentence loses its meaning.
+There are three elements required in Clause Type IV, a nominal subject, a main verb phrase [linking], and a nominal subject complement (nominal that renames the nominal subject). In the Type IV clause the subject complement is always a nominal or something that is acting as a nominal. The nominal subject complement always refers to the same person or thing as the subject. In this clause type the subject complement is mandatory; in its absence the sentence loses its meaning.
 
 ```txt
 Type IV = nominal subject + main verb phrase [linking] + nominal subject complement
@@ -94,7 +94,7 @@ Type IV clauses are a common type of clause in English. They are used to express
 
 Linking verbs, also known as copula verbs, are verbs that connect the subject of a sentence to a subject complement, which can be a noun, pronoun, or adjective. Unlike action verbs, linking verbs don't show an action; instead, they express a state of being, a condition, or a relationship. Linking verbs help to describe or identify the subject.
 
-In sentences with linking verbs, the subject complement (the word or phrase that follows the linking verb) provides additional information about the subject. It describes a quality, condition, or identity of the subject rather than showing an action. The subject and the subject compliment are synonymous.
+In sentences with linking verbs, the subject complement (the word or phrase that follows the linking verb) provides additional information about the subject. It describes a quality, condition, or identity of the subject rather than showing an action. The subject and the subject complement are synonymous.
 
 
 __Common linking verbs include:__
@@ -107,11 +107,11 @@ __Examples of Type IV Clauses__: "The trip was a disappointment."  "The day was 
 
 In examples (1) through (3), the linking verb is followed by a nominal, which serves to rename the subject.
 
-In the first example the "trip" and its compliment "disappointment" refer to the same event.
+In the first example the "trip" and its complement "disappointment" refer to the same event.
 
-In example two the compliment "to end in tragedy." reframes the subject "The day". 
+In example two the complement "to end in tragedy." reframes the subject "The day". 
 
-In the third example the "result" and its compliment "success" refer to the same thing.
+In the third example the "result" and its complement "success" refer to the same thing.
 
 ## Type V – Transitive with Direct Object
 
@@ -153,14 +153,14 @@ We may also find a Type V variant clause with object complements.
 __Examples of Type V Variation Clauses with Object Complements__: "He considers __himself__ _an authority_."  "It made __life__ _difficult_."
 
 
-The direct object has been outlined in bold and the object compliment in italics in the examples above.
+The direct object has been outlined in bold and the object complement in italics in the examples above.
 
-It can be difficult to distinguish between a direct object,indirect object and object compliment. We can normally clarify the situation by asking. 
+It can be difficult to distinguish between a direct object,indirect object and object complement. We can normally clarify the situation by asking. 
 
 - Is there an action that can be received?
 - Can we identify “who” is receiving the action?
   
-If the answer to both these questions is no then we are dealing with an object compliment.
+If the answer to both these questions is no then we are dealing with an object complement.
 
 For the second sentence:
 
@@ -180,7 +180,7 @@ __Examples of Type V Variation Clauses with Nonfinite Verb Phrases__: "He hopes 
 
 The non-finite verb phrase has been outlined in bold in the examples above.
 
-Again, it can be difficult to distinguish between a direct object,indirect object,object compliment and a non-fiinite verb phrase. We can normally clarify the situation by substituting the phrase with __something__. If we can replace the phrase with "__something__" then we can assume that the phrase is acting as a nominal.
+Again, it can be difficult to distinguish between a direct object,indirect object,object complement and a non-fiinite verb phrase. We can normally clarify the situation by substituting the phrase with __something__. If we can replace the phrase with "__something__" then we can assume that the phrase is acting as a nominal.
 
 For the first sentence:
 

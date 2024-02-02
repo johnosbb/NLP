@@ -279,7 +279,7 @@ class Clause:
 # """
 # | Identifier  | Type | Description                                              | Example |
 # |-------------|------ | ----------------------------------------------------| ------ |
-# | SVC         | Subject-Verb-Compliment | This type of clause consists of a subject and a copular (linking) verb, such as "be," "seem," "appear," etc. It typically doesn't have a direct object. | "She is a doctor." |
+# | SVC         | Subject-Verb-complement | This type of clause consists of a subject and a copular (linking) verb, such as "be," "seem," "appear," etc. It typically doesn't have a direct object. | "She is a doctor." |
 # | SVO       | Subject-Verb-Object | This type of clause contains a subject, a transitive verb, and a direct object. It represents an action performed by the subject on the object. | "She eats an apple." |
 # | SVOO       | Subject-Verb-Object-Object| This type of clause includes a subject, a transitive verb, and both a direct object and an indirect object. | "She gives the book to him." |
 # | SVOC      | Subject-Verb-Object-Complement | In this clause, the subject performs an action (verb) on the direct object, and there's a complement that provides additional information about the object. | "She painted the room blue." |
@@ -329,7 +329,7 @@ class Clause:
                 clause_type = "SVO" # Subject-Verb-Object
         else:
             if has_complement:
-                clause_type = "SVC" # Subject-Verb-Compliment
+                clause_type = "SVC" # Subject-Verb-complement
             elif not has_adverbial or has_non_ext_copular_verb:
                 clause_type = "SV" # Subject-Verb
             elif has_ext_copular_verb or conservative:
@@ -398,7 +398,7 @@ class Clause:
                     
 
         
-    def identify_compliment_clause(self):   
+    def identify_complement_clause(self):   
         if(self.adverbials): 
             for a in self.adverbials:
                 for token in a:

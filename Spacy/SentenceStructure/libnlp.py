@@ -577,7 +577,7 @@ def find_object_as_span_for_token(root: Token) -> Span:
     
   
     
-def find_compliment_as_span_for_token(root: Token) -> Span:
+def find_complement_as_span_for_token(root: Token) -> Span:
     complement = find_matching_child_span(
     root, ["ccomp", "acomp", "xcomp", "attr"]    ) # clausal complement, adjectival complement,open clausal complement or attribute
     return complement

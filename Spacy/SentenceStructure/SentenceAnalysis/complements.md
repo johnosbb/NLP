@@ -18,7 +18,7 @@ The man is a skilled __artist.__
 
 ![image](PNGs/The-man-is-a-skilled-artist.png)
 
-## Example 2 - Clausal Compliments
+## Example 2 - Clausal complements
 
 She believes __that he is honest__.
 

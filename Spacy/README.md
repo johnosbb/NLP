@@ -120,13 +120,14 @@ TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
     - [SpaCy Dependencies for conjunctions](#spacy-dependencies-for-conjunctions)
     - [Conjuncts in Spacy](#conjuncts-in-spacy)
   - [Propositions](#propositions)
+  - [Summary](#summary)
+  - [Overview of the Clause Extraction Process](#overview-of-the-clause-extraction-process)
+    - [Analysis](#analysis)
+    - [The first clause:](#the-first-clause)
+    - [The second clause:](#the-second-clause)
   - [Additional Sentence Examples](#additional-sentence-examples)
   - [Entending SpaCy](#entending-spacy)
   - [References](#references)
-  - [Summary](#summary)
-  - [Overview of the Clause Extraction Process](#overview-of-the-clause-extraction-process)
-    - [The first clause:](#the-first-clause)
-    - [The second clause:](#the-second-clause)
 
 <!-- /code_chunk_output -->
 
@@ -1032,6 +1033,80 @@ In linguistics, especially in the study of syntax, a proposition refers to the m
 
 Extracting propositions is an important part of NLP and semantic analysis.
 
+
+## Summary
+
+A "sentence" is a linguistic unit that represents a complete and independent thought or statement within a text. 
+Analysis of a sentence begins with identifying its key constituent parts. A phrase is a group of related words that functions as a single unit within a sentence. It does not have a subject and a predicate (verb) working together. Phrases function as units within a sentence, often serving a specific role (e.g., noun phrase, prepositional phrase) but do not express a complete thought on their own.
+The subject is the person, place, thing, or idea that the sentence is about. It is often a noun or pronoun. For example, in the sentence "The cat is sleeping," "The cat" is the subject.
+The predicate is the part of the sentence that tells what the subject is doing or what is happening to the subject. It can be simple, consisting only of a verb, or it can include objects, complements, and other modifiers.
+To extract meaning from a sentence, we need to focus on the structural elements that express complete or (dependent) in-complete thoughts. The clause is a grammatical structure with both a nominal subject and a main verb phrase. If both elements are not present, then it cannot be a clause. Clauses express complete thoughts (independent clauses) or incomplete thoughts that rely on other parts of the sentence (dependent clauses). Once we identify the clauses we can deduce the main propositions of the sentence. A proposition refers to the meaning or semantic content that a sentence conveys.
+Extraction of propositions begins with the identification of the verbs. Having identified the verbs we can then identify their subjects, objects, complements and adverbials. These elements can then be used to extract the clauses in a sentence. 
+The propositions convey the essential informational content of the sentence. This process is key in any attempt to derive meaning using syntax analysis.
+
+## Overview of the Clause Extraction Process
+
+
+Sentence: The sun was shining brightly, but a cool breeze made the weather pleasant.
+
+| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
+| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
+| The          | 0      | DET      | DT       | det      | determiner               | sun shining          |            |  sun          |  The          |
+| sun          | 1      | NOUN     | NN       | nsubj    | nominal subject          | shining              | The        |  shining      |  The sun      |
+| was          | 2      | AUX      | VBD      | aux      | auxiliary                | shining              |            |  shining      |  was          |
+| shining      | 3      | VERB     | VBG      | ROOT     | root                     |                      | sun was brightly , but made |  shining      |  The sun was shining brightly , but a cool breeze made the weather pleasant . |
+| brightly     | 4      | ADV      | RB       | advmod   | adverbial modifier       | shining              |            |  shining      |  brightly     |
+| ,            | 5      | PUNCT    | ,        | punct    | punctuation              | shining              |            |  shining      |  ,            |
+| but          | 6      | CCONJ    | CC       | cc       | coordinating conjunction | shining              |            |  shining      |  but          |
+| a            | 7      | DET      | DT       | det      | determiner               | breeze made shining  |            |  breeze       |  a            |
+| cool         | 8      | ADJ      | JJ       | amod     | adjectival modifier      | breeze made shining  |            |  breeze       |  cool         |
+| breeze       | 9      | NOUN     | NN       | nsubj    | nominal subject          | made shining         | a cool     |  made         |  a cool breeze |
+| made         | 10     | VERB     | VBD      | conj     | conjunct                 | shining              | breeze pleasant . |  shining      |  a cool breeze made the weather pleasant . |
+| the          | 11     | DET      | DT       | det      | determiner               | pleasant made shining |            |  pleasant     |  the          |
+| weather      | 12     | NOUN     | NN       | compound | compound                 | pleasant made shining |            |  pleasant     |  weather      |
+| pleasant     | 13     | NOUN     | NN       | ccomp    | clausal complement       | made shining         | the weather |  made         |  the weather pleasant |
+| .            | 14     | PUNCT    | .        | punct    | punctuation              | made shining         |            |  made         |  .            |
+
+![image](../NLP/tree/main/Resources/../../../../Resources/The-sun-was-shining.png)
+
+### Analysis
+
+- Verb: was shining
+- Subject of verb was shining: The sun
+- There is 1 adverbial: brightly
+
+- Verb: made
+- Subject of verb made: a cool breeze
+- Complement for made: the weather pleasant
+
+Based on our analysis of the verbs and their respective subjects we can see that there are two clauses in this sentence.
+
+### The first clause:
+
+```txt
+Subject: ‘The sun’
+Verb: ‘was shining’
+Direct Object: There is no direct object.
+Indirect Object:There is no indirect object.
+Complements: There are no complements in this clause.
+Adverbials: brightly,
+Classification : SV, This is a Subject verb clause and is an independent clause type. 
+Proposition: 'The sun was shining brightly.'
+```
+
+### The second clause:
+
+```txt
+Subject: ‘a cool breeze’
+Verb: ‘made’
+Direct Object: There is no direct object.
+Indirect Object:There is no indirect object.
+Complements: ‘the weather pleasant’
+Adverbials: There are no adverbials
+Classification : SVC, This is a subject verb complement clause.
+Proposition: 'A cool breeze made pleasant.'
+```
+
 ## Additional Sentence Examples
 
 Additional example sentences analysed in SpaCy are [here](./SentenceStructure/SentenceAnalysis/adverbials.md)
@@ -1070,77 +1145,5 @@ Additional example sentences analysed in SpaCy are [here](./SentenceStructure/Se
 - [SVOO and SVOC clauses](https://mrksgrammarplanet.com/wp-content/uploads/2019/09/15-SVOO-Clauses.pdf)
 - [Discussion on POS and DEP meanings](https://stackoverflow.com/questions/40288323/what-do-spacys-part-of-speech-and-dependency-tags-mean)
 - [Clear Dependency Parsing](https://web.archive.org/web/20170809024928/http://www.mathcs.emory.edu/~choi/doc/clear-dependency-2012.pdf)
-
-
-## Summary
-
-A "sentence" is a linguistic unit that represents a complete and independent thought or statement within a text. 
-Analysis of a sentence begins with identifying its key constituent parts. A phrase is a group of related words that functions as a single unit within a sentence. It does not have a subject and a predicate (verb) working together. Phrases function as units within a sentence, often serving a specific role (e.g., noun phrase, prepositional phrase) but do not express a complete thought on their own.
-The subject is the person, place, thing, or idea that the sentence is about. It is often a noun or pronoun. For example, in the sentence "The cat is sleeping," "The cat" is the subject.
-The predicate is the part of the sentence that tells what the subject is doing or what is happening to the subject. It can be simple, consisting only of a verb, or it can include objects, complements, and other modifiers.
-To extract meaning from a sentence, we need to focus on the structural elements that express complete or (dependent) in-complete thoughts. The clause is a grammatical structure with both a nominal subject and a main verb phrase. If both elements are not present, then it cannot be a clause. Clauses express complete thoughts (independent clauses) or incomplete thoughts that rely on other parts of the sentence (dependent clauses). Once we identify the clauses we can deduce the main propositions of the sentence. A proposition refers to the meaning or semantic content that a sentence conveys.
-Extraction of propositions begins with the identification of the verbs. Having identified the verbs we can then identify their subjects, objects, complements and adverbials. These elements can then be used to extract the clauses in a sentence. 
-The propositions convey the essential informational content of the sentence. This process is key in any attempt to derive meaning using syntax analysis.
-
-## Overview of the Clause Extraction Process
-
-
-Sentence: The sun was shining brightly, but a cool breeze made the weather pleasant.
-
-| Text         | Index  | POS      | Tag      | Dep      | Dep Detail               | Ancestors            | Children   | Token Head   | Sub Tree     |
-| ------ | ------ | ---- | ------- | ------- | --------- |  ------- | ------- | ------- | ------- |
-| The          | 0      | DET      | DT       | det      | determiner               | sun shining          |            |  sun          |  The          |
-| sun          | 1      | NOUN     | NN       | nsubj    | nominal subject          | shining              | The        |  shining      |  The sun      |
-| was          | 2      | AUX      | VBD      | aux      | auxiliary                | shining              |            |  shining      |  was          |
-| shining      | 3      | VERB     | VBG      | ROOT     | root                     |                      | sun was brightly , but made |  shining      |  The sun was shining brightly , but a cool breeze made the weather pleasant . |
-| brightly     | 4      | ADV      | RB       | advmod   | adverbial modifier       | shining              |            |  shining      |  brightly     |
-| ,            | 5      | PUNCT    | ,        | punct    | punctuation              | shining              |            |  shining      |  ,            |
-| but          | 6      | CCONJ    | CC       | cc       | coordinating conjunction | shining              |            |  shining      |  but          |
-| a            | 7      | DET      | DT       | det      | determiner               | breeze made shining  |            |  breeze       |  a            |
-| cool         | 8      | ADJ      | JJ       | amod     | adjectival modifier      | breeze made shining  |            |  breeze       |  cool         |
-| breeze       | 9      | NOUN     | NN       | nsubj    | nominal subject          | made shining         | a cool     |  made         |  a cool breeze |
-| made         | 10     | VERB     | VBD      | conj     | conjunct                 | shining              | breeze pleasant . |  shining      |  a cool breeze made the weather pleasant . |
-| the          | 11     | DET      | DT       | det      | determiner               | pleasant made shining |            |  pleasant     |  the          |
-| weather      | 12     | NOUN     | NN       | compound | compound                 | pleasant made shining |            |  pleasant     |  weather      |
-| pleasant     | 13     | NOUN     | NN       | ccomp    | clausal complement       | made shining         | the weather |  made         |  the weather pleasant |
-| .            | 14     | PUNCT    | .        | punct    | punctuation              | made shining         |            |  made         |  .            |
-
-
-
-- Verb: was shining
-- Subject of verb was shining: The sun
-- There is 1 adverbial: brightly
-
-- Verb: made
-- Subject of verb made: a cool breeze
-- Complement for made: the weather pleasant
-
-Based on our analysis of the verbs and their respective subjects we can see that there are two clauses in this sentence.
-
-### The first clause:
-
-```txt
-Subject: ‘The sun’
-Verb: ‘was shining’
-Direct Object: There is no direct object.
-Indirect Object:There is no indirect object.
-Complements: There are no complements in this clause.
-Adverbials: brightly,
-Classification : SV, This is a Subject verb clause and is an independent clause type. 
-Proposition: 'The sun was shining brightly.'
-```
-
-### The second clause:
-
-```txt
-Subject: ‘a cool breeze’
-Verb: ‘made’
-Direct Object: There is no direct object.
-Indirect Object:There is no indirect object.
-Complements: ‘the weather pleasant’
-Adverbials: There are no adverbials
-Classification : SVC, This is a subject verb complement clause.
-Proposition: 'A cool breeze made pleasant.'
-```
 
 

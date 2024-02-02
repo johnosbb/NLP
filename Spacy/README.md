@@ -1073,6 +1073,8 @@ Sentence: The sun was shining brightly, but a cool breeze made the weather pleas
 
 ### Analysis
 
+![image](../Resources/finding_subjects.png)
+
 #### First Verb
 
 - Verb: was shining

@@ -1067,7 +1067,7 @@ Sentence: The sun was shining brightly, but a cool breeze made the weather pleas
 | pleasant     | 13     | NOUN     | NN       | ccomp    | clausal complement       | made shining         | the weather |  made         |  the weather pleasant |
 | .            | 14     | PUNCT    | .        | punct    | punctuation              | made shining         |            |  made         |  .            |
 
-![image](Spacy/SentenceStructure/SentenceAnalysis/PNGs/The-sun-was-shining.png)
+![image](SentenceStructure/SentenceAnalysis/PNGs/The-sun-was-shining.png)
 
 ### Analysis
 

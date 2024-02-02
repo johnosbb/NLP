@@ -123,6 +123,8 @@ TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
   - [Summary](#summary)
   - [Overview of the Clause Extraction Process](#overview-of-the-clause-extraction-process)
     - [Analysis](#analysis)
+      - [First Verb](#first-verb)
+      - [Second Verb](#second-verb)
     - [The first clause:](#the-first-clause)
     - [The second clause:](#the-second-clause)
   - [Additional Sentence Examples](#additional-sentence-examples)
@@ -1071,9 +1073,13 @@ Sentence: The sun was shining brightly, but a cool breeze made the weather pleas
 
 ### Analysis
 
+#### First Verb
+
 - Verb: was shining
 - Subject of verb was shining: The sun
 - There is 1 adverbial: brightly
+
+#### Second Verb
 
 - Verb: made
 - Subject of verb made: a cool breeze
